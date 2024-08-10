@@ -3,21 +3,12 @@
 
 <link rel="stylesheet" type="text/css" href="Static/css/login.css">
 <div class="container" id="container">
-    <div class="form-container sign-up-container">
-        <form action="#">
-            <h1>Create Account</h1>
-            <span>or use your email for registration</span>
-            <input type="text" placeholder="Name" />
-            <input type="email" placeholder="Email" />
-            <input type="password" placeholder="Password" />
-            <button>Sign Up</button>
-        </form>
-    </div>
+
     <div class="form-container sign-in-container">
-        <form action="#">
-            <h1>Sign in sdasdasdasdasdasd</h1>
-            <input type="email" placeholder="Email" />
-            <input type="password" placeholder="Password" />
+        <form action="LoginControl" method="post">
+            <h1>Sign in</h1>
+            <input type="email" placeholder="Email" name="username"/>
+            <input type="password" placeholder="Password" name="password"/>
             <a href="#">Forgot your password?</a>
             <button>Sign In</button>
         </form>
