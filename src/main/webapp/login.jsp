@@ -5,12 +5,12 @@
 <div class="container" id="container">
 
     <div class="form-container sign-in-container">
-        <form action="LoginControl" method="post">
+        <form action="LoginController" method="post">
             <h1>Sign in</h1>
-            <input type="email" placeholder="Email" name="username"/>
+            <input type="email" placeholder="Email" name="email"/>
             <input type="password" placeholder="Password" name="password"/>
             <a href="#">Forgot your password?</a>
-            <button>Sign In</button>
+            <button type="submit">Sign In</button>
         </form>
     </div>
     <div class="overlay-container">
