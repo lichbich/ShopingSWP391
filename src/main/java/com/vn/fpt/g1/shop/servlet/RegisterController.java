@@ -27,7 +27,7 @@ public class RegisterController extends HttpServlet {
         String firstname = request.getParameter("firstname");
         String lastname = request.getParameter("lastname");
         String email = request.getParameter("email");
-        String phone = request.getParameter("phone");
+        String phone = request.getParameter("phonenumber");
         String birthdate = request.getParameter("dob");
         String gender = request.getParameter("gender");
         String address = request.getParameter("address");
@@ -57,16 +57,17 @@ public class RegisterController extends HttpServlet {
                     parsedDate = dateFormat.parse(birthdate);
                     // Convert java.util.Date to java.sql.Date
                     Date birth_date = new Date(parsedDate.getTime());
-                    userDao.register(firstname, lastname, address, birth_date, phone, email, gender, password);
-                    response.sendRedirect("hello-servlet");
+                    userDao.register(firstname, lastname, address, birth_date, phone, email, password, gender);
+                    response.sendRedirect("index.jsp");
+
                 } catch (ParseException e) {
                     throw new RuntimeException(e);
                 }
 
             } else {
-                // return to register page
                 //message
                 response.sendRedirect("register.jsp");
+                System.out.println("register failed");
 
             }
         }

@@ -15,23 +15,20 @@ import java.sql.*;
 
 
 public class UserDao extends DbContext {
-    private Connection conn ;
-    private PreparedStatement ps;
-    private ResultSet rs;
+    private Connection conn = null ;
+    private PreparedStatement ps = null;
+    private ResultSet rs = null;
 
 
-    private final Connection connection = DbContext.getConnection();
 
-    public String abc() {
-        return "Select * from ";
-//        connection.close();
-    }
+
+
 
     public User checkAccountExist(String email) {
         String query = "select [User_ID],[First_name], [Last_name], [Email], [Password] from [User]\n" +
                 "where [Email] = ?\n";
         try {
-            conn = new DbContext().getConnection();
+            conn = DbContext.getConnection();
             ps = conn.prepareStatement(query);
             ps.setString(1, email);
             rs = ps.executeQuery();
@@ -65,7 +62,7 @@ public class UserDao extends DbContext {
                 "     VALUES\n" +
                 "           (?,?,?,?,?,?,1,4,? ,?," + formatedDateTime +","+ formatedDateTime +")\n";
         try {
-            conn = new DbContext().getConnection();
+            conn = DbContext.getConnection();
             ps = conn.prepareStatement(query);
             ps.setString(1,firstname);
             ps.setString(2, lastname);
