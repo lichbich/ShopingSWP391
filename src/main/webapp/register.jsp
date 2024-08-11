@@ -33,14 +33,7 @@
                 background-repeat: repeat;
                 background-attachment: fixed;
                 background-size: auto;
-
-
-            }
-
-            
-
-
-
+           }
 
             .container{
                 position: relative;
@@ -174,27 +167,35 @@
         <section class="container">
             <header>Join with us!</header>
 
-            <form method="" action="" class="form">
+            <form method="post" action="register" class="form">
                 <div class="input-box">
                     <label>First Name </label>
-                    <input type ="text" placeholder="Enter your firstname" required/>
+                    <input name="firstname" type ="text" placeholder="Enter your firstname" required/>
                 </div>
                 <div class="input-box">
                     <label>Last Name </label>
-                    <input type ="text" placeholder="Enter your lastname" required/>
+                    <input name="lastname" type ="text" placeholder="Enter your lastname" required/>
                 </div>
+                <%
+                    String errorMessage = (String)request.getAttribute("errorMessage");
+                    if (errorMessage != null) {
+                %>
+                <p style="color: red; text-align: center"><%= errorMessage %></p>
+                <%
+                    }
+                %>
                 <div class="input-box">
                     <label>Email Address </label>
-                    <input type ="text" placeholder="Enter your email" required/>
+                    <input name="email" type ="text" placeholder="Enter your email" />
                 </div>
                 <div class="column">
                     <div class="input-box">
                         <label>Phone </label>
-                        <input type ="number" placeholder="Enter phone number" required/>
+                        <input name="phonenumber" type ="number" placeholder="Enter phone number" required/>
                     </div>
                     <div class="input-box">
                         <label>Birth Date </label>
-                        <input type ="date" placeholder="Enter birth date" required/>
+                        <input name="dob" type ="date" placeholder="Enter birth date" required/>
                     </div>
                 </div>
 
@@ -202,15 +203,15 @@
                     <h3>Gender</h3>
                     <div class="gender-option">
                         <div class="gender">
-                            <input type="radio" id="check-male" name="gender" checked/>
+                            <input type="radio" id="check-male" name="gender" value="male" checked/>
                             <label for="check-male">Male</label>
                         </div>
                         <div class="gender">
-                            <input type="radio" id="check-female" name="gender"/>
+                            <input type="radio" id="check-female" name="gender" value="female"/>
                             <label for="check-female">Female</label>
                         </div>
                         <div class="gender">
-                            <input type="radio" id="check-other" name="gender"/>
+                            <input type="radio" id="check-other" name="gender" value="other"/>
                             <label for="check-other">Prefer not to say</label>
                         </div>
                     </div>
@@ -219,22 +220,22 @@
 
                 <div class="input-box">
                     <label>Address </label>
-                    <input type ="text" placeholder="Enter your address" required/>
+                    <input name="address" type ="text" placeholder="Enter your address" required/>
                 </div>
 
                 <div class="column">
                     <div class="input-box">
                         <label>Password </label>
-                        <input type ="text" placeholder="Password" required/>                    
+                        <input name="password" type ="password" placeholder="Password" required/>
 
                     </div>
                     <div class="input-box">
                         <label>Re-Password </label>
-                        <input type ="text" placeholder="Enter password again" required/>
+                        <input name="re-password" type ="password" placeholder="Enter password again" required/>
                     </div>
                 </div>
 
-                <button>Register</button>
+                <button type="submit">Register</button>
 
                 <p class="text-center">Have an account? <a href="">Log In</a> </p>
 
