@@ -26,14 +26,14 @@
         <form method="post" class="form" action="register">
             <h3>Create Account</h3>
             <div class="column">
-                <input name="firstname" type="text" placeholder="Firstname"/>
-                <input name="lastname" type="text" placeholder="Lastname"/>
+                <input name="firstname" type="text" value="${param.firstname != null ? param.firstname : ''}" placeholder="Firstname"/>
+                <input name="lastname" type="text" value="${param.lastname != null ? param.lastname : ''}" placeholder="Lastname"/>
             </div>
 
 
-            <input name="email" type="text" placeholder="Email"/>
-            <input name="phonenumber" type="text" placeholder="phone number"/>
-            <input name="dob" type="date" placeholder="birth date">
+            <input name="email" type="text" value="${param.email != null ? param.email : ''}" placeholder="Email"/>
+            <input name="phonenumber" type="text" value="${param.phonenumber != null ? param.phonenumber : ''}" placeholder="phone number"/>
+            <input name="dob" type="date" value="${param.dob != null ? param.dob : ''}">
             <div class="gender-box">
 
                 <div class="gender-option">
@@ -52,10 +52,14 @@
                 </div>
 
             </div>
-            <input name="address" type="text" placeholder="Address"/>
+            <input name="address" type="text" value="${param.address != null ? param.address : ''}" placeholder="Address"/>
             <input name="password" type="password" placeholder="Password"/>
             <input name="re-password" type="password" placeholder="Re-Password"/>
+            <c:if test="${not empty error}">
+                <p style="color:red; font-size: 12px; margin: 10px 0 10px;">${error}</p>
+            </c:if>
             <button type="submit">Sign Up</button>
+
 
         </form>
     </div>

@@ -35,15 +35,52 @@ public class RegisterController extends HttpServlet {
         String rePassword = request.getParameter("re-password");
 //        String createTime = getCurrentDateTime();
 //        String updateTime = getCurrentDateTime();
-//        if (!BusinessCommon.isValidName(firstname) && !BusinessCommon.isValidName(lastname)) {
-//            request.setAttribute("errorMessage", "Username or lastname wrong.");
-//
-//            request.getRequestDispatcher("register.jsp").forward(request, response);
-//
-//        }
+        if (!BusinessCommon.isValidName(firstname) || BusinessCommon.isNullOrEmpty(firstname)) {
+            request.setAttribute("error", "First name is required.");
+            request.getRequestDispatcher("/register.jsp").forward(request, response);
+            return;
+
+        }
+        if (!BusinessCommon.isValidName(lastname) || BusinessCommon.isNullOrEmpty(lastname)) {
+            request.setAttribute("error", "Last name is required.");
+            request.getRequestDispatcher("/register.jsp").forward(request, response);
+            return;
+
+        }
+
+        if (!BusinessCommon.isValidEmail(email) || BusinessCommon.isNullOrEmpty(email)) {
+            request.setAttribute("error", "Email is required.");
+            request.getRequestDispatcher("/register.jsp").forward(request, response);
+            return;
+
+        }
+
+        if (!BusinessCommon.isValidPhoneNumber(phone) || BusinessCommon.isNullOrEmpty(phone)) {
+            request.setAttribute("error", "Phone is required.");
+            request.getRequestDispatcher("/register.jsp").forward(request, response);
+            return;
+
+        }
+
+        if (BusinessCommon.isNullOrEmpty(email)) {
+            request.setAttribute("error", "Address is required.");
+            request.getRequestDispatcher("/register.jsp").forward(request, response);
+            return;
+
+        }
+
+        if (!BusinessCommon.isValidPassword(password)|| BusinessCommon.isNullOrEmpty(password)) {
+            request.setAttribute("error", "Password is required.");
+            request.getRequestDispatcher("/register.jsp").forward(request, response);
+            return;
+
+        }
+
+
+
         if (!password.equals(rePassword)) {
-            request.setAttribute("mess1", "Name has to follow format!");
-            request.getRequestDispatcher("register.jsp").forward(request, response);
+            request.setAttribute("error", "Re-password is not similar to password");
+            request.getRequestDispatcher("/register.jsp").forward(request, response);
         } else {
             UserDao userDao = new UserDao();
             User user = userDao.checkAccountExist(email);
@@ -67,7 +104,7 @@ public class RegisterController extends HttpServlet {
             } else {
                 //message
                 response.sendRedirect("register.jsp");
-                System.out.println("register failed");
+                request.setAttribute("error", "Sign up failed");
 
             }
         }
