@@ -177,4 +177,16 @@ public class BusinessCommon {
         return null;
     }
 
+    public static int validatePage(String valRaw, int val, int valSet){
+        try {
+            val = Integer.parseInt(valRaw);
+            if (val < 1) {
+                val = valSet;
+            }
+        } catch (NumberFormatException e) {
+            val = valSet;
+        }
+        return val;
+    }
+
 }
