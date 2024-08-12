@@ -16,6 +16,8 @@ public class User {
     private String gender;
     private Timestamp createdate;
     private Timestamp updatedate;
+    private int role_id;
+    private String rolename;
 
     public User() {
     }
@@ -26,6 +28,15 @@ public class User {
         this.lastname = lastname;
         this.email = email;
         this.password = password;
+    }
+
+    public User(String firstname, String lastname, String address, String phone_number, String email, String rolename) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.address = address;
+        this.phone_number = phone_number;
+        this.email = email;
+        this.rolename = rolename;
     }
 
     public User(int user_id, String firstname, String lastname, String address, Date dob, String phone_number, String email, boolean isAvtive, String password, String gender, Timestamp createdate, Timestamp updatedate) {
@@ -137,6 +148,22 @@ public class User {
 
     public void setUpdatedate(Timestamp updatedate) {
         this.updatedate = updatedate;
+    }
+
+    public int getRole_id() {
+        return role_id;
+    }
+
+    public void setRole_id(int role_id) {
+        this.role_id = role_id;
+    }
+
+    public String getRolename() {
+        return rolename;
+    }
+
+    public void setRolename(String rolename) {
+        this.rolename = rolename;
     }
 
     @Override

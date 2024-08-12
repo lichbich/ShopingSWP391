@@ -1,3 +1,4 @@
+
 <%--
   Created by IntelliJ IDEA.
   User: vinh
@@ -6,7 +7,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html lang="en">
+
 
 <head>
     <title>Add Employee</title>
@@ -77,40 +81,53 @@
 
                         </div>
                     </div>
-                    <form class="row">
+                    <form method="post"  action="addemployee" class="row">
                         <div class="form-group col-md-4">
                             <label class="control-label">First name</label>
-                            <input class="form-control" type="text" required>
+                            <input name="firstname" value="${param.firstname != null ? param.firstname : ''}" class="form-control" type="text" >
                         </div>
                         <div class="form-group col-md-4">
                             <label class="control-label">Last name</label>
-                            <input class="form-control" type="text" required>
+                            <input name="lastname" value="${param.lastname != null ? param.lastname : ''}" class="form-control" type="text" >
                         </div>
                         <div class="form-group col-md-4">
                             <label class="control-label">Email</label>
-                            <input class="form-control" type="text" required>
+                            <input name="email" value="${param.email != null ? param.email : ''}" class="form-control" type="text" >
                         </div>
                         <div class="form-group col-md-4">
                             <label class="control-label">Password</label>
-                            <input class="form-control" type="text" required>
+                            <input name="password" value="${param.password != null ? param.password : ''}" class="form-control" type="text" >
                         </div>
                         <div class="form-group  col-md-4">
                             <label class="control-label">Phone number</label>
-                            <input class="form-control" type="number" required>
+                            <input name="phone" value="${param.phone != null ? param.phone : ''}"   class="form-control" type="text" >
                         </div>
 
                         <div class="form-group  col-md-3">
                             <label for="exampleSelect1" class="control-label">Role</label>
-                            <select class="form-control" id="exampleSelect1">
-                                <option></option>
 
+                            <select class="form-control" id="exampleSelect1" name="role">
+                                <c:forEach var="role" items="${listRole}">
+                                <option value="${role.role_id}">${role.role_name}</option>
+                                </c:forEach>
                             </select>
                         </div>
+                        <br>
+                        <br>
+                        <c:if test="${not empty error}">
+                            <p style="color:red; font-size: 12px; margin: auto; text-align: center">${error}</p>
+                        </c:if>
+                        <br>
+                        <br>
                         <div class="form-group  col-md-6"></divclass>
                             <button class="" type="submit">Save</button>
-                            <button class="cancel-btn">Cancel</button>
+                            <a href="employeeManagement">
+                                <button type="button">Cancel</button>
+                            </a>
+
                         </div>
                     </form>
+
                 </div>
             </div>
         </div>
