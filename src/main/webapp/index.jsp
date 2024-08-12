@@ -21,8 +21,10 @@
 <h1><%= "Hello World! helo" %>
 </h1>
 <br/>
+
+<a href="hello-servlet">Hello Servlet</a>
+<p class="text-center">Register:  <a href="register.jsp">Register</a> </p>
 <a href="hello-servlet"><button type="button" class="btn btn-primary" >Hello Servlet db</button></a>
 <a href="logout"><button type="button" class="btn btn-secondary">Logout</button></a>
-<%--<a href="login.jsp"><button type="button" class="btn btn-success">Login</button></a>--%>
 </body>
 </html>
