@@ -66,8 +66,8 @@ public class UserDao extends DbContext {
             ps.setDate(4,dob);
             ps.setString(5, phonenumber);
             ps.setString(6, email);
-            ps.setString(7, gender);
-            ps.setString(8, password);
+            ps.setString(7, password);
+            ps.setString(8, gender);
             ps.setTimestamp(9,createtime);
             ps.setTimestamp(10, updatetime);
             ps.executeUpdate();
