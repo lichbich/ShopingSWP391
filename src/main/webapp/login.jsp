@@ -24,6 +24,9 @@
             <div class="overlay-panel overlay-right">
                 <h1>Hello, Manager!</h1>
                 <p>To keep connected with us please login with your personal info</p>
+                <a href="register.jsp">
+                    <button class="ghost" id="signUp">Sign Up</button>
+                </a>
             </div>
         </div>
     </div>
