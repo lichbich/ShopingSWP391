@@ -25,8 +25,8 @@ public class UserDao extends DbContext {
 
 
     public User checkAccountExist(String email) {
-        String query = "select [User_ID],[First_name], [Last_name], [Email], [Password] from [User]\n" +
-                "where [Email] = ?\n";
+        String query = "select [user_id],[first_name], [last_name], [email], [password] from [users]\n" +
+                "where [email] = ?\n";
         try {
             conn = DbContext.getConnection();
             ps = conn.prepareStatement(query);
@@ -50,17 +50,13 @@ public class UserDao extends DbContext {
 
     }
 
-    public void register(String firstname, String lastname, String address, Date dob, String phonenumber, String email, String password, String gender ){
-        // take current time
-        LocalDateTime now = LocalDateTime.now();
-        // format time
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd kk:mm:ss");
-        String formatedDateTime = now.format(formatter);
+    public void register(String firstname, String lastname, String address, Date dob, String phonenumber, String email, String password, String gender, Timestamp createtime, Timestamp updatetime ){
 
-        String query = "INSERT INTO [dbo].[User]\n" +
-                "           ([First_name],[Last_name],[Adresss],[Dob],[PhoneNumber],[Email],[isActive],[Role_ID],[Password],[Gender],[Create_date],[Update_date])\n" +
+
+        String query = "INSERT INTO [dbo].[users]\n" +
+                "           ([first_name],[last_name],[address],[dob],[phone_number],[email],[isActive],[role_id],[password],[gender],[create_date],[update_date])\n" +
                 "     VALUES\n" +
-                "           (?,?,?,?,?,?,1,4,? ,?," + formatedDateTime +","+ formatedDateTime +")\n";
+                "           (?,?,?,?,?,?,1,4,? ,?, ?, ?)\n";
         try {
             conn = DbContext.getConnection();
             ps = conn.prepareStatement(query);
@@ -72,6 +68,8 @@ public class UserDao extends DbContext {
             ps.setString(6, email);
             ps.setString(7, gender);
             ps.setString(8, password);
+            ps.setTimestamp(9,createtime);
+            ps.setTimestamp(10, updatetime);
             ps.executeUpdate();
             conn.close();
         }catch (Exception e){

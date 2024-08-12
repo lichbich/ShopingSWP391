@@ -11,6 +11,10 @@ import java.io.IOException;
 import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 
 @WebServlet(name = "RegisterController", value = "/register")
@@ -87,24 +91,29 @@ public class RegisterController extends HttpServlet {
             if (user == null) { // // there is no user with same email in db
                 // register
                 try {
-                    // Define the date format
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                    // Parse the date string to java.util.Date
-                    java.util.Date parsedDate = null;
-                    parsedDate = dateFormat.parse(birthdate);
-                    // Convert java.util.Date to java.sql.Date
-                    Date birth_date = new Date(parsedDate.getTime());
-                    userDao.register(firstname, lastname, address, birth_date, phone, email, password, gender);
+                    LocalDateTime now = LocalDateTime.now();
+
+                    Instant instant = now.atZone(ZoneId.systemDefault()).toInstant();
+                    // Convert Instant to Timestamp
+                    Timestamp timestamp = Timestamp.from(instant);
+
+                    Date sqlDate = Date.valueOf(birthdate);
+
+
+
+
+                    userDao.register(firstname, lastname, address, sqlDate, phone, email, password, gender, timestamp, timestamp);
                     response.sendRedirect("index.jsp");
 
-                } catch (ParseException e) {
+                } catch (Exception e) {
                     throw new RuntimeException(e);
                 }
 
             } else {
                 //message
-                response.sendRedirect("register.jsp");
-                request.setAttribute("error", "Sign up failed");
+                request.setAttribute("error", "Sign up failed, Email address already used!");
+                request.getRequestDispatcher("/register.jsp").forward(request, response);
+
 
             }
         }
