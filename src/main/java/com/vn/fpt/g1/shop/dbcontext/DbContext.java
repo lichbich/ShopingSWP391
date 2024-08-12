@@ -10,7 +10,7 @@ public class DbContext implements AutoCloseable{
     private static final String DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
     private static final String URL = "jdbc:sqlserver://localhost:1433;databaseName=shoping-database;encrypt=false";
     private static final String USER = "sa";
-    private static final String PASSWORD = "123";
+    private static final String PASSWORD = "12345";
     public static Connection connection;
 
     public static Connection getConnection() {
