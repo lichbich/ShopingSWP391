@@ -1,7 +1,8 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
-<link rel="stylesheet" type="text/css" href="Static/css/login.css">
+<link rel="stylesheet" type="text/css" href="static/css/login.css">
 <div class="container" id="container">
 
     <div class="form-container sign-in-container">
@@ -19,7 +20,6 @@
                 <h1>Welcome Back!</h1>
                 <p>To keep connected with us please login with your personal info</p>
                 <button class="ghost" id="signIn">Sign In</button>
-                <p>sdsd</p>
             </div>
             <div class="overlay-panel overlay-right">
                 <h1>Hello, Manager!</h1>

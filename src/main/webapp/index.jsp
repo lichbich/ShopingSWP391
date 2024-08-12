@@ -1,4 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%
+    if(session.getAttribute("user") == null){
+        response.sendRedirect("login.jsp");
+    }
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +22,7 @@
 </h1>
 <br/>
 <a href="hello-servlet"><button type="button" class="btn btn-primary" >Hello Servlet db</button></a>
-<button type="button" class="btn btn-secondary">Secondary Button sdsd</button>
-<a href="login.jsp"><button type="button" class="btn btn-success">Login</button></a>
+<a href="logout"><button type="button" class="btn btn-secondary">Logout</button></a>
+<%--<a href="login.jsp"><button type="button" class="btn btn-success">Login</button></a>--%>
 </body>
 </html>

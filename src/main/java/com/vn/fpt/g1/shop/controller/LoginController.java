@@ -20,8 +20,10 @@ public class LoginController extends HttpServlet {
             Users user = loginDAO.checkLogin(email, pass);
             if (user == null) {
                 resp.sendRedirect("login.jsp");
-                System.out.println("Login failed");
+                System.out.println("User or password is wrong");
             } else {
+                HttpSession session = req.getSession();
+                session.setAttribute("user", user);
                 resp.sendRedirect("index.jsp");
                 System.out.println("Login success");
             }
