@@ -6,6 +6,7 @@ import com.vn.fpt.g1.shop.entity.User;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
 import java.sql.*;
@@ -91,18 +92,14 @@ public class RegisterController extends HttpServlet {
             if (user == null) { // // there is no user with same email in db
                 // register
                 try {
+                    // Encryption the password
+                    String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
                     LocalDateTime now = LocalDateTime.now();
-
                     Instant instant = now.atZone(ZoneId.systemDefault()).toInstant();
                     // Convert Instant to Timestamp
                     Timestamp timestamp = Timestamp.from(instant);
-
                     Date sqlDate = Date.valueOf(birthdate);
-
-
-
-
-                    userDao.register(firstname, lastname, address, sqlDate, phone, email, password, gender, timestamp, timestamp);
+                    userDao.register(firstname, lastname, address, sqlDate, phone, email, hashedPassword, gender, timestamp, timestamp);
                     response.sendRedirect("index.jsp");
 
                 } catch (Exception e) {

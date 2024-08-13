@@ -69,7 +69,9 @@
             <div class="overlay-panel overlay-left">
                 <h1>Welcome Back!</h1>
                 <p>To keep connected with us please login with your personal info</p>
+                <a href="login.jsp">
                 <button class="ghost" id="signIn">Sign In</button>
+                </a>
             </div>
 
         </div>
