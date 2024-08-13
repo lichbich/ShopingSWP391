@@ -1,0 +1,216 @@
+/* Basic resets and font settings */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Page background and padding */
+body {
+    background-color: #f4f4f4;
+    padding: 20px;
+}
+
+/* Container for centering content and adding padding */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading style */
+h1 {
+    margin-bottom: 20px;
+    font-size: 28px;
+    text-align: center;
+    color: #333;
+}
+
+/* Header actions including add button and filters */
+.header-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Filters container with adjustments for alignment */
+.filters {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.filter-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.filter-group label {
+    font-weight: bold;
+    color: #333;
+}
+
+#search-bar {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    width: 200px;
+}
+
+#status-filter {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#add-category-btn {
+    padding: 12px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+#add-category-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Table style */
+.category-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.category-table thead {
+    background-color: #f4f4f4;
+}
+
+.category-table th,
+.category-table td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.category-table th {
+    font-weight: bold;
+    color: #333;
+}
+
+.category-table img {
+    max-width: 100px;
+    border-radius: 5px;
+}
+
+/* Custom checkbox styles for status */
+.status-switch {
+    display: flex;
+    align-items: center;
+    position: relative;
+    justify-content: center;
+}
+
+.status-checkbox {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: relative;
+    cursor: pointer;
+    width: 50px;
+    height: 24px;
+    background-color: #ccc;
+    border-radius: 12px;
+    transition: .4s;
+}
+
+.slider:before {
+    content: "";
+    position: absolute;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background-color: #fff;
+    left: 4px;
+    top: 4px;
+    transition: .4s;
+}
+
+.status-checkbox:checked + .slider {
+    background-color: #28a745;
+}
+
+.status-checkbox:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.status-text {
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+/* Edit button style */
+.edit-btn {
+    padding: 8px 12px;
+    background-color: #ffc107;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.edit-btn:hover {
+    background-color: #e0a800;
+}
+
+/* Pagination style */
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.pagination a {
+    text-decoration: none;
+    padding: 10px 15px;
+    background: #007bff;
+    color: #fff;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.pagination a:hover {
+    background: #0056b3;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .filters {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    #search-bar {
+        width: 100%;
+    }
+
+    .category-table {
+        font-size: 14px; /* Adjust font size for smaller screens */
+    }
+}
