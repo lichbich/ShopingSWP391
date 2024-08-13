@@ -16,6 +16,7 @@ public class BusinessCommon {
     private static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
     private static final String PHONE_REGEX = "^(\\(\\d{3}\\)|\\d{3})[-\\s]?\\d{3}[-\\s]?\\d{4}$";
     private static final String USERNAME_REGEX = "^[a-zA-Z0-9_-]{3,20}$";
+    private static final String NAME_REGEX = "^[A-Z][a-zA-Z]{1,29}$";
     private static final String POSITIVE_NUMBER_REGEX = "^(?:0|[1-9]\\d*)(?:\\.\\d+)?$";
     private static final String PASSWORD_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
 
@@ -53,6 +54,8 @@ public class BusinessCommon {
     public static boolean isValidUsername(String username) {
         return Pattern.matches(USERNAME_REGEX, username);
     }
+
+    public static boolean isValidName(String name){ return Pattern.matches(NAME_REGEX,name); }
 
     public static boolean isValidEmail(String email) {
         return Pattern.matches(EMAIL_REGEX, email);
