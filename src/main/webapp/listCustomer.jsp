@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: trung
-  Date: 8/13/2024
-  Time: 10:58 AM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -21,9 +14,9 @@
 <header>
     <h1>List Customer</h1>
     <div class="filters">
-        <div class="filter-group">
+        <div class="filter-group">S
             <label for="search-bar">Search:</label>
-            <input type="text" id="search-bar" placeholder="Search categories...">
+            <input type="text" id="search-bar" placeholder="Search customer...">
         </div>
         <div class="filter-group">
             <label for="status-filter">Status:</label>
@@ -61,15 +54,23 @@
         <td>${o.dob}</td>
         <td>${o.phone_number}</td>
         <td>${o.email}</td>
-        <td>${o.isActive}</td>
+        <td>
+            <c:choose>
+                <c:when test="${o.isActive == 1}">
+                    Active
+                </c:when>
+                <c:otherwise>
+                    Inactive
+                </c:otherwise>
+            </c:choose>
+        </td>
         <td>
             <button class="feature-button">
-                <a href="https://example.com">View/Edit</a>
+                <a href="customerDetail?cid=${o.user_id}">View/Edit</a>
             </button>
         </td>
     </tr>
     </c:forEach>
-    <!-- Thêm các dòng dữ liệu khác tương tự -->
     </tbody>
 </table>
 <!-- Pagination -->
