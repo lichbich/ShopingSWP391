@@ -43,6 +43,10 @@ public class Users {
         this.isActive = isActive;
     }
 
+    public boolean hasRole(String role) {
+        return this.role_id.equals(role);
+    }
+
     public String getGender() {
         return gender;
     }
