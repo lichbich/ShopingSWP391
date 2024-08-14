@@ -6,6 +6,7 @@ import com.vn.fpt.g1.shop.entity.Users;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,4 +71,74 @@ public class CustomerDAO {
         }
         return list;
     }
+
+    public List<Users> getFilteredCustomers(String name, String status) {
+        List<Users> customers = new ArrayList<>();
+
+        String query = "SELECT * FROM users WHERE 1=1";
+
+        if (name != null && !name.isEmpty()) {
+            query += " AND (first_name LIKE ? OR last_name LIKE ?)";
+        }
+
+        if (status != null && !status.isEmpty()) {
+            query += " AND isActive = ?";
+        }
+        try (Connection conn = DbContext.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+
+            int paramIndex = 1; // Chỉ số của tham số trong câu lệnh PreparedStatement
+
+
+            if (name != null && !name.isEmpty()) {
+                ps.setString(paramIndex++, "%" + name + "%");
+                ps.setString(paramIndex++, "%" + name + "%");
+            }
+
+
+            if (status != null && !status.isEmpty()) {
+                ps.setInt(paramIndex++, "active".equals(status) ? 1 : 0);
+            }
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Users users = new Users();
+                    users.setUser_id(rs.getInt("user_id"));
+                    users.setFirst_name(rs.getString("first_name"));
+                    users.setLast_name(rs.getString("last_name"));
+                    users.setGender(rs.getString("gender"));
+                    users.setAddress(rs.getString("address"));
+                    users.setDob(rs.getDate("dob"));
+                    users.setPhone_number(rs.getString("phone_number"));
+                    users.setEmail(rs.getString("email"));
+                    users.setIsActive(rs.getInt("isActive"));
+
+                    // Thêm đối tượng Customer vào danh sách
+                    customers.add(users);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return customers;
+    }
+
+    public void updateCustomerStatus(String userId, int newStatus) {
+        String sql = "UPDATE users SET isActive = ? WHERE user_id = ?";
+
+        try (Connection conn = new DbContext().getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, newStatus);
+            ps.setString(2, userId);
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

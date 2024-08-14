@@ -13,21 +13,23 @@
 <body>
 <header>
     <h1>List Customer</h1>
-    <div class="filters">
-        <div class="filter-group">S
-            <label for="search-bar">Search:</label>
-            <input type="text" id="search-bar" placeholder="Search customer...">
+    <form action="listCustomerServlet" method="GET">
+        <div class="filters">
+            <div class="filter-group">
+                <label for="search-bar">Search:</label>
+                <input type="text" id="search-bar" name="name" placeholder="Search by name" value="${param.name}">
+            </div>
+            <div class="filter-group">
+                <label for="status-filter">Status:</label>
+                <select id="status-filter" name="status">
+                    <option value="" ${param.status == '' ? 'selected' : ''}>All Status</option>
+                    <option value="active" ${param.status == 'active' ? 'selected' : ''}>Active</option>
+                    <option value="inactive" ${param.status == 'inactive' ? 'selected' : ''}>Inactive</option>
+                </select>
+            </div>
+            <button type="submit" id="search-button">Search</button>
         </div>
-        <div class="filter-group">
-            <label for="status-filter">Status:</label>
-            <select id="status-filter">
-                <option value="">All Status</option>
-                <option value="active">Active</option>
-                <option value="inactive">Inactive</option>
-            </select>
-        </div>
-        <button id="search-button">Search</button>
-    </div>
+    </form>
 </header>
 
 <table>
@@ -46,34 +48,35 @@
     </thead>
     <tbody>
     <c:forEach items="${usersList}" var="o">
-    <tr>
-        <td>${o.user_id}</td>
-        <td>${o.first_name} ${o.last_name}</td>
-        <td>${o.gender}</td>
-        <td>${o.address}</td>
-        <td>${o.dob}</td>
-        <td>${o.phone_number}</td>
-        <td>${o.email}</td>
-        <td>
-            <c:choose>
-                <c:when test="${o.isActive == 1}">
-                    Active
-                </c:when>
-                <c:otherwise>
-                    Inactive
-                </c:otherwise>
-            </c:choose>
-        </td>
-        <td>
-            <button class="feature-button">
-                <a href="customerDetail?cid=${o.user_id}">View/Edit</a>
-            </button>
-        </td>
-    </tr>
+        <tr>
+            <td>${o.user_id}</td>
+            <td>${o.first_name} ${o.last_name}</td>
+            <td>${o.gender}</td>
+            <td>${o.address}</td>
+            <td>${o.dob}</td>
+            <td>${o.phone_number}</td>
+            <td>${o.email}</td>
+            <td>
+                <c:choose>
+                    <c:when test="${o.isActive == 1}">
+                        Active
+                    </c:when>
+                    <c:otherwise>
+                        Inactive
+                    </c:otherwise>
+                </c:choose>
+            </td>
+            <td>
+                <button class="feature-button">
+                    <a href="customerDetail?cid=${o.user_id}">View/Edit</a>
+                </button>
+            </td>
+        </tr>
     </c:forEach>
     </tbody>
 </table>
-<!-- Pagination -->
+
+<!-- Pagination (if applicable) -->
 <div class="pagination">
     <a href="#" class="prev">« Prev</a>
     <a href="#" class="page-number">1</a>
@@ -82,5 +85,4 @@
     <a href="#" class="next">Next »</a>
 </div>
 </body>
-
 </html>

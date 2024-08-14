@@ -13,8 +13,10 @@ import java.util.List;
 public class listCustomerServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String name = request.getParameter("name");
+        String status = request.getParameter("status");
         CustomerDAO cdao = new CustomerDAO();
-        List<Users> usersList = cdao.getListCustomer();
+        List<Users> usersList = cdao.getFilteredCustomers(name, status);
 
         request.setAttribute("usersList", usersList);
         request.getRequestDispatcher("listCustomer.jsp").forward(request, response);
