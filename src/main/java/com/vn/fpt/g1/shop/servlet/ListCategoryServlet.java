@@ -1,6 +1,7 @@
 package com.vn.fpt.g1.shop.servlet;
 
 import com.vn.fpt.g1.shop.dao.CategoryDAO;
+import com.vn.fpt.g1.shop.dto.CategoryDto;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -9,9 +10,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
-@WebServlet("/changeStatus")
-public class ChangeStatusServlet extends HttpServlet {
+@WebServlet("/ListCategory")
+public class ListCategoryServlet extends HttpServlet {
 
     private CategoryDAO categoryDAO;
 
@@ -21,13 +23,11 @@ public class ChangeStatusServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        int status = Integer.parseInt(request.getParameter("status"));
-
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
-            categoryDAO.changeCategoryStatus(id, status);
-            response.sendRedirect("listCategory.jsp");
+            List<CategoryDto> categories = categoryDAO.getAllCategories();
+            request.setAttribute("categories", categories);
+            request.getRequestDispatcher("WEB-INF/saleManagerment/listCategory.jsp").forward(request, response);
         } catch (SQLException e) {
             e.printStackTrace();
             response.sendRedirect("error.jsp");

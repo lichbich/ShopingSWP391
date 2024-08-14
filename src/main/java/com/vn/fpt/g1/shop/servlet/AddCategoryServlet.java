@@ -3,29 +3,44 @@ package com.vn.fpt.g1.shop.servlet;
 import com.vn.fpt.g1.shop.dao.CategoryDAO;
 import com.vn.fpt.g1.shop.dto.CategoryDto;
 
-import jakarta.servlet.*;
-import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
-
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 
-@WebServlet(name = "AddCategoryServlet", value = "/AddCategoryServlet")
+@WebServlet("/addCategory")
 public class AddCategoryServlet extends HttpServlet {
-    private final CategoryDAO categoryDAO = new CategoryDAO();
+
+    private CategoryDAO categoryDAO;
+
+    @Override
+    public void init() {
+        categoryDAO = new CategoryDAO();
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // Retrieve form parameters
         String description = request.getParameter("description");
         int status = Integer.parseInt(request.getParameter("status"));
 
-        // Create CategoryDto object
-        CategoryDto categoryDto = new CategoryDto(description, status);
+        CategoryDto category = new CategoryDto();
+        category.setDescription(description);
+        category.setStatus(status);
 
-        // Add category using CategoryDAO
-        categoryDAO.addCategory(categoryDto);
+        try {
+            categoryDAO.addCategory(category);
+            response.sendRedirect("listCategory.jsp");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.sendRedirect("error.jsp");
+        }
+    }
 
-        // Redirect to the category list page
-        response.sendRedirect("listCategory.jsp");
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("WEB-INF/saleManagerment/addCategory.jsp").forward(request, response);
     }
 }

@@ -2,7 +2,6 @@ package com.vn.fpt.g1.shop.dao;
 
 import com.vn.fpt.g1.shop.dbcontext.DbContext;
 import com.vn.fpt.g1.shop.dto.CategoryDto;
-import com.vn.fpt.g1.shop.entity.Category;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,86 +12,68 @@ import java.util.List;
 
 public class CategoryDAO {
 
-    private static final String INSERT_CATEGORY_SQL = "INSERT INTO category (description, status) VALUES (?, ?)";
-    private static final String SELECT_ALL_CATEGORIES = "SELECT * FROM category";
-    private static final String UPDATE_CATEGORY_SQL = "UPDATE category SET description = ?, status = ? WHERE category_id = ?";
-    private static final String UPDATE_CATEGORY_STATUS_SQL = "UPDATE category SET status = ? WHERE category_id = ?";
+    private Connection connection;
 
-    // Add a new category
-    public void addCategory(CategoryDto categoryDto) {
-        try (Connection connection = DbContext.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_CATEGORY_SQL)) {
-            preparedStatement.setString(1, categoryDto.getDescription());
-            preparedStatement.setInt(2, categoryDto.getStatus());
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+    public CategoryDAO() {
+        this.connection = DbContext.getConnection();
     }
 
-    // Get all categories
-    public List<Category> getAllCategories() {
-        List<Category> categories = new ArrayList<>();
-        try (Connection connection = DbContext.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_CATEGORIES)) {
-            ResultSet resultSet = preparedStatement.executeQuery();
+    public List<CategoryDto> getAllCategories() throws SQLException {
+        List<CategoryDto> categories = new ArrayList<>();
+        String query = "SELECT id, description, status FROM category";
+        try (PreparedStatement statement = connection.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
             while (resultSet.next()) {
-                int id = resultSet.getInt("category_id");
+                int id = resultSet.getInt("id");
                 String description = resultSet.getString("description");
                 int status = resultSet.getInt("status");
-                java.sql.Timestamp createDate = resultSet.getTimestamp("create_date");
-                java.sql.Timestamp updateDate = resultSet.getTimestamp("update_date");
-                categories.add(new Category(id, description, status, createDate, updateDate));
+                categories.add(new CategoryDto(id, description, status));
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return categories;
     }
 
-    // Get a category by ID
-    public Category getCategoryById(int id) {
-        Category category = null;
-        String query = "SELECT * FROM category WHERE category_id = ?";
-        try (Connection connection = DbContext.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                String description = resultSet.getString("description");
-                int status = resultSet.getInt("status");
-                java.sql.Timestamp createDate = resultSet.getTimestamp("create_date");
-                java.sql.Timestamp updateDate = resultSet.getTimestamp("update_date");
-                category = new Category(id, description, status, createDate, updateDate);
+    public CategoryDto getCategoryById(int id) throws SQLException {
+        CategoryDto category = null;
+        String query = "SELECT id, description, status FROM category WHERE id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    String description = resultSet.getString("description");
+                    int status = resultSet.getInt("status");
+                    category = new CategoryDto(id, description, status);
+                }
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
         return category;
     }
 
-    // Update a category
-    public void updateCategory(CategoryDto categoryDto) {
-        try (Connection connection = DbContext.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_CATEGORY_SQL)) {
-            preparedStatement.setString(1, categoryDto.getDescription());
-            preparedStatement.setInt(2, categoryDto.getStatus());
-            preparedStatement.setInt(3, categoryDto.getId());
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+    public void addCategory(CategoryDto category) throws SQLException {
+        String query = "INSERT INTO category (description, status) VALUES (?, ?)";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, category.getDescription());
+            statement.setInt(2, category.getStatus());
+            statement.executeUpdate();
         }
     }
 
-    // Change category status
-    public void changeStatus(int categoryId, int status) {
-        try (Connection connection = DbContext.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_CATEGORY_STATUS_SQL)) {
-            preparedStatement.setInt(1, status);
-            preparedStatement.setInt(2, categoryId);
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
+    public void updateCategory(CategoryDto category) throws SQLException {
+        String query = "UPDATE category SET description = ?, status = ? WHERE id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setString(1, category.getDescription());
+            statement.setInt(2, category.getStatus());
+            statement.setInt(3, category.getId());
+            statement.executeUpdate();
+        }
+    }
+
+    public void changeCategoryStatus(int id, int status) throws SQLException {
+        String query = "UPDATE category SET status = ? WHERE id = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, status);
+            statement.setInt(2, id);
+            statement.executeUpdate();
         }
     }
 }

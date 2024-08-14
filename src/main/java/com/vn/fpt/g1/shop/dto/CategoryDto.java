@@ -1,27 +1,20 @@
 package com.vn.fpt.g1.shop.dto;
 
 public class CategoryDto {
+
     private int id;
     private String description;
     private int status;
 
-    // Constructor không tham số
-    public CategoryDto() {}
-
-    // Constructor có tham số cho khi thêm mới
-    public CategoryDto(String description, int status) {
-        this.description = description;
-        this.status = status;
+    public CategoryDto() {
     }
 
-    // Constructor có tham số cho khi chỉnh sửa
     public CategoryDto(int id, String description, int status) {
         this.id = id;
         this.description = description;
         this.status = status;
     }
 
-    // Getters và Setters
     public int getId() {
         return id;
     }
