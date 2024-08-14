@@ -29,6 +29,13 @@ public class Users {
         this.user_id = user_id;
     }
 
+    public Users() {
+    }
+
+    public boolean hasRole(String role) {
+        return this.role_id.equals(role);
+    }
+
     public String getGender() {
         return gender;
     }
