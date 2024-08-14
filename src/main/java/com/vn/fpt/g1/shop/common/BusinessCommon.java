@@ -1,6 +1,7 @@
 package com.vn.fpt.g1.shop.common;
 
 import com.vn.fpt.g1.shop.exception.RestExceptionHandler;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.security.SecureRandom;
 import java.text.ParseException;
@@ -13,7 +14,7 @@ import java.util.Random;
 import java.util.regex.Pattern;
 
 public class BusinessCommon {
-    private static final String EMAIL_REGEX = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+    private static final String EMAIL_REGEX = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
     private static final String PHONE_REGEX = "^(\\(\\d{3}\\)|\\d{3})[-\\s]?\\d{3}[-\\s]?\\d{4}$";
     private static final String USERNAME_REGEX = "^[a-zA-Z0-9_-]{3,20}$";
     private static final String NAME_REGEX = "^[A-Z][a-zA-Z]{1,29}$";
@@ -67,6 +68,10 @@ public class BusinessCommon {
 
     public static boolean isValidPassword(String password) {
         return Pattern.matches(PASSWORD_REGEX, password);
+    }
+
+    public static boolean checkPassword(String plainPassword, String hashedPassword) {
+        return BCrypt.checkpw(plainPassword, hashedPassword);
     }
 
     public static boolean isNullOrEmpty(final String s, boolean trim) {
