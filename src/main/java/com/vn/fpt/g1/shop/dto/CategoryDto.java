@@ -1,16 +1,19 @@
 package com.vn.fpt.g1.shop.dto;
 
-import java.sql.Timestamp;
-
 public class CategoryDto {
     private int id;
     private String description;
     private int status;
-    private Timestamp createDate;
-    private Timestamp updateDate;
+
+    public CategoryDto() {}
+
+    public CategoryDto(int id, String description, int status) {
+        this.id = id;
+        this.description = description;
+        this.status = status;
+    }
 
     // Getters and Setters
-
     public int getId() {
         return id;
     }
@@ -33,21 +36,5 @@ public class CategoryDto {
 
     public void setStatus(int status) {
         this.status = status;
-    }
-
-    public Timestamp getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Timestamp createDate) {
-        this.createDate = createDate;
-    }
-
-    public Timestamp getUpdateDate() {
-        return updateDate;
-    }
-
-    public void setUpdateDate(Timestamp updateDate) {
-        this.updateDate = updateDate;
     }
 }

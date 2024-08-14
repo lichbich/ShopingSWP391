@@ -1,27 +1,22 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="com.vn.fpt.g1.shop.dto.CategoryDto" %>
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
     <title>Edit Category</title>
+    <link rel="stylesheet" type="text/css" href="static/css/style.css">
 </head>
 <body>
-<h2>Edit Category</h2>
+<h1>Edit Category</h1>
 <form action="editCategory" method="post">
-    <input type="hidden" name="id" value="${category.id}">
-    <label for="description">Description:</label>
-    <input type="text" id="description" name="description" value="${category.description}" required>
-    <br>
-    <label for="status">Status:</label>
-    <select id="status" name="status" required>
-        <option value="1" ${category.status == 1 ? 'selected' : ''}>Active</option>
-        <option value="0" ${category.status == 0 ? 'selected' : ''}>Inactive</option>
+    <input type="hidden" name="category_id" value="<%= request.getParameter("category_id") %>" />
+    <label>Description:</label>
+    <input type="text" name="description" value="<%= request.getAttribute("description") %>" required />
+    <label>Status:</label>
+    <select name="status" required>
+        <option value="1" <%= (Integer.parseInt(request.getAttribute("status").toString()) == 1 ? "selected" : "") %>>Active</option>
+        <option value="0" <%= (Integer.parseInt(request.getAttribute("status").toString()) == 0 ? "selected" : "") %>>Inactive</option>
     </select>
-    <br>
-    <input type="submit" value="Update Category">
+    <button type="submit">Update Category</button>
 </form>
-<br>
-<a href="listCategory.jsp">Back to List</a>
 </body>
 </html>

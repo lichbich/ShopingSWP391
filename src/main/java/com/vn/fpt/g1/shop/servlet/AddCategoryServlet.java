@@ -13,34 +13,27 @@ import java.sql.SQLException;
 
 @WebServlet("/addCategory")
 public class AddCategoryServlet extends HttpServlet {
-
     private CategoryDAO categoryDAO;
 
     @Override
-    public void init() {
+    public void init() throws ServletException {
         categoryDAO = new CategoryDAO();
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         String description = request.getParameter("description");
         int status = Integer.parseInt(request.getParameter("status"));
 
-        CategoryDto category = new CategoryDto();
-        category.setDescription(description);
-        category.setStatus(status);
+        CategoryDto category = new CategoryDto(0, description, status);
 
-//        try {
-//            categoryDAO.addCategory(category);
-//            response.sendRedirect("listCategory.jsp");
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            response.sendRedirect("error.jsp");
-//        }
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.getRequestDispatcher("WEB-INF/saleManagerment/addCategory.jsp").forward(request, response);
+        try {
+            categoryDAO.addCategory(category);
+            response.sendRedirect("listCategory.jsp");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
     }
 }

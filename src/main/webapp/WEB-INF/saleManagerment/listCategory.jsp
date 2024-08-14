@@ -4,39 +4,38 @@
 <html>
 <head>
     <title>Category List</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/css/style.css">
+    <link rel="stylesheet" type="text/css" href="static/css/style.css">
 </head>
 <body>
-<h2>Category List</h2>
-
-<c:if test="${empty categoryList}">
-    <p>No data available.</p>
-</c:if>
-
-<c:if test="${not empty categoryList}">
-    <table border="1">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Description</th>
-            <th>Status</th>
-            <th>Create Date</th>
-            <th>Update Date</th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach var="category" items="${categoryList}">
-            <tr>
-                <td>${category.id}</td>
-                <td>${category.description}</td>
-                <td>${category.status}</td>
-                <td>${category.createDate}</td>
-                <td>${category.updateDate}</td>
-            </tr>
-        </c:forEach>
-        </tbody>
-    </table>
-</c:if>
-
+<h1>Category List</h1>
+<a href="WEB-INF/saleManagerment/addCategory.jsp">Add New Category</a>
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Description</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <%
+        List<CategoryDto> categories = (List<CategoryDto>) request.getAttribute("categories");
+        for (CategoryDto category : categories) {
+    %>
+    <tr>
+        <td><%= category.getId() %></td>
+        <td><%= category.getDescription() %></td>
+        <td><%= category.getStatus() %></td>
+        <td>
+            <a href="WEB-INF/saleManagerment/editCategory.jsp?category_id=<%= category.getId() %>">Edit</a>
+            <a href="sWEB-INF/saleManagerment/changeStatus?category_id=<%= category.getId() %>&status=<%= category.getStatus() == 1 ? 0 : 1 %>">
+                <%= category.getStatus() == 1 ? "Deactivate" : "Activate" %>
+            </a>
+        </td>
+    </tr>
+    <% } %>
+    </tbody>
+</table>
 </body>
 </html>

@@ -13,45 +13,28 @@ import java.sql.SQLException;
 
 @WebServlet("/editCategory")
 public class EditCategoryServlet extends HttpServlet {
-
     private CategoryDAO categoryDAO;
 
     @Override
-    public void init() {
+    public void init() throws ServletException {
         categoryDAO = new CategoryDAO();
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("category_id"));
         String description = request.getParameter("description");
         int status = Integer.parseInt(request.getParameter("status"));
 
-        CategoryDto category = new CategoryDto();
-        category.setId(id);
-        category.setDescription(description);
-        category.setStatus(status);
+        CategoryDto category = new CategoryDto(id, description, status);
 
-//        try {
-//            categoryDAO.updateCategory(category);
-//            response.sendRedirect("listCategory.jsp");
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            response.sendRedirect("error.jsp");
-//        }
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-
-//        try {
-//            CategoryDto category = categoryDAO.getCategoryById(id);
-//            request.setAttribute("category", category);
-//            request.getRequestDispatcher("WEB-INF/saleManagerment/editCategory.jsp").forward(request, response);
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//            response.sendRedirect("error.jsp");
-//        }
+        try {
+            categoryDAO.updateCategory(category);
+            response.sendRedirect("listCategory.jsp");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
     }
 }

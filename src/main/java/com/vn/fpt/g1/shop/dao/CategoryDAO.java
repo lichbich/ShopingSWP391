@@ -8,28 +8,59 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryDAO {
+    private Connection connection;
 
-    public List<CategoryDto> getAllCategories() {
+    public CategoryDAO() {
+        connection = DbContext.getConnection();
+    }
+
+    public List<CategoryDto> getAllCategories() throws SQLException {
         List<CategoryDto> categories = new ArrayList<>();
-        String sql = "SELECT id, description, status, createDate, updateDate FROM category";
+        String query = "SELECT category_id, description, status FROM category";
 
-        try (Connection connection = DbContext.getConnection();
-             PreparedStatement statement = connection.prepareStatement(sql);
-             ResultSet resultSet = statement.executeQuery()) {
+        try (Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
 
-            while (resultSet.next()) {
-                CategoryDto category = new CategoryDto();
-                category.setId(resultSet.getInt("id"));
-                category.setDescription(resultSet.getString("description"));
-                category.setStatus(resultSet.getInt("status"));
-                category.setCreateDate(resultSet.getTimestamp("createDate"));
-                category.setUpdateDate(resultSet.getTimestamp("updateDate"));
-                categories.add(category);
+            while (rs.next()) {
+                int id = rs.getInt("category_id");
+                String description = rs.getString("description");
+                int status = rs.getInt("status");
+
+                categories.add(new CategoryDto(id, description, status));
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
 
         return categories;
+    }
+
+    public void addCategory(CategoryDto category) throws SQLException {
+        String query = "INSERT INTO category (description, status, create_date, update_date) VALUES (?, ?, GETDATE(), GETDATE())";
+
+        try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+            pstmt.setString(1, category.getDescription());
+            pstmt.setInt(2, category.getStatus());
+            pstmt.executeUpdate();
+        }
+    }
+
+    public void updateCategory(CategoryDto category) throws SQLException {
+        String query = "UPDATE category SET description = ?, status = ?, update_date = GETDATE() WHERE category_id = ?";
+
+        try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+            pstmt.setString(1, category.getDescription());
+            pstmt.setInt(2, category.getStatus());
+            pstmt.setInt(3, category.getId());
+            pstmt.executeUpdate();
+        }
+    }
+
+    public void changeStatus(int id, int status) throws SQLException {
+        String query = "UPDATE category SET status = ?, update_date = GETDATE() WHERE category_id = ?";
+
+        try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+            pstmt.setInt(1, status);
+            pstmt.setInt(2, id);
+            pstmt.executeUpdate();
+        }
     }
 }
