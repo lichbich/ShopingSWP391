@@ -30,6 +30,17 @@ public class Users {
     }
 
     public Users() {
+        this.user_id = user_id;
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.email = email;
+        this.password = password;
+        this.phone_number = phone_number;
+        this.address = address;
+        this.role_id = role_id;
+        this.dob = dob;
+        this.gender = gender;
+        this.isActive = isActive;
     }
 
     public boolean hasRole(String role) {
