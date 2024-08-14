@@ -1,6 +1,11 @@
 package com.vn.fpt.g1.shop.entity;
 
 public class Role {
+    public static final String ADMIN = "ADMIN";
+    public static final String STOCK_MANAGER = "STOCK_MANAGER";
+    public static final String SALE_MANAGER = "SALE_MANAGER";
+    public static final String CUSTOMER = "CUSTOMER";
+
     private int role_id;
     private String role_name;
     private int priority;
@@ -46,15 +51,5 @@ public class Role {
 
     public void setFeature(String feature) {
         this.feature = feature;
-    }
-
-    @Override
-    public String toString() {
-        return "Role{" +
-                "role_id=" + role_id +
-                ", role_name='" + role_name + '\'' +
-                ", priority=" + priority +
-                ", feature='" + feature + '\'' +
-                '}';
     }
 }

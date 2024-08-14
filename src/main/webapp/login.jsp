@@ -2,6 +2,8 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link rel="stylesheet" type="text/css" href="static/css/login.css">
 <div class="container" id="container">
 

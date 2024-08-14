@@ -1,5 +1,6 @@
 package com.vn.fpt.g1.shop.controller;
 
+import com.vn.fpt.g1.shop.common.BusinessCommon;
 import com.vn.fpt.g1.shop.dao.LoginDAO;
 import com.vn.fpt.g1.shop.entity.Users;
 import jakarta.servlet.*;
@@ -16,19 +17,38 @@ public class LoginController extends HttpServlet {
         try {
             String email = req.getParameter("email");
             String pass = req.getParameter("password");
+
+            // Validate email
+            if (email == null || email.isEmpty() || !BusinessCommon.isValidEmail(email)) {
+                req.setAttribute("error", "Invalid email.");
+                req.getRequestDispatcher("login.jsp").forward(req, resp);
+                return;
+            }
+
+            // Validate password
+            if (pass == null || pass.isEmpty() || !BusinessCommon.isValidPassword(pass)) {
+                req.setAttribute("error", "Invalid password.");
+                req.getRequestDispatcher("login.jsp").forward(req, resp);
+                return;
+            }
+
             LoginDAO loginDAO = new LoginDAO();
             Users user = loginDAO.checkLogin(email, pass);
             if (user == null) {
-                resp.sendRedirect("login.jsp");
-                System.out.println("User or password is wrong");
+                req.setAttribute("error", "Invalid email or password.");
+                req.getRequestDispatcher("login.jsp").forward(req, resp);
+            }else if (!BusinessCommon.checkPassword(pass, user.getPassword())) {
+                req.setAttribute("error", "Invalid password.");
+                req.getRequestDispatcher("login.jsp").forward(req, resp);
             } else {
                 HttpSession session = req.getSession();
                 session.setAttribute("user", user);
                 resp.sendRedirect("index.jsp");
-                System.out.println("Login success");
             }
         } catch (Exception e) {
             e.printStackTrace();
+            req.setAttribute("error", "An error occurred during login. Please try again.");
+            req.getRequestDispatcher("login.jsp").forward(req, resp);
         }
     }
 
