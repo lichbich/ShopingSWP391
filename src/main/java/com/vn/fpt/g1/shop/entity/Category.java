@@ -1,22 +1,15 @@
 package com.vn.fpt.g1.shop.entity;
 
+import java.sql.Timestamp;
+
 public class Category {
     private int id;
     private String description;
-    private int status; // Changed from boolean to int
-    private java.util.Date createDate;
-    private java.util.Date updateDate;
+    private int status;
+    private Timestamp createDate;
+    private Timestamp updateDate;
 
-    // Constructors, getters, and setters
-    public Category() {}
-
-    public Category(int id, String description, int status, java.util.Date createDate, java.util.Date updateDate) {
-        this.id = id;
-        this.description = description;
-        this.status = status;
-        this.createDate = createDate;
-        this.updateDate = updateDate;
-    }
+    // Getters and Setters
 
     public int getId() {
         return id;
@@ -42,19 +35,19 @@ public class Category {
         this.status = status;
     }
 
-    public java.util.Date getCreateDate() {
+    public Timestamp getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(java.util.Date createDate) {
+    public void setCreateDate(Timestamp createDate) {
         this.createDate = createDate;
     }
 
-    public java.util.Date getUpdateDate() {
+    public Timestamp getUpdateDate() {
         return updateDate;
     }
 
-    public void setUpdateDate(java.util.Date updateDate) {
+    public void setUpdateDate(Timestamp updateDate) {
         this.updateDate = updateDate;
     }
 }

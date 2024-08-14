@@ -32,26 +32,26 @@ public class EditCategoryServlet extends HttpServlet {
         category.setDescription(description);
         category.setStatus(status);
 
-        try {
-            categoryDAO.updateCategory(category);
-            response.sendRedirect("listCategory.jsp");
-        } catch (SQLException e) {
-            e.printStackTrace();
-            response.sendRedirect("error.jsp");
-        }
+//        try {
+//            categoryDAO.updateCategory(category);
+//            response.sendRedirect("listCategory.jsp");
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            response.sendRedirect("error.jsp");
+//        }
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int id = Integer.parseInt(request.getParameter("id"));
 
-        try {
-            CategoryDto category = categoryDAO.getCategoryById(id);
-            request.setAttribute("category", category);
-            request.getRequestDispatcher("WEB-INF/saleManagerment/editCategory.jsp").forward(request, response);
-        } catch (SQLException e) {
-            e.printStackTrace();
-            response.sendRedirect("error.jsp");
-        }
+//        try {
+//            CategoryDto category = categoryDAO.getCategoryById(id);
+//            request.setAttribute("category", category);
+//            request.getRequestDispatcher("WEB-INF/saleManagerment/editCategory.jsp").forward(request, response);
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            response.sendRedirect("error.jsp");
+//        }
     }
 }

@@ -30,13 +30,13 @@ public class AddCategoryServlet extends HttpServlet {
         category.setDescription(description);
         category.setStatus(status);
 
-        try {
-            categoryDAO.addCategory(category);
-            response.sendRedirect("listCategory.jsp");
-        } catch (SQLException e) {
-            e.printStackTrace();
-            response.sendRedirect("error.jsp");
-        }
+//        try {
+//            categoryDAO.addCategory(category);
+//            response.sendRedirect("listCategory.jsp");
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            response.sendRedirect("error.jsp");
+//        }
     }
 
     @Override

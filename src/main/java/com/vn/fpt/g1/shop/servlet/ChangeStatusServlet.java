@@ -25,12 +25,12 @@ public class ChangeStatusServlet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         int status = Integer.parseInt(request.getParameter("status"));
 
-        try {
-            categoryDAO.changeCategoryStatus(id, status);
-            response.sendRedirect("listCategory.jsp");
-        } catch (SQLException e) {
-            e.printStackTrace();
-            response.sendRedirect("error.jsp");
-        }
+//        try {
+//            categoryDAO.changeCategoryStatus(id, status);
+//            response.sendRedirect("listCategory.jsp");
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            response.sendRedirect("error.jsp");
+//        }
     }
 }
