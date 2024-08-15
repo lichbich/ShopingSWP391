@@ -1,0 +1,134 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px auto;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Tùy chỉnh các ô dữ liệu */
+td {
+    border-bottom: 1px solid #ddd;
+}
+
+/* Tùy chỉnh ô Features */
+td:last-child {
+    font-style: italic;
+    color: #888;
+}
+
+/* Tùy chỉnh ô Status */
+td:nth-child(8) {
+    font-weight: bold;
+    color: green;
+}
+
+/* styles.css */
+
+/* Header styles */
+header {
+    background-color: #f9f9f9;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    color: #333;
+}
+
+/* Filter styles */
+.filters {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.filter-group {
+    margin-right: 20px;
+}
+
+label {
+    font-weight: bold;
+}
+
+input[type="text"],
+select {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button#search-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button#search-button:hover {
+    background-color: #0056b3;
+}
+
+.feature-button{
+    background-color: #c9e45d;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.feature-button:hover {
+    background-color: #84a803;
+}
+
+/* Phân trang */
+.pagination {
+    text-align: right;
+    margin-top: 20px;
+}
+
+.pagination a {
+    margin-left: 10px;
+    text-decoration: none;
+    color: #007bff;
+}
+
+.pagination .prev {
+    margin-left: 0;
+}
+
+/* Hiệu ứng hover cho các liên kết */
+.pagination a:hover {
+    text-decoration: underline;
+}
+
