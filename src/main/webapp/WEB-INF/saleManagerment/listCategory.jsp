@@ -124,6 +124,34 @@
         <div id="clock"></div>
     </div>
 
+    <!-- Filter and Search Form -->
+    <form action="${pageContext.request.contextPath}/listCategory" method="get">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="searchName">Search by Name</label>
+                    <input type="text" id="searchName" name="searchName" class="form-control" value="${param.searchName}">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label for="statusFilter">Filter by Status</label>
+                    <select id="statusFilter" name="statusFilter" class="form-control">
+                        <option value="">All</option>
+                        <option value="1" ${param.statusFilter == '1' ? 'selected' : ''}>Active</option>
+                        <option value="0" ${param.statusFilter == '0' ? 'selected' : ''}>Inactive</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <label>&nbsp;</label>
+                    <button type="submit" class="btn btn-primary btn-block">Apply Filters</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
     <div class="row">
         <div class="col-md-12">
             <div class="tile">
