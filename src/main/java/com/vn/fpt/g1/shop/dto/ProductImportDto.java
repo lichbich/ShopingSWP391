@@ -2,31 +2,31 @@ package com.vn.fpt.g1.shop.dto;
 
 import java.util.List;
 
-public class ProductStockDto {
+public class ProductImportDto {
     private long productId;
     private String productCode;
     private String productName;
     private String description;
-    private List<ColorDto> colorDtos;
+    private String colorCode;
     private double price;
     private int isActive;
-    private List<SizeDto> sizeDtos;
+    private int size;
     private String imageUrl;
     private long quantity;
-
-    public ProductStockDto() {
+    private ColorDto colorDto;
+    private SizeDto sizeDto;
+    public ProductImportDto() {
     }
 
-
-    public ProductStockDto(long productId, String productCode, String productName, String description, List<ColorDto> colorDtos, double price, int isActive, List<SizeDto> sizeDtos, String imageUrl, long quantity) {
+    public ProductImportDto(long productId, String productCode, String productName, String description, String colorCode, double price, int isActive, int size, String imageUrl, long quantity) {
         this.productId = productId;
         this.productCode = productCode;
         this.productName = productName;
         this.description = description;
-        this.colorDtos = colorDtos;
+        this.colorCode = colorCode;
         this.price = price;
         this.isActive = isActive;
-        this.sizeDtos = sizeDtos;
+        this.size = size;
         this.imageUrl = imageUrl;
         this.quantity = quantity;
     }
@@ -55,14 +55,6 @@ public class ProductStockDto {
         this.productCode = productCode;
     }
 
-    public List<ColorDto> getColorDtos() {
-        return colorDtos;
-    }
-
-    public void setColorDtos(List<ColorDto> colorDtos) {
-        this.colorDtos = colorDtos;
-    }
-
     public double getPrice() {
         return price;
     }
@@ -77,14 +69,6 @@ public class ProductStockDto {
 
     public void setIsActive(int isActive) {
         this.isActive = isActive;
-    }
-
-    public List<SizeDto> getSizeDtos() {
-        return sizeDtos;
-    }
-
-    public void setSizeDtos(List<SizeDto> sizeDtos) {
-        this.sizeDtos = sizeDtos;
     }
 
     public String getImageUrl() {
@@ -109,5 +93,37 @@ public class ProductStockDto {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getColorCode() {
+        return colorCode;
+    }
+
+    public void setColorCode(String colorCode) {
+        this.colorCode = colorCode;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public ColorDto getColorDto() {
+        return colorDto;
+    }
+
+    public void setColorDto(ColorDto colorDto) {
+        this.colorDto = colorDto;
+    }
+
+    public SizeDto getSizeDto() {
+        return sizeDto;
+    }
+
+    public void setSizeDto(SizeDto sizeDto) {
+        this.sizeDto = sizeDto;
     }
 }

@@ -3,19 +3,24 @@ package com.vn.fpt.g1.shop.servlet;
 import com.vn.fpt.g1.shop.common.BusinessCommon;
 import com.vn.fpt.g1.shop.common.Pagination;
 import com.vn.fpt.g1.shop.dao.StockDao;
+import com.vn.fpt.g1.shop.dto.ProductImportDto;
 import com.vn.fpt.g1.shop.dto.ProductStockDto;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.List;
 
 @WebServlet("/stock")
+@MultipartConfig
 public class StockServlet extends HttpServlet {
     private final StockDao stockDao = new StockDao();
 
@@ -65,6 +70,22 @@ public class StockServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(req, resp);
+        Part filePart = req.getPart("file");
+        String contentType = filePart.getContentType();
+
+        // Validate the file type
+        if (!StockDao.TYPE.equals(contentType)) {
+            resp.getWriter().println("Invalid file format. Please upload an Excel file.");
+            return;
+        }
+
+        // Process the file
+        try (InputStream fileContent = filePart.getInputStream()) {
+            List<ProductImportDto> productList = StockDao.excelToProductList(fileContent);
+
+            req.getRequestDispatcher("/stock-management/stock-page.jsp").forward(req, resp);
+        } catch (Exception e) {
+            resp.getWriter().println("Error processing file: " + e.getMessage());
+        }
     }
 }
