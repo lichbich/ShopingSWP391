@@ -75,4 +75,37 @@ public class ColorDao extends DbContext {
         return result;
     }
 
+
+    public ColorDto getColorById(Integer colorId, String colorCode){
+        String sql = "";
+        ColorDto colorDto = new ColorDto();
+
+        try {
+            PreparedStatement stm;
+
+            if (colorId != null) {
+                sql = "SELECT * FROM dbo.product_color c WHERE c.product_color_id = ?";
+                stm = connection.prepareStatement(sql);
+                stm.setLong(1, colorId);
+            }
+            else if (colorCode != null) {
+                sql = "SELECT * FROM dbo.product_color c WHERE c.color_code = ?";
+                stm = connection.prepareStatement(sql);
+                stm.setString(1, colorCode);
+            } else {
+                return colorDto;
+            }
+
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                colorDto.setProductColorId(rs.getLong("product_color_id"));
+                colorDto.setColorName(rs.getString("color_name"));
+                colorDto.setColorCode(rs.getString("color_code"));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+
+        return colorDto;
+    }
 }
