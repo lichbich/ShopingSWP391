@@ -54,9 +54,9 @@ public class UserDao extends DbContext {
 
 
         String query = "INSERT INTO [dbo].[users]\n" +
-                "           ([first_name],[last_name],[address],[dob],[phone_number],[email],[isActive],[role_id],[password],[gender],[create_date],[update_date])\n" +
+                "           ([first_name],[last_name],[address],[dob],[phone],[email],[is_active],[role_id],[password],[gender],[create_date],[update_date])\n" +
                 "     VALUES\n" +
-                "           (?,?,?,?,?,?,1,4,? ,?, ?, ?)\n";
+                "           (?,?,?,?,?,?,true,4,? ,?, ?, ?)\n";
         try {
             conn = DbContext.getConnection();
             ps = conn.prepareStatement(query);
