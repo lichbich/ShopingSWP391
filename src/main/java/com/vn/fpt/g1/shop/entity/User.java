@@ -11,7 +11,7 @@ public class User {
     private Date dob;
     private String phone_number;
     private String email;
-    private boolean isAvtive;
+    private int isActive;
     private String password;
     private String gender;
     private Timestamp createdate;
@@ -30,6 +30,16 @@ public class User {
         this.password = password;
     }
 
+    public User(int user_id, String firstname, String lastname, String address, String phone_number, String email, String rolename) {
+        this.user_id = user_id;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.address = address;
+        this.phone_number = phone_number;
+        this.email = email;
+        this.rolename = rolename;
+    }
+
     public User(String firstname, String lastname, String address, String phone_number, String email, String rolename) {
         this.firstname = firstname;
         this.lastname = lastname;
@@ -39,7 +49,7 @@ public class User {
         this.rolename = rolename;
     }
 
-    public User(int user_id, String firstname, String lastname, String address, Date dob, String phone_number, String email, boolean isAvtive, String password, String gender, Timestamp createdate, Timestamp updatedate) {
+    public User(int user_id, String firstname, String lastname, String address, Date dob, String phone_number, String email, int isActive, String password, String gender, Timestamp createdate, Timestamp updatedate, int role_id, String rolename) {
         this.user_id = user_id;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -47,11 +57,13 @@ public class User {
         this.dob = dob;
         this.phone_number = phone_number;
         this.email = email;
-        this.isAvtive = isAvtive;
+        this.isActive = isActive;
         this.password = password;
         this.gender = gender;
         this.createdate = createdate;
         this.updatedate = updatedate;
+        this.role_id = role_id;
+        this.rolename = rolename;
     }
 
     public int getUser_id() {
@@ -110,12 +122,12 @@ public class User {
         this.email = email;
     }
 
-    public boolean isAvtive() {
-        return isAvtive;
+    public int getIsActive() {
+        return isActive;
     }
 
-    public void setAvtive(boolean avtive) {
-        isAvtive = avtive;
+    public void setIsActive(int isActive) {
+        this.isActive = isActive;
     }
 
     public String getPassword() {
@@ -176,11 +188,13 @@ public class User {
                 ", dob=" + dob +
                 ", phone_number='" + phone_number + '\'' +
                 ", email='" + email + '\'' +
-                ", isAvtive=" + isAvtive +
+                ", isActive=" + isActive +
                 ", password='" + password + '\'' +
                 ", gender='" + gender + '\'' +
                 ", createdate=" + createdate +
                 ", updatedate=" + updatedate +
+                ", role_id=" + role_id +
+                ", rolename='" + rolename + '\'' +
                 '}';
     }
 }

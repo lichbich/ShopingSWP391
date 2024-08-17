@@ -88,33 +88,32 @@
                     <table class="table table-hover table-bordered js-copytextarea" cellpadding="0" cellspacing="0"
                            border="0"
                     >
-                        <form action="/search" method="GET">
+                        <form method="get" action="search" >
 
 
                             <div class="col-sm-12 col-md-6">
                                 <div class="dataTables_length" id="sampleTable_length">
                                     <label>
-                                        <select name="sampleTable_length" aria-controls="sampleTable"
-                                                class="form-control form-control-sm" name="roleE">
+                                        <select  aria-controls="sampleTable"
+                                                class="form-control form-control-sm" name="role">
                                             <option value="all">All</option>
                                             <c:forEach var="role" items="${listRole}">
-                                                <option value="${role.role_id}">${role.role_name}</option>
+                                                <option value="${role.role_id}" <%= "${role.role_id}".equals(request.getAttribute("selectedRole")) ? "selected" : "" %>>${role.role_name}</option>
                                             </c:forEach>
 
                                         </select>
                                     </label>
                                     <label>
-                                        <select name="sampleTable_length" aria-controls="sampleTable"
-                                                class="form-control form-control-sm" name="activate">
+                                        <select aria-controls="sampleTable"
+                                                class="form-control form-control-sm" name="status">
                                             <option value="all">All</option>
-                                            <option value="1">Active</option>
-                                            <option value="0">InActive</option>
+                                            <option value="1" <%= "1".equals(request.getAttribute("selectedStatus")) ? "selected" : "" %>>Active</option>
+                                            <option value="0" <%= "0".equals(request.getAttribute("selectedStatus")) ? "selected" : "" %>>InActive</option>
 
                                         </select>
                                     </label>
                                     <label>
-                                        <input type="search" class="form-control form-control-sm" placeholder=""
-                                               aria-controls="sampleTable">
+                                        <input type="text" class="form-control form-control-sm" placeholder="" aria-controls="sampleTable" name="txtSearch" value="<%= request.getAttribute("searchedName") != null ? request.getAttribute("searchedName") : "" %>">
                                     </label>
                                     <label>
                                         <button type="submit">Search</button>
@@ -147,11 +146,13 @@
                                 <td>${employee.phone_number}</td>
                                 <td>${employee.rolename}</td>
                                 <td class="table-td-center">
+                                    <a href="loadEmployee?eid=${employee.user_id}">
 
-                                    <button class="btn btn-primary btn-sm edit" type="button" title="Edit" id="show-emp"
-                                            data-toggle="modal" data-target="#ModalUP"><i class="fas fa-edit"></i>
-                                    </button>
-
+                                        <button class="btn btn-primary btn-sm edit" type="button" title="Edit"
+                                                id="show-emp"
+                                                data-toggle="modal" data-target="#ModalUP"><i class="fas fa-edit"></i>
+                                        </button>
+                                    </a>
                                 </td>
 
                             </tr>

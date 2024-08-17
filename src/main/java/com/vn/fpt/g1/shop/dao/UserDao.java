@@ -25,7 +25,7 @@ public class UserDao extends DbContext {
 
 
     public User checkAccountExist(String email) {
-        String query = "select [user_id],[first_name], [last_name], [email], [password] from [users]\n" +
+        String query = "select [user_id],[first_name], [last_name], [email], [password] from [user]\n" +
                 "where [email] = ?\n";
         try {
             conn = DbContext.getConnection();
@@ -53,8 +53,8 @@ public class UserDao extends DbContext {
     public void register(String firstname, String lastname, String address, Date dob, String phonenumber, String email, String password, String gender, Timestamp createtime, Timestamp updatetime ){
 
 
-        String query = "INSERT INTO [dbo].[users]\n" +
-                "           ([first_name],[last_name],[address],[dob],[phone_number],[email],[isActive],[role_id],[password],[gender],[create_date],[update_date])\n" +
+        String query = "INSERT INTO [dbo].[user]\n" +
+                "           ([first_name],[last_name],[address],[dob],[phone],[email],[is_active],[role_id],[password],[gender],[create_date],[update_date])\n" +
                 "     VALUES\n" +
                 "           (?,?,?,?,?,?,1,4,? ,?, ?, ?)\n";
         try {
