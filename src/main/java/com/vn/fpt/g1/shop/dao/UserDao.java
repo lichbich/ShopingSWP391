@@ -156,5 +156,29 @@ public class UserDao extends DbContext {
         }
     }
 
+    public User getCustomerByEmail(String email){
+        User user = null;
+        String query = "SELECT [user_id],[first_name],[last_name],[address],[phone],[email]\n" +
+                "  FROM [dbo].[user]\n" +
+                "  where email = ?";
+        try{
+            conn = DbContext.getConnection();
+            ps= conn.prepareStatement(query);
+            ps.setString(1, email);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                user = new User(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6));
+            }
+            conn.close();
+        }catch(Exception e){
+        }
+        return user;
+    }
+
 
 }
