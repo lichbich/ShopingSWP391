@@ -60,12 +60,12 @@ public class RegisterController extends HttpServlet {
 
         }
 
-        if (!BusinessCommon.isValidPhoneNumber(phone) || BusinessCommon.isNullOrEmpty(phone)) {
-            request.setAttribute("error", "Phone is required.");
-            request.getRequestDispatcher("/register.jsp").forward(request, response);
-            return;
-
-        }
+//        if (!BusinessCommon.isValidPhoneNumber(phone) || BusinessCommon.isNullOrEmpty(phone)) {
+//            request.setAttribute("error", "Phone is required.");
+//            request.getRequestDispatcher("/register.jsp").forward(request, response);
+//            return;
+//
+//        }
 
         if (BusinessCommon.isNullOrEmpty(email)) {
             request.setAttribute("error", "Address is required.");

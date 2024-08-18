@@ -1,107 +1,53 @@
 package com.vn.fpt.g1.shop.entity;
 
+import java.sql.Timestamp;
 
 public class Product {
+    private int productId;
+    private String name;
+    private String description;
+    private double price;
+    private int categoryId;
+    private int status;
+    private Timestamp createDate;
+    private Timestamp updateDate;
 
-  private long productId;
-  private String productName;
-  private String description;
-  private String productCode;
-  private double price;
-  private String image;
-  private java.sql.Date importDate;
-  private java.sql.Date exportDate;
-  private java.sql.Timestamp createDate;
-  private java.sql.Timestamp updateDate;
+    // Constructors, getters, and setters
 
+    public Product() {}
 
-  public long getProductId() {
-    return productId;
-  }
+    public Product(int productId, String name, String description, double price, int categoryId, int status, Timestamp createDate, Timestamp updateDate) {
+        this.productId = productId;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.categoryId = categoryId;
+        this.status = status;
+        this.createDate = createDate;
+        this.updateDate = updateDate;
+    }
 
-  public void setProductId(long productId) {
-    this.productId = productId;
-  }
+    public int getProductId() { return productId; }
+    public void setProductId(int productId) { this.productId = productId; }
 
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-  public String getProductName() {
-    return productName;
-  }
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
 
-  public void setProductName(String productName) {
-    this.productName = productName;
-  }
+    public double getPrice() { return price; }
+    public void setPrice(double price) { this.price = price; }
 
+    public int getCategoryId() { return categoryId; }
+    public void setCategoryId(int categoryId) { this.categoryId = categoryId; }
 
-  public String getDescription() {
-    return description;
-  }
+    public int getStatus() { return status; }
+    public void setStatus(int status) { this.status = status; }
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
+    public Timestamp getCreateDate() { return createDate; }
+    public void setCreateDate(Timestamp createDate) { this.createDate = createDate; }
 
-
-  public String getProductCode() {
-    return productCode;
-  }
-
-  public void setProductCode(String productCode) {
-    this.productCode = productCode;
-  }
-
-
-  public double getPrice() {
-    return price;
-  }
-
-  public void setPrice(double price) {
-    this.price = price;
-  }
-
-
-  public String getImage() {
-    return image;
-  }
-
-  public void setImage(String image) {
-    this.image = image;
-  }
-
-
-  public java.sql.Date getImportDate() {
-    return importDate;
-  }
-
-  public void setImportDate(java.sql.Date importDate) {
-    this.importDate = importDate;
-  }
-
-
-  public java.sql.Date getExportDate() {
-    return exportDate;
-  }
-
-  public void setExportDate(java.sql.Date exportDate) {
-    this.exportDate = exportDate;
-  }
-
-
-  public java.sql.Timestamp getCreateDate() {
-    return createDate;
-  }
-
-  public void setCreateDate(java.sql.Timestamp createDate) {
-    this.createDate = createDate;
-  }
-
-
-  public java.sql.Timestamp getUpdateDate() {
-    return updateDate;
-  }
-
-  public void setUpdateDate(java.sql.Timestamp updateDate) {
-    this.updateDate = updateDate;
-  }
-
+    public Timestamp getUpdateDate() { return updateDate; }
+    public void setUpdateDate(Timestamp updateDate) { this.updateDate = updateDate; }
 }

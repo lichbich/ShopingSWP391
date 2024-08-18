@@ -1,32 +1,21 @@
-package com.vn.fpt.g1.shop.entity;
+package com.vn.fpt.g1.shop.dto;
 
 import java.sql.Timestamp;
 
-public class Category {
-    private int CategoryId;
+public class CategoryDto {
+    private int categoryId;
     private String description;
     private int status;
     private Timestamp createDate;
     private Timestamp updateDate;
 
-    // Constructors
-    public Category() {}
-
-    public Category(int categoryId, String description, int status, Timestamp createDate, Timestamp updateDate) {
-        this.CategoryId = categoryId;
-        this.description = description;
-        this.status = status;
-        this.createDate = createDate;
-        this.updateDate = updateDate;
-    }
-
     // Getters and Setters
     public int getCategoryId() {
-        return CategoryId;
+        return categoryId;
     }
 
     public void setCategoryId(int categoryId) {
-        this.CategoryId = categoryId;
+        this.categoryId = categoryId;
     }
 
     public String getDescription() {
