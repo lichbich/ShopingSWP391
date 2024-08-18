@@ -64,7 +64,7 @@ public class AddEmployeeServlet extends HttpServlet {
     }
 
     private String generateRandomPassword(int length) {
-        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@$!%*?&";
         SecureRandom random = new SecureRandom();
         StringBuilder password = new StringBuilder(length);
 

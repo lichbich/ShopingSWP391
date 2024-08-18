@@ -15,7 +15,7 @@ public class LoginDAO {
 
     public Users checkLogin(String email, String plainPassword){
         try{
-            String query = "SELECT email, password FROM users WHERE email = ?";
+            String query = "SELECT email, password FROM [user] WHERE email = ?";
             conn = DbContext.getConnection();
             ps = conn.prepareStatement(query);
             ps.setString(1, email);
