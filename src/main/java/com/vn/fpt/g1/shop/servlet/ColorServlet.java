@@ -1,10 +1,9 @@
 package com.vn.fpt.g1.shop.servlet;
 
-import com.vn.fpt.g1.shop.common.BusinessCommon;
 import com.vn.fpt.g1.shop.common.Pagination;
 import com.vn.fpt.g1.shop.dao.ColorDao;
 import com.vn.fpt.g1.shop.dto.ColorDto;
-import com.vn.fpt.g1.shop.entity.ProductColor;
+import com.vn.fpt.g1.shop.entity.Color;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -140,7 +139,7 @@ public class ColorServlet extends HttpServlet {
         Date createdDate = Date.valueOf(LocalDate.now());
         Date updatedDate = Date.valueOf(LocalDate.now());
 
-        ProductColor color = new ProductColor(0,1,name, code, createdDate, updatedDate);
+        Color color = new Color(1,name, code);
         colorDao.addNewColor(color);
         message = "Add Success!";
         request.getSession().setAttribute("message", message);

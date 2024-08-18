@@ -5,7 +5,6 @@ import com.vn.fpt.g1.shop.dbcontext.DbContext;
 import com.vn.fpt.g1.shop.dto.ColorDto;
 import com.vn.fpt.g1.shop.dto.ProductStockDto;
 import com.vn.fpt.g1.shop.dto.SizeDto;
-import com.vn.fpt.g1.shop.entity.ProductDetail;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,8 +12,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import com.vn.fpt.g1.shop.dto.ProductImportDto;
-import com.vn.fpt.g1.shop.dto.ProductStockDto;
-import com.vn.fpt.g1.shop.dto.SizeDto;
 import jakarta.servlet.http.Part;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -26,7 +23,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 

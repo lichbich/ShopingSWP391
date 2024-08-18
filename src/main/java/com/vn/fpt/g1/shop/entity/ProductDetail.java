@@ -1,18 +1,26 @@
 package com.vn.fpt.g1.shop.entity;
 
 
+import java.sql.Date;
+
 public class ProductDetail {
 
+  private long productDetailId;
   private long productId;
-  private String productCode;
-  private long colorId;
-  private double price;
-  private long isActive;
-  private long sizeId;
-  private long imageId;
+  private long colorCode;
+  private double size;
   private long quantity;
-  private java.sql.Timestamp createDate;
-  private java.sql.Timestamp updateDate;
+  private double price;
+  private Date importUpdateDate;
+
+
+  public long getProductDetailId() {
+    return productDetailId;
+  }
+
+  public void setProductDetailId(long productDetailId) {
+    this.productDetailId = productDetailId;
+  }
 
 
   public long getProductId() {
@@ -24,57 +32,21 @@ public class ProductDetail {
   }
 
 
-  public String getProductCode() {
-    return productCode;
+  public long getColorCode() {
+    return colorCode;
   }
 
-  public void setProductCode(String productCode) {
-    this.productCode = productCode;
-  }
-
-
-  public long getColorId() {
-    return colorId;
-  }
-
-  public void setColorId(long colorId) {
-    this.colorId = colorId;
+  public void setColorCode(long colorCode) {
+    this.colorCode = colorCode;
   }
 
 
-  public double getPrice() {
-    return price;
+  public double getSize() {
+    return size;
   }
 
-  public void setPrice(double price) {
-    this.price = price;
-  }
-
-
-  public long getIsActive() {
-    return isActive;
-  }
-
-  public void setIsActive(long isActive) {
-    this.isActive = isActive;
-  }
-
-
-  public long getSizeId() {
-    return sizeId;
-  }
-
-  public void setSizeId(long sizeId) {
-    this.sizeId = sizeId;
-  }
-
-
-  public long getImageId() {
-    return imageId;
-  }
-
-  public void setImageId(long imageId) {
-    this.imageId = imageId;
+  public void setSize(double size) {
+    this.size = size;
   }
 
 
@@ -87,21 +59,19 @@ public class ProductDetail {
   }
 
 
-  public java.sql.Timestamp getCreateDate() {
-    return createDate;
+  public double getPrice() {
+    return price;
   }
 
-  public void setCreateDate(java.sql.Timestamp createDate) {
-    this.createDate = createDate;
+  public void setPrice(double price) {
+    this.price = price;
   }
 
-
-  public java.sql.Timestamp getUpdateDate() {
-    return updateDate;
+  public Date getImportUpdateDate() {
+    return importUpdateDate;
   }
 
-  public void setUpdateDate(java.sql.Timestamp updateDate) {
-    this.updateDate = updateDate;
+  public void setImportUpdateDate(Date importUpdateDate) {
+    this.importUpdateDate = importUpdateDate;
   }
-
 }

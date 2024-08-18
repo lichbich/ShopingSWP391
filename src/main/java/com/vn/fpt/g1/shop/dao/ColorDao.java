@@ -3,11 +3,8 @@ package com.vn.fpt.g1.shop.dao;
 import com.vn.fpt.g1.shop.common.Pagination;
 import com.vn.fpt.g1.shop.dbcontext.DbContext;
 import com.vn.fpt.g1.shop.dto.ColorDto;
-import com.vn.fpt.g1.shop.dto.ProductStockDto;
-import com.vn.fpt.g1.shop.dto.SizeDto;
-import com.vn.fpt.g1.shop.entity.ProductColor;
+import com.vn.fpt.g1.shop.entity.Color;
 
-import java.awt.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,7 +17,7 @@ public class ColorDao extends DbContext {
 
     public List<ColorDto> listAllColor(Pagination pagination, String colorName, String colorCode){
         List<ColorDto> list = new ArrayList<>();
-        String conditionSql = " product_color pc " +
+        String conditionSql = " color pc " +
                 " WHERE LOWER(pc.color_name) LIKE ? " +
                 " AND LOWER(pc.color_code) LIKE ? ";
         String sql = "SELECT * FROM " + conditionSql + " ORDER BY pc.create_date desc " + " OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
@@ -57,17 +54,13 @@ public class ColorDao extends DbContext {
         return list;
     }
 
-    public int addNewColor(ProductColor color) throws SQLException {
-        String sql = "insert into product_color (product_id, product_color_id, color_name, color_code, create_date, update_date) " +
-                "values (?,?,?,?,?,?)";
+    public int addNewColor(Color color) throws SQLException {
+        String sql = "insert into product_color (color_name, color_code) " +
+                "values (?,?)";
         int result = 0;
         try ( Connection connection = getConnection();  PreparedStatement stm = connection.prepareStatement(sql)) {
-            stm.setLong(1, color.getProductId());
-            stm.setLong(2, color.getProductColorId());
-            stm.setString(3, color.getColorName());
-            stm.setString(4, color.getColorCode());
-            stm.setDate(5, color.getCreateDate());
-            stm.setDate(6, color.getUpdateDate());
+            stm.setString(1, color.getColorName());
+            stm.setString(2, color.getColorCode());
             result = stm.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
