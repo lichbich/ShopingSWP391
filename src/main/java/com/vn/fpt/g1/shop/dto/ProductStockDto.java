@@ -7,10 +7,10 @@ public class ProductStockDto {
     private String productCode;
     private String productName;
     private String description;
-    private List<ColorDto> colorDtos;
+    private int colorCode;
     private double price;
     private int isActive;
-    private List<SizeDto> sizeDtos;
+    private double size;
     private String imageUrl;
     private long quantity;
 
@@ -18,25 +18,17 @@ public class ProductStockDto {
     }
 
 
-    public ProductStockDto(long productId, String productCode, String productName, String description, List<ColorDto> colorDtos, double price, int isActive, List<SizeDto> sizeDtos, String imageUrl, long quantity) {
+    public ProductStockDto(long productId, String productCode, String productName, String description, int colorCode, double price, int isActive, double size, String imageUrl, long quantity) {
         this.productId = productId;
         this.productCode = productCode;
         this.productName = productName;
         this.description = description;
-        this.colorDtos = colorDtos;
+        this.colorCode = colorCode;
         this.price = price;
         this.isActive = isActive;
-        this.sizeDtos = sizeDtos;
+        this.size = size;
         this.imageUrl = imageUrl;
         this.quantity = quantity;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
     }
 
     public long getProductId() {
@@ -55,12 +47,28 @@ public class ProductStockDto {
         this.productCode = productCode;
     }
 
-    public List<ColorDto> getColorDtos() {
-        return colorDtos;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setColorDtos(List<ColorDto> colorDtos) {
-        this.colorDtos = colorDtos;
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getColorCode() {
+        return colorCode;
+    }
+
+    public void setColorCode(int colorCode) {
+        this.colorCode = colorCode;
     }
 
     public double getPrice() {
@@ -79,12 +87,12 @@ public class ProductStockDto {
         this.isActive = isActive;
     }
 
-    public List<SizeDto> getSizeDtos() {
-        return sizeDtos;
+    public double getSize() {
+        return size;
     }
 
-    public void setSizeDtos(List<SizeDto> sizeDtos) {
-        this.sizeDtos = sizeDtos;
+    public void setSize(double size) {
+        this.size = size;
     }
 
     public String getImageUrl() {
@@ -101,13 +109,5 @@ public class ProductStockDto {
 
     public void setQuantity(long quantity) {
         this.quantity = quantity;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 }

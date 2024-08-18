@@ -189,4 +189,14 @@ public class BusinessCommon {
         return val;
     }
 
+    public static Date convertStringToDate(String dateString, String format) {
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        Date utilDate = null;
+        try {
+            utilDate = sdf.parse(dateString);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        return new Date(utilDate.getTime());
+    }
 }

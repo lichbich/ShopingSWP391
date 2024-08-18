@@ -1,17 +1,17 @@
 package com.vn.fpt.g1.shop.dto;
 
 public class ColorDto {
-    private long productColorId;
+    private long colorId;
     private String colorName;
-    private String colorCode;
+    private int colorCode;
 
 
-    public long getProductColorId() {
-        return productColorId;
+    public long getColorId() {
+        return colorId;
     }
 
-    public void setProductColorId(long productColorId) {
-        this.productColorId = productColorId;
+    public void setColorId(long colorId) {
+        this.colorId = colorId;
     }
 
     public String getColorName() {
@@ -22,11 +22,11 @@ public class ColorDto {
         this.colorName = colorName;
     }
 
-    public String getColorCode() {
+    public int getColorCode() {
         return colorCode;
     }
 
-    public void setColorCode(String colorCode) {
+    public void setColorCode(int colorCode) {
         this.colorCode = colorCode;
     }
 }

@@ -20,7 +20,7 @@ public class ColorDao extends DbContext {
         String conditionSql = " color pc " +
                 " WHERE LOWER(pc.color_name) LIKE ? " +
                 " AND LOWER(pc.color_code) LIKE ? ";
-        String sql = "SELECT * FROM " + conditionSql + " ORDER BY pc.create_date desc " + " OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        String sql = "SELECT * FROM " + conditionSql + " ORDER BY pc.color_id desc " + " OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
         String countSql = "SELECT COUNT(*) FROM " + conditionSql;
 
         try {
@@ -35,9 +35,9 @@ public class ColorDao extends DbContext {
 
             while (rs.next()) {
                 ColorDto colorDto = new ColorDto();
-                colorDto.setProductColorId(rs.getLong("product_color_id"));
+                colorDto.setColorId(rs.getLong("color_id"));
                 colorDto.setColorName(rs.getString("color_name"));
-                colorDto.setColorCode(rs.getString("color_code"));
+                colorDto.setColorCode(rs.getInt("color_code"));
                 list.add(colorDto);
             }
             countPstmt.setString(1, "%" + colorName.toLowerCase() + "%");
@@ -91,9 +91,9 @@ public class ColorDao extends DbContext {
 
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
-                colorDto.setProductColorId(rs.getLong("product_color_id"));
+                colorDto.setColorId(rs.getLong("product_color_id"));
                 colorDto.setColorName(rs.getString("color_name"));
-                colorDto.setColorCode(rs.getString("color_code"));
+                colorDto.setColorCode(rs.getInt("color_code"));
             }
         } catch (SQLException ex) {
             ex.printStackTrace();

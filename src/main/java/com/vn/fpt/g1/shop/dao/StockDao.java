@@ -29,17 +29,17 @@ import java.util.List;
 public class StockDao extends DbContext {
     private final Connection connection = DbContext.getConnection();
     private final ColorDao colorDao = new ColorDao();
-    private final SizeDao sizeDao = new SizeDao();
+//    private final SizeDao sizeDao = new SizeDao();
     public List<ProductStockDto> listProductWithStock(Pagination pagination, String productCode, String productName, Long isActive) {
         List<ProductStockDto> stockList = new ArrayList<>();
         String conditionSql = " product_detail pd " +
                 " JOIN product p ON pd.product_id = p.product_id " +
-                " JOIN product_color c ON pd.product_id = c.product_id " +
-                " JOIN image_product i ON pd.product_id = i.product_id " +
+                " JOIN color c ON pd.color_code = c.color_code " +
+                " JOIN image i ON p.product_id = i.product_id " +
                 " WHERE LOWER(pd.product_code) LIKE ? " +
                 " AND LOWER(p.product_name) LIKE ? " +
                 " AND pd.isActive = ? ";
-        String sql = "SELECT * FROM " + conditionSql + " ORDER BY pd.create_date desc " + " OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
+        String sql = "SELECT * FROM " + conditionSql + " ORDER BY pd.import_update_date desc " + " OFFSET ? ROWS FETCH NEXT ? ROWS ONLY";
         String countSql = "SELECT COUNT(*) FROM " + conditionSql;
         try {
             PreparedStatement pstmt = connection.prepareStatement(sql);
@@ -55,24 +55,21 @@ public class StockDao extends DbContext {
                 ProductStockDto stockDto = new ProductStockDto();
                 stockDto.setProductId(rs.getInt("product_id"));
                 stockDto.setProductName(rs.getString("product_name"));
-                stockDto.setProductCode(rs.getString("product_code"));
                 stockDto.setDescription(rs.getString("description"));
-                stockDto.setPrice(rs.getDouble("product_price"));
-                stockDto.setIsActive(rs.getInt("isActive"));
+                stockDto.setPrice(rs.getDouble("price"));
+                stockDto.setIsActive(rs.getInt("is_active"));
                 stockDto.setImageUrl(rs.getString("image_url"));
                 stockDto.setQuantity(rs.getLong("quantity"));
+                stockDto.setSize(rs.getDouble("size"));
+                stockDto.setColorCode(rs.getInt("color_code"));
 
-                ColorDto colorDto = new ColorDto();
-                colorDto.setProductColorId(rs.getLong("product_color_id"));
-                colorDto.setColorName(rs.getString("color_name"));
-                colorDto.setColorCode(rs.getString("color_code"));
+//                ColorDto colorDto = new ColorDto();
+//                colorDto.setColorId(rs.getLong("color_id"));
+//                colorDto.setColorName(rs.getString("color_name"));
+//                colorDto.setColorCode(rs.getInt("color_code"));
+//
 
-                SizeDto sizeDto = new SizeDto();
-                sizeDto.setSizeId(rs.getLong("size_id"));
-                sizeDto.setSize(rs.getLong("size"));
 
-                stockDto.getColorDtos().add(colorDto);
-                stockDto.getSizeDtos().add(sizeDto);
                 stockList.add(stockDto);
             }
 
@@ -169,20 +166,15 @@ public class StockDao extends DbContext {
     }
 
     public int addNewProduct(ProductImportDto productImportDto){
-        String sql = "insert into dbo.product (product_id, product_name, description, product_code, price, import_date," +
-                "                         create_date, update_date) " +
-                "values (?,?,?,?,?,?,?,?)";
+        String sql = "insert into dbo.product (product_name, category_id, description, is_active) " +
+                "values (?,?,?,?)";
         int create = 0;
         try {
             PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setLong(1, productImportDto.getProductId());
-            stm.setString(2, productImportDto.getProductName());
-            stm.setString(3, productImportDto.getDescription());
-            stm.setString(4, productImportDto.getProductCode());
-            stm.setDouble(5, productImportDto.getPrice());
-            stm.setDate(6, Date.valueOf(LocalDate.now()));
-            stm.setDate(7, Date.valueOf(LocalDate.now()));
-            stm.setDate(8, Date.valueOf(LocalDate.now()));
+            stm.setString(1, productImportDto.getProductName());
+            stm.setString(2, productImportDto.getDescription());
+            stm.setString(3, productImportDto.getProductCode());
+            stm.setInt(4, productImportDto.getIsActive());
             create = stm.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -191,21 +183,17 @@ public class StockDao extends DbContext {
     }
 
     public int addNewProductDetail(ProductImportDto productImportDto){
-        String sql = "insert into product_detail (product_id, product_code, color_id, price, isActive, size_id, quantity, " +
-                "                            create_date, update_date) " +
-                "values (?,?,?,?,?,?,?,?,?)";
+        String sql = "insert into product_detail (product_id, color_code, size, quantity, price, import_update_date) " +
+                " values (?,?,?,?,?,?)";
         int create = 0;
         try {
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setLong(1, productImportDto.getProductId());
-            stm.setString(2, productImportDto.getProductCode());
-            stm.setLong(3, productImportDto.getColorDto().getProductColorId());
-            stm.setDouble(4, productImportDto.getPrice());
-            stm.setInt(5, 1);
-            stm.setLong(6, productImportDto.getSizeDto().getSizeId());
-            stm.setLong(7, productImportDto.getQuantity());
-            stm.setDate(8, Date.valueOf(LocalDate.now()));
-            stm.setDate(9, Date.valueOf(LocalDate.now()));
+            stm.setInt(2, productImportDto.getColorDto().getColorCode());
+            stm.setLong(3, productImportDto.getSizeDto().getSize());
+            stm.setLong(4, productImportDto.getQuantity());
+            stm.setDouble(5, productImportDto.getPrice());
+            stm.setDate(6, Date.valueOf(LocalDate.now()));
             create = stm.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -10,5 +10,7 @@ public class Constant {
     public static final String NOT_FOUND_FILES = "Lỗi không tìm thấy tệp phù hợp";
     public static final String DATA_INVALID = "Dữ liệu truyền vào không hợp lệ";
 
+    public static final String INVALID_USER = "Yêu cầu đăng nhập";
+
 
 }
