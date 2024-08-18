@@ -5,6 +5,7 @@
 * Template URI: https://untree.co/
 * License: https://creativecommons.org/licenses/by/3.0/
 */ -->
+
 <%--<%--%>
 <%--    if(session.getAttribute("user") == null){--%>
 <%--        response.sendRedirect("login.jsp");--%>
@@ -87,7 +88,7 @@
             <!-- Start Column 3 -->
             <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
                 <a class="product-item" href="cart.html">
-                    <img src="images/product-2.png" class="img-fluid product-thumbnail">
+                    <img src="static/images/Pro_AV00205_2-removebg-preview.png" class="img-fluid product-thumbnail">
                     <h3 class="product-title">Kruzo Aero Chair</h3>
                     <strong class="product-price">$78.00</strong>
 
