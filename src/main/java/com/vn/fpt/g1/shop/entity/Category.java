@@ -1,40 +1,63 @@
 package com.vn.fpt.g1.shop.entity;
 
-public class Category {
-    private int id;
-    private String name;
-    private boolean status;
+import java.sql.Timestamp;
 
-    // Constructors, getters, and setters
+public class Category {
+    private int CategoryId;
+    private String description;
+    private int status;
+    private Timestamp createDate;
+    private Timestamp updateDate;
+
+    // Constructors
     public Category() {}
 
-    public Category(int id, String name, boolean status) {
-        this.id = id;
-        this.name = name;
+    public Category(int categoryId, String description, int status, Timestamp createDate, Timestamp updateDate) {
+        this.CategoryId = categoryId;
+        this.description = description;
         this.status = status;
+        this.createDate = createDate;
+        this.updateDate = updateDate;
     }
 
-    public int getId() {
-        return id;
+    // Getters and Setters
+    public int getCategoryId() {
+        return CategoryId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setCategoryId(int categoryId) {
+        this.CategoryId = categoryId;
     }
 
-    public String getName() {
-        return name;
+    public String getDescription() {
+        return description;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public boolean isStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(int status) {
         this.status = status;
+    }
+
+    public Timestamp getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Timestamp createDate) {
+        this.createDate = createDate;
+    }
+
+    public Timestamp getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Timestamp updateDate) {
+        this.updateDate = updateDate;
     }
 }
