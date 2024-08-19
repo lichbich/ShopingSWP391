@@ -1,6 +1,7 @@
 package com.vn.fpt.g1.shop.dao;
 
 import com.vn.fpt.g1.shop.dbcontext.DbContext;
+import com.vn.fpt.g1.shop.entity.Cart;
 import com.vn.fpt.g1.shop.entity.Users;
 
 import java.sql.Connection;
@@ -10,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerDAO {
+public class CustomerDAO{
     private Connection conn = null;
     private PreparedStatement ps = null;
     private ResultSet rs = null;
@@ -139,6 +140,8 @@ public class CustomerDAO {
             e.printStackTrace();
         }
     }
+
+
 
 
 }
