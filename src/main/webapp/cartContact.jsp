@@ -179,7 +179,7 @@
                                             <td class="text-black font-weight-bold"><strong>Order Total</strong></td>
                                             <td class="text-black font-weight-bold"><strong><fmt:formatNumber
                                                     value="${totalCartPrice}" type="currency"/></strong></td>
-                                            <input type="hidden" name="total_price" value="${totalCartPrice}"/>
+                                          <input type="hidden" name="total_price" value="${totalCartPrice}"/>
                                         </tr>
                                         </tbody>
                                     </table>
