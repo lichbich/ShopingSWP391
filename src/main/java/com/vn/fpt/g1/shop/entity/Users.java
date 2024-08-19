@@ -134,4 +134,3 @@ public class Users {
   public void setIsActive(int isActive) {
     this.isActive = isActive;
   }
-}

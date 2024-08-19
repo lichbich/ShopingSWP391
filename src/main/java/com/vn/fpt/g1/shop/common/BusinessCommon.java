@@ -15,7 +15,9 @@ import java.util.regex.Pattern;
 
 public class BusinessCommon {
     private static final String EMAIL_REGEX = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
-//    private static final String PHONE_REGEX = "^(0|\\+84)(3[2-9]|5[6|8|9]|7[0|6-9])$";
+
+    private static final String PHONE_REGEX = "^(0|\\+84)(3[2-9]|5[6|8|9]|7[0|6-9])$";
+
     private static final String USERNAME_REGEX = "^[a-zA-Z0-9_-]{3,20}$";
     private static final String NAME_REGEX = "^[A-Z][a-zA-Z]{1,29}$";
     private static final String POSITIVE_NUMBER_REGEX = "^(?:0|[1-9]\\d*)(?:\\.\\d+)?$";
