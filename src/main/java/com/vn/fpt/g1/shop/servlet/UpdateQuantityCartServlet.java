@@ -17,9 +17,6 @@ public class UpdateQuantityCartServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-
-
-
         try{
             String productName = request.getParameter("cart_product_name");
             String colorName = request.getParameter("cart_color_name");
