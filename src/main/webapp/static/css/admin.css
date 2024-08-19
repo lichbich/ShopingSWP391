@@ -2048,6 +2048,7 @@ div.dataTables_wrapper div.dataTables_filter input {
 
 select.form-control:not([size]):not([multiple]) {
     height: 45px;
+    font-size: 15px;
 }
 
 select.form-control:focus::-ms-value {
@@ -2151,6 +2152,7 @@ select.form-control-lg:not([size]):not([multiple]), .input-group-lg > select.for
 .form-group {
     margin-bottom: 1rem;
 }
+
 
 .form-text {
     display: block;

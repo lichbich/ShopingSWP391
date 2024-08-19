@@ -1,3 +1,4 @@
+
 package com.vn.fpt.g1.shop.entity;
 
 import java.util.Date;
@@ -134,3 +135,4 @@ public class Users {
   public void setIsActive(int isActive) {
     this.isActive = isActive;
   }
+}

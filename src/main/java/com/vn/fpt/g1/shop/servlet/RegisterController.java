@@ -41,33 +41,34 @@ public class RegisterController extends HttpServlet {
 //        String createTime = getCurrentDateTime();
 //        String updateTime = getCurrentDateTime();
         if (!BusinessCommon.isValidName(firstname) || BusinessCommon.isNullOrEmpty(firstname)) {
-            request.setAttribute("error", "First name is required.");
+            request.setAttribute("error", "Wrong name. Name must start with an uppercase letter, contain lowercase letter and does not have more than 29 letter");
             request.getRequestDispatcher("/register.jsp").forward(request, response);
             return;
 
         }
         if (!BusinessCommon.isValidName(lastname) || BusinessCommon.isNullOrEmpty(lastname)) {
-            request.setAttribute("error", "Last name is required.");
+            request.setAttribute("error", "Wrong name. Name must start with an uppercase letter, contain lowercase letter and does not have more than 29 letter");
             request.getRequestDispatcher("/register.jsp").forward(request, response);
             return;
 
         }
 
         if (!BusinessCommon.isValidEmail(email) || BusinessCommon.isNullOrEmpty(email)) {
-            request.setAttribute("error", "Email is required.");
+            request.setAttribute("error", "Invalid email. Email must has format :example@example.example");
             request.getRequestDispatcher("/register.jsp").forward(request, response);
             return;
 
         }
 
-//        if (!BusinessCommon.isValidPhoneNumber(phone) || BusinessCommon.isNullOrEmpty(phone)) {
-//            request.setAttribute("error", "Phone is required.");
-//            request.getRequestDispatcher("/register.jsp").forward(request, response);
-//            return;
-//
-//        }
+        if (!BusinessCommon.isValidPhoneNumber(phone) || BusinessCommon.isNullOrEmpty(phone)) {
+            request.setAttribute("error", "Phone is required. Phone number has to follow formart: 123-456-7890 or 1234567890");
+            request.getRequestDispatcher("/register.jsp").forward(request, response);
+            return;
 
-        if (BusinessCommon.isNullOrEmpty(email)) {
+        }
+
+
+        if (BusinessCommon.isNullOrEmpty(address)) {
             request.setAttribute("error", "Address is required.");
             request.getRequestDispatcher("/register.jsp").forward(request, response);
             return;
@@ -75,7 +76,7 @@ public class RegisterController extends HttpServlet {
         }
 
         if (!BusinessCommon.isValidPassword(password)|| BusinessCommon.isNullOrEmpty(password)) {
-            request.setAttribute("error", "Password is required.");
+            request.setAttribute("error", "Password is required. Password must has more than 8 letter and contain upper and lowercase letter, number and special symple[@$!%*?&]");
             request.getRequestDispatcher("/register.jsp").forward(request, response);
             return;
 

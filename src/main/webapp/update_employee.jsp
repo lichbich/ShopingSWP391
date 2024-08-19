@@ -1,4 +1,3 @@
-
 <%--
   Created by IntelliJ IDEA.
   User: vinh
@@ -13,7 +12,7 @@
 
 
 <head>
-    <title>Add Employee</title>
+    <title>Update Employee</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -68,55 +67,92 @@
     <div class="app-title">
         <ul class="app-breadcrumb breadcrumb">
             <li class="breadcrumb-item">Employee Management</li>
-            <li class="breadcrumb-item"><a href="#">Add Employee</a></li>
+            <li class="breadcrumb-item"><a href="#">Employee Information</a></li>
         </ul>
     </div>
     <div class="row">
         <div class="col-md-12">
             <div class="tile">
-                <h3 class="tile-title">Add new employee</h3>
+                <h3 class="tile-title">employee Information</h3>
                 <div class="tile-body">
                     <div class="row element-button">
                         <div class="col-sm-12">
 
                         </div>
                     </div>
-                    <form method="post"  action="addemployee" class="row">
+                    <form method="post" action="updateEmployee" class="row">
                         <div class="form-group col-md-4">
                             <label class="control-label">First name</label>
-                            <input name="firstname" value="${param.firstname != null ? param.firstname : ''}" class="form-control" type="text" >
+                            <input name="firstname" value="${detail.firstname}" class="form-control" type="text"
+                                   readonly>
                         </div>
                         <div class="form-group col-md-4">
                             <label class="control-label">Last name</label>
-                            <input name="lastname" value="${param.lastname != null ? param.lastname : ''}" class="form-control" type="text" >
+                            <input name="lastname" value="${detail.lastname}" class="form-control" type="text" readonly>
                         </div>
                         <div class="form-group col-md-4">
                             <label class="control-label">Email</label>
-                            <input name="email" value="${param.email != null ? param.email : ''}" class="form-control" type="text" >
+                            <input name="email" value="${detail.email}" class="form-control" type="text" readonly>
                         </div>
-
+                        <div class="form-group col-md-4">
+                            <label class="control-label">Address</label>
+                            <input name="address" value="${detail.address}" class="form-control" type="text" readonly>
+                        </div>
                         <div class="form-group  col-md-4">
                             <label class="control-label">Phone number</label>
-                            <input name="phone" value="${param.phone != null ? param.phone : ''}"   class="form-control" type="text" >
+                            <input name="phone" value="${detail.phone_number}" class="form-control" type="text"
+                                   readonly>
                         </div>
+                        <div class="form-group  col-md-4">
+                            <label class="control-label">Gender</label>
+                            <input name="gender" value="${detail.gender}" class="form-control" type="text" readonly>
+                        </div>
+                        <div class="form-group  col-md-4">
+                            <label class="control-label">Date of birth</label>
+                            <input name="dob" value="${detail.dob}" class="form-control" type="text" readonly>
+                        </div>
+                        <div class="form-group  col-md-4">
+                            <label class="control-label">Create time</label>
+                            <input name="datecreate" value="${detail.createdate}" class="form-control" type="text"
+                                   readonly>
+                        </div>
+                        <div class="form-group  col-md-4">
+                            <label class="control-label">Last update</label>
+                            <input name="dateupdate" value="${detail.updatedate}" class="form-control" type="text"
+                                   readonly>
+                        </div>
+
 
                         <div class="form-group  col-md-3">
                             <label for="exampleSelect1" class="control-label">Role</label>
 
                             <select class="form-control" id="exampleSelect1" name="role">
+
                                 <c:forEach var="role" items="${listRole}">
-                                <option value="${role.role_id}">${role.role_name}</option>
+                                    <option value="${role.role_id}"
+
+                                            <c:if test="${role.role_id == detail.role_id}">
+                                                selected
+                                            </c:if>
+                                    >
+                                            ${role.role_name}
+
+
+                                    </option>
                                 </c:forEach>
                             </select>
                         </div>
+                        <div class="form-group  col-md-3">
+                            <label for="exampleSelect1" class="control-label">Status</label>
+                            <label for="exampleSelect2"></label><select class="form-control" id="exampleSelect2" name="isActive">
+                                <option value="1" <c:if test="${detail.isActive == 1}">selected</c:if>>Active</option>
+                                <option value="0" <c:if test="${detail.isActive == 0}">selected</c:if>>InActive</option>
+                            </select>
+                        </div>
                         <br>
+
                         <br>
-                        <c:if test="${not empty error}">
-                            <p style="color:red; font-size: 12px; margin: auto; text-align: center">${error}</p>
-                        </c:if>
-                        <br>
-                        <br>
-                        <div class="form-group  col-md-6"></divclass>
+                        <div style="-webkit-box-flex: 0; flex: 0 0 100%; max-width: 100%" class="form-group  col-md-6">
                             <button class="" type="submit">Save</button>
                             <a href="employeeManagement">
                                 <button type="button">Cancel</button>
@@ -130,7 +166,6 @@
         </div>
     </div>
 </main>
-
 
 
 <!-- Essential javascripts for application to work-->
