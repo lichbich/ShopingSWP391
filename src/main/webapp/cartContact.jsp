@@ -106,6 +106,7 @@
                             <div class="col-md-12">
                                 <label for="re-name" class="text-black">Name of receiver <span
                                         class="text-danger">*</span></label>
+                                <input type="hidden" name="customer_id" value="${detail.user_id}"/>
                                 <input type="text" value="${detail.firstname} ${detail.lastname}" class="form-control" id="re-name" name="re-name">
                             </div>
 
@@ -178,6 +179,7 @@
                                             <td class="text-black font-weight-bold"><strong>Order Total</strong></td>
                                             <td class="text-black font-weight-bold"><strong><fmt:formatNumber
                                                     value="${totalCartPrice}" type="currency"/></strong></td>
+                                            <input type="hidden" name="total_price" value="${totalCartPrice}"/>
                                         </tr>
                                         </tbody>
                                     </table>
