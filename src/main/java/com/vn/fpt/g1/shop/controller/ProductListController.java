@@ -1,6 +1,8 @@
 package com.vn.fpt.g1.shop.controller;
 
+import com.vn.fpt.g1.shop.dao.CategoryDAO;
 import com.vn.fpt.g1.shop.dao.ProductDAO;
+import com.vn.fpt.g1.shop.entity.Category;
 import com.vn.fpt.g1.shop.entity.Product;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -19,7 +21,9 @@ public class ProductListController extends HttpServlet {
             // Get all products
             ProductDAO productDAO = new ProductDAO();
             List<Product> products = productDAO.getAllProducts();
+            List<Category> categories = CategoryDAO.getAllCategories();
             req.setAttribute("products", products);
+            req.setAttribute("categories", categories);
             req.getRequestDispatcher("shop.jsp").forward(req, resp);
 
         } catch (Exception e) {

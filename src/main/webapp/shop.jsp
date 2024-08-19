@@ -50,7 +50,20 @@
 </div>
 <!-- End Hero Section -->
 
-
+<div class="filter-group">
+    <select class="form-select" aria-label="Default select example">
+        <option selected>Open this select menu</option>
+        <jsp:useBean id="categories" scope="request" type="java.util.List"/>
+        <c:forEach var="category" items="${categories}">
+            <option value="${category.id}">${category.name}</option>
+<%--        <option value="1">One</option>--%>
+        </c:forEach>
+    </select>
+    <div class="input-group mb-3">
+        <button class="btn btn-outline-secondary" type="button" id="button-addon1">Search</button>
+        <input type="text" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+    </div>
+</div>
 
 <div class="untree_co-section product-section before-footer-section">
     <div class="container">
