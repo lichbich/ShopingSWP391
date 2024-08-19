@@ -207,5 +207,29 @@ public class UserDao extends DbContext {
         return quantity;
     }
 
+    public void order(int user_id, Timestamp orderDate, String price, String shippingAddress, String receiverName, String receiverPhone ){
+        String query = "INSERT INTO [dbo].[order]\n" +
+                "           ([user_id],[status],[order_date],[total_price],[shipping_address],[receiver_name],[receiver_phone])\n" +
+                "     VALUES\n" +
+                "           (\n" +
+                "           ?,1,?,?,?,?,?)";
+
+        try{
+
+            conn = DbContext.getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, user_id);
+            ps.setTimestamp(2, orderDate);
+            ps.setString(3, price);
+            ps.setString(4, shippingAddress);
+            ps.setString(5, receiverName);
+            ps.setString(6, receiverPhone);
+            ps.executeUpdate();
+            conn.close();
+
+        }catch (Exception e){
+
+        }
+    }
 
 }
