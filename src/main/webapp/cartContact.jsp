@@ -96,8 +96,9 @@
                     </div>
                 </div>
             </div>
+            <form method="post" action="order">
             <div class="row">
-                <form method="post" action="order">
+
                     <div class="col-md-6 mb-5 mb-md-0">
                         <h2 class="h3 mb-3 text-black">Billing Details</h2>
                         <div class="p-3 p-lg-5 border bg-white">
@@ -193,9 +194,10 @@
                         </div>
 
                     </div>
-                </form>
+
 
             </div>
+        </form>
         </div>
 
         <!-- </form> -->

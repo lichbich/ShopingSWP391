@@ -75,10 +75,11 @@
                                 <td class="product-thumbnail">
                                     <img src="${cart.img_url}" alt="Image_Product" class="img-fluid">
                                 </td>
-                                <td class="product-name">
+                                <td class="product-name" >
                                     <h2 class="h5 text-black">${cart.product_name}</h2>
+
                                 </td>
-                                <td>${cart.color_name}, ${cart.size} </td>
+                                <td> ${cart.color_name} ,${cart.size}</td>
                                 <td><fmt:formatNumber value="${cart.price}" type="currency" /></td>
                                 <td>
                                     <div class="input-group mb-3 d-flex align-items-center quantity-container"
@@ -87,6 +88,9 @@
                                             <form action="updateCart" method="post" style="display:inline;">
                                                 <input type="hidden" name="cartId" value="${cart.cart_id}"/>
                                                 <input type="hidden" name="quantity" value="${cart.quantity - 1}"/>
+                                                <input type="hidden" name="cart_product_name" value="${cart.product_name}" />
+                                                <input type="hidden" name="cart_color_name" value="${cart.color_name}" />
+                                                <input type="hidden" name="cart_size" value="${cart.size}" />
                                                 <button class="btn btn-outline-black decrease" type="submit">&minus;</button>
                                             </form>
                                         </div>
@@ -98,6 +102,9 @@
                                             <form action="updateCart" method="post" style="display:inline;">
                                                 <input type="hidden" name="cartId" value="${cart.cart_id}"/>
                                                 <input type="hidden" name="quantity" value="${cart.quantity + 1}"/>
+                                                <input type="hidden" name="cart_product_name" value="${cart.product_name}" />
+                                                <input type="hidden" name="cart_color_name" value="${cart.color_name}" />
+                                                <input type="hidden" name="cart_size" value="${cart.size}" />
                                                 <button class="btn btn-outline-black increase" type="submit">&plus;</button>
                                             </form>
                                         </div>
@@ -112,8 +119,12 @@
                         </c:forEach>
                         </tbody>
                     </table>
+
                 </div>
             </form>
+            <c:if test="${not empty error}">
+                <p style="color:red; font-size: 12px; margin: 10px 0 10px;">${error}</p>
+            </c:if>
         </div>
 
 

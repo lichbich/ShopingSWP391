@@ -20,7 +20,7 @@
 </head>
 <body>
 
-<h2>Join with us!</h2>
+<h2></h2>
 <div class="container right-panel-active" id="container">
     <div class="form-container sign-up-container">
         <form method="post" class="form" action="register">

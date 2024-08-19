@@ -130,6 +130,7 @@ public class UserDao extends DbContext {
             ps.executeUpdate();
             conn.close();
         }catch (Exception e){
+            e.printStackTrace();
 
         }
     }
@@ -151,6 +152,7 @@ public class UserDao extends DbContext {
                 ps.executeUpdate();
                 conn.close();
             }catch (Exception e){
+                e.printStackTrace();
 
             }
         }
@@ -178,6 +180,31 @@ public class UserDao extends DbContext {
         }catch(Exception e){
         }
         return user;
+    }
+
+    public int getQuantityOfProductDetail(String productName, String colorName, String size){
+        int quantity = 0;
+        String query = "SELECT pd.quantity\n" +
+                "FROM product_detail pd\n" +
+                "JOIN product p ON pd.product_id = p.product_id\n" +
+                "JOIN color c ON pd.color_code = c.color_id\n" +
+                "WHERE p.product_name = ? AND c.color_name = ? AND pd.size = ?";
+
+        try{
+            conn = DbContext.getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, productName);
+            ps.setString(2, colorName);
+            ps.setString(3, size);
+            rs = ps.executeQuery();
+
+            if(rs.next()){
+                quantity = rs.getInt(1);
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return quantity;
     }
 
 
