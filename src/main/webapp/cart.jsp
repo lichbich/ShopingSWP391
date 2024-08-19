@@ -29,11 +29,26 @@
 <body>
 
 <!-- Start Header/Navigation -->
-<%@ include file="component/header.jsp" %>
+
 <!-- End Header/Navigation -->
 
+<!-- Start Hero Section -->
+<%--<div class="hero">--%>
+<%--    <div class="container">--%>
+<%--        <div class="row justify-content-between">--%>
+<%--            <div class="col-lg-5">--%>
+<%--                <div class="intro-excerpt">--%>
+<%--                    --%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--            <div class="col-lg-7">--%>
 
-<h1 style="margin-left: 32px">Cart</h1>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--    </div>--%>
+<%--</div>--%>
+<!-- End Hero Section -->
+<h1>Cart</h1>
 
 <div class="untree_co-section before-footer-section">
     <div class="container">
@@ -147,7 +162,7 @@
 
 
 <!-- Start Footer Section -->
-<%@ include file="component/footer.jsp" %>
+
 <!-- End Footer Section -->
 
 

@@ -25,17 +25,17 @@ public class AuthorizationFilter implements Filter {
         String path = req.getRequestURI().substring(req.getContextPath().length());
 
         if (user == null) {
-            if (path.startsWith("/LoginController") || path.startsWith("/RegisterController") || path.equals("/cart")|| path.startsWith("/static") || path.equals("/login.jsp") || path.equals("/register.jsp") || path.equals("/logout")) {
+            if (path.startsWith("/LoginController") || path.startsWith("/RegisterController") || path.startsWith("/static") || path.equals("/login.jsp") || path.equals("/register.jsp") || path.equals("/logout")) {
                 chain.doFilter(request, response);
             } else {
                 resp.sendRedirect(req.getContextPath() + "/LoginController");
             }
         } else {
             String role = user.getRole_id();
-            if ((role.equals("1") && (path.startsWith("/EmployeeManagement") || path.startsWith("/admin") || path.startsWith("/updateEmployee") || path.startsWith("/search") || path.startsWith("/addemployee"))) ||
-                    (role.equals("2") && path.startsWith("/index.jsp")) ||
-                    (role.equals("3") && path.startsWith("/index.jsp")) ||
-                    (role.equals("4") && (path.startsWith("/index.jsp") || path.startsWith("/products") || path.startsWith("/cart") || path.startsWith("/updateCart") || path.startsWith("/delete") || path.startsWith("/order") || path.startsWith("/profile"))) ||
+            if ((role.equals("1") && path.startsWith("/listCustomer")) ||
+                    (role.equals("2") && path.startsWith("/stock")) ||
+                    (role.equals("3") && path.startsWith("/sale")) ||
+                    (role.equals("4") && (path.startsWith("/index.jsp") || path.startsWith("/products") || path.startsWith("/cart") || path.startsWith("/order") || path.startsWith("/profile"))) ||
                     path.startsWith("/static") || path.startsWith("/LogoutController")) {
                 chain.doFilter(request, response);
             } else {

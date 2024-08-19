@@ -43,7 +43,7 @@
 
 
         <!-- User Menu-->
-        <li><a class="app-nav__item" href="${pageContext.request.contextPath}/LogoutController"><i class='bx bx-log-out bx-rotate-180'></i> </a>
+        <li><a class="app-nav__item" href="/index.html"><i class='bx bx-log-out bx-rotate-180'></i> </a>
 
         </li>
     </ul>
@@ -118,7 +118,7 @@
                         <br>
                         <div class="form-group  col-md-6"></divclass>
                             <button class="" type="submit">Save</button>
-                            <a href="EmployeeManagement">
+                            <a href="employeeManagement">
                                 <button type="button">Cancel</button>
                             </a>
 

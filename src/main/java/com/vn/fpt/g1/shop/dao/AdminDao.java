@@ -19,7 +19,7 @@ public class AdminDao extends DbContext {
     public List<User> getAllEmployee() {
         List<User> list = new ArrayList<>();
         String query = "select u.user_id, u.first_name, u.last_name, u.[address], u.phone, u.email, r.role_name\n" +
-                "from [users] u\n" +
+                "from [user] u\n" +
                 "join [role] r on u.role_id = r.role_id\n" +
                 "where r.[priority] = 1";
         try {
@@ -45,7 +45,7 @@ public class AdminDao extends DbContext {
     public User getEmployeeById(int id) {
         User user = null;
         String query = "SELECT u.[user_id],u.[first_name],u.[last_name], u.[address], u.[dob], u.[phone], u.[email], u.[is_active],u.[password],u.[gender],u.[create_date],u.[update_date] ,r.role_id, r.role_name\n" +
-                "  FROM [dbo].[users] u\n" +
+                "  FROM [dbo].[user] u\n" +
                 "  Join [role] r on u.role_id = r.role_id\n" +
                 "  where user_id = ?";
 
@@ -78,7 +78,7 @@ public class AdminDao extends DbContext {
     }
 
     public void editEmployee(int status, int role_id, String email, Timestamp updatetime) {
-        String query = "update dbo.[users]\n" +
+        String query = "update dbo.[user]\n" +
                 "set is_active = ?, role_id = ?, [update_date] = ?\n" +
                 "where [email] = ?";
         try {
@@ -99,7 +99,7 @@ public class AdminDao extends DbContext {
         List<User> list = new ArrayList<>();
 
         String query = "select u.user_id, u.first_name, u.last_name, u.[address], u.phone, u.email, r.role_name\n" +
-                "from [users] u join [role] r\n" +
+                "from [user] u join [role] r\n" +
                 " on u.role_id = r.role_id\n" +
                 "where r.[priority] = 1";
         if (role != null &&!role.equals("all") ){
@@ -171,7 +171,7 @@ public class AdminDao extends DbContext {
 
     public void addEmployee(String firstname, String lastname, String email, String phone, String password, String roleId, Timestamp createTime) {
 
-        String query = "INSERT INTO [dbo].[users]\n" +
+        String query = "INSERT INTO [dbo].[user]\n" +
                 "([first_name],[last_name],[phone],[email],[is_active],[role_id],[password],[create_date])\n" +
                 "VALUES\n" +
                 "(?,?,?,?,1,?,?,?)";
