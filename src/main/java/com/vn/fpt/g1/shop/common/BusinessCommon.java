@@ -177,4 +177,26 @@ public class BusinessCommon {
         return null;
     }
 
+    public static int validatePage(String valRaw, int val, int valSet){
+        try {
+            val = Integer.parseInt(valRaw);
+            if (val < 1) {
+                val = valSet;
+            }
+        } catch (NumberFormatException e) {
+            val = valSet;
+        }
+        return val;
+    }
+
+    public static Date convertStringToDate(String dateString, String format) {
+        SimpleDateFormat sdf = new SimpleDateFormat(format);
+        Date utilDate = null;
+        try {
+            utilDate = sdf.parse(dateString);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        return new Date(utilDate.getTime());
+    }
 }

@@ -51,3 +51,4 @@ public class Product {
     public Timestamp getUpdateDate() { return updateDate; }
     public void setUpdateDate(Timestamp updateDate) { this.updateDate = updateDate; }
 }
+

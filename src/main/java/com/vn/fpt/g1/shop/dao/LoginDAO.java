@@ -15,22 +15,22 @@ public class LoginDAO {
 
     public Users checkLogin(String email, String plainPassword){
         try{
-            String query = "SELECT email, password FROM [user] WHERE email = ?";
+
+            String query = "SELECT user_id, email, password, role_id FROM users WHERE email = ?";
             conn = DbContext.getConnection();
             ps = conn.prepareStatement(query);
             ps.setString(1, email);
 //            ps.setString(2, plainPassword);
             rs = ps.executeQuery();
             if(rs.next()){
-//                // Create a Users object with the retrieved data
-//                Users user = new Users(rs.getString("email"), rs.getString("password"));
-//                // Compare the provided password with the stored hashed password
-//                if (BCrypt.checkpw(plainPassword, user.getPassword())) {
-//                    return user; // Password matches
-//                }
                 String storedPassword = rs.getString("password");
                 if (BCrypt.checkpw(plainPassword, storedPassword)) {
-                    return new Users(rs.getString("email"), storedPassword);
+                    Users user = new Users();
+                    user.setUser_id(rs.getInt("user_id"));
+                    user.setEmail(rs.getString("email"));
+                    user.setPassword(storedPassword);
+                    user.setRole_id(rs.getString("role_id"));
+                    return user;
                 }
             }
         }catch (Exception e){

@@ -43,7 +43,28 @@ public class LoginController extends HttpServlet {
             } else {
                 HttpSession session = req.getSession();
                 session.setAttribute("user", user);
-                resp.sendRedirect("index.jsp");
+                String roleId = user.getRole_id();
+                System.out.println("User role_id: " + user.getRole_id());
+
+                // Redirect based on role_id
+                switch (roleId) {
+                    case "1":
+                        resp.sendRedirect("listCustomer.jsp");
+                        break;
+                    case "2":
+                        resp.sendRedirect("stock.jsp");
+                        break;
+                    case "3":
+                        resp.sendRedirect("sale.jsp");
+                        break;
+                    case "4":
+                        resp.sendRedirect("index.jsp");
+                        break;
+                    default:
+                        req.setAttribute("error", "Unauthorized access.");
+                        req.getRequestDispatcher("login.jsp").forward(req, resp);
+                        break;
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
