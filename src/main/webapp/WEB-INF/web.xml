@@ -50,4 +50,13 @@
         <servlet-name>ProductListController</servlet-name>
         <url-pattern>/products</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>LogoutController</servlet-name>
+        <servlet-class>com.vn.fpt.g1.shop.controller.LogoutController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogoutController</servlet-name>
+        <url-pattern>/LogoutController</url-pattern>
+    </servlet-mapping>
 </web-app>

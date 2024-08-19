@@ -25,10 +25,10 @@ public class AuthorizationFilter implements Filter {
         String path = req.getRequestURI().substring(req.getContextPath().length());
 
         if (user == null) {
-            if (path.startsWith("/LoginController") || path.startsWith("/RegisterController") || path.startsWith("/static")) {
+            if (path.startsWith("/LoginController") || path.startsWith("/RegisterController") || path.startsWith("/static") || path.equals("/login.jsp") || path.equals("/logout")) {
                 chain.doFilter(request, response);
             } else {
-                resp.sendRedirect(req.getContextPath() + "/login");
+                resp.sendRedirect(req.getContextPath() + "/LoginController");
             }
         } else {
             String role = user.getRole_id();
@@ -36,10 +36,11 @@ public class AuthorizationFilter implements Filter {
                     (role.equals("2") && path.startsWith("/stock")) ||
                     (role.equals("3") && path.startsWith("/sale")) ||
                     (role.equals("4") && (path.startsWith("/index.jsp") || path.startsWith("/products") || path.startsWith("/cart") || path.startsWith("/order") || path.startsWith("/profile"))) ||
-                    path.startsWith("/static")) {
+                    path.startsWith("/static") || path.startsWith("/LogoutController")) {
                 chain.doFilter(request, response);
             } else {
                 resp.sendRedirect(req.getContextPath() + "/unauthorized.jsp");
+
             }
         }
     }
