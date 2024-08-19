@@ -92,12 +92,12 @@
             <div class="row mb-5">
                 <div class="col-md-12">
                     <div class="border p-4 rounded" role="alert">
-                        You want to change anything? <a href="cart">Click here</a>
+                        you want to change anything? <a href="cart">Click here</a>
                     </div>
                 </div>
             </div>
             <form method="post" action="order">
-                <div class="row">
+            <div class="row">
 
                     <div class="col-md-6 mb-5 mb-md-0">
                         <h2 class="h3 mb-3 text-black">Billing Details</h2>
@@ -106,15 +106,13 @@
                             <div class="col-md-12">
                                 <label for="re-name" class="text-black">Name of receiver <span
                                         class="text-danger">*</span></label>
-                                <input type="hidden" name="customer_id" value="${detail.user_id}"/>
-                                <input type="text" value="${detail.firstname} ${detail.lastname}" class="form-control"
-                                       id="re-name" name="name_receiver">
+                                <input type="text" value="${detail.firstname} ${detail.lastname}" class="form-control" id="re-name" name="re-name">
                             </div>
 
                             <div class="form-group row">
                                 <div class="col-md-12">
                                     <label class="text-black">Phone number</label>
-                                    <input type="text" value="${detail.phone_number}" class="form-control" name="phone">
+                                    <input type="text" value="${detail.phone_number}" class="form-control" name="">
                                 </div>
                             </div>
 
@@ -122,8 +120,7 @@
                                 <div class="col-md-12">
                                     <label for="address" class="text-black">Address receive <span
                                             class="text-danger">*</span></label>
-                                    <input type="text" value="${detail.address}" class="form-control" id="address"
-                                           name="address"
+                                    <input type="text" value="${detail.address}" class="form-control" id="address" name="address"
                                            placeholder="Street address">
                                 </div>
                             </div>
@@ -162,8 +159,7 @@
                                         <tbody>
                                         <c:forEach var="cart" items="${listCartContact}">
                                             <tr>
-                                                <td>
-                                                    <strong>${cart.product_name}</strong>, ${cart.color_name}, ${cart.size}
+                                                <td><strong>${cart.product_name}</strong>, ${cart.color_name}, ${cart.size}
                                                     <strong class="mx-2">x</strong> ${cart.quantity}</td>
                                                 <td><fmt:formatNumber value="${cart.price * cart.quantity}"
                                                                       type="currency"/></td>
@@ -182,7 +178,6 @@
                                             <td class="text-black font-weight-bold"><strong>Order Total</strong></td>
                                             <td class="text-black font-weight-bold"><strong><fmt:formatNumber
                                                     value="${totalCartPrice}" type="currency"/></strong></td>
-                                            <input type="hidden" name="total_price" value="${totalCartPrice}"/>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -201,8 +196,8 @@
                     </div>
 
 
-                </div>
-            </form>
+            </div>
+        </form>
         </div>
 
         <!-- </form> -->

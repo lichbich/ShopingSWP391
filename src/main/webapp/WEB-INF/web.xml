@@ -59,4 +59,44 @@
         <servlet-name>LogoutController</servlet-name>
         <url-pattern>/LogoutController</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EmployeeManagement</servlet-name>
+        <servlet-class>com.vn.fpt.g1.shop.servlet.EmployeeManagementServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>EmployeeManagement</servlet-name>
+        <url-pattern>/EmployeeManagement</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>CartController</servlet-name>
+        <servlet-class>com.vn.fpt.g1.shop.servlet.CartController</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>CartController</servlet-name>
+        <url-pattern>/cart</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UpdateQuantityCartController</servlet-name>
+        <servlet-class>com.vn.fpt.g1.shop.servlet.UpdateQuantityCartServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>UpdateQuantityCartController</servlet-name>
+        <url-pattern>/updateQuantityCart</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeleteCart</servlet-name>
+        <servlet-class>com.vn.fpt.g1.shop.servlet.DeleteCartServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>DeleteCart</servlet-name>
+        <url-pattern>/deleteCart</url-pattern>
+    </servlet-mapping>
 </web-app>

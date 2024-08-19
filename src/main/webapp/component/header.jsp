@@ -38,7 +38,7 @@
 
             <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
                 <li><a class="nav-link" href="#"><i class="fa-regular fa-user"></i></a></li>
-                <li><a class="nav-link" href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a></li>
+                <li><a class="nav-link" href="${pageContext.request.contextPath}/cart"><i class="fa-solid fa-cart-shopping"></i></a></li>
                 <li><a class="nav-link" href="${pageContext.request.contextPath}/LogoutController">Log out</a></li>
             </ul>
         </div>
