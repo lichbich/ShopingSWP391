@@ -25,7 +25,7 @@ public class AuthorizationFilter implements Filter {
         String path = req.getRequestURI().substring(req.getContextPath().length());
 
         if (user == null) {
-            if (path.startsWith("/LoginController") || path.startsWith("/RegisterController") || path.startsWith("/static") || path.equals("/login.jsp") || path.equals("/logout")) {
+            if (path.startsWith("/LoginController") || path.startsWith("/RegisterController") || path.startsWith("/static") || path.equals("/login.jsp") || path.equals("/register.jsp") || path.equals("/logout")) {
                 chain.doFilter(request, response);
             } else {
                 resp.sendRedirect(req.getContextPath() + "/LoginController");
@@ -39,7 +39,7 @@ public class AuthorizationFilter implements Filter {
                     path.startsWith("/static") || path.startsWith("/LogoutController")) {
                 chain.doFilter(request, response);
             } else {
-                resp.sendRedirect(req.getContextPath() + "/unauthorized.jsp");
+                resp.sendRedirect(req.getContextPath() + "/accessDenied.jsp");
 
             }
         }
