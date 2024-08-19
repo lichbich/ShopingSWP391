@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CategoryDAO {
-    public List<Category> getAllCategories() {
+    public static List<Category> getAllCategories() {
         List<Category> categories = new ArrayList<>();
         String query = "SELECT * FROM Category";
         try (Connection connection = DbContext.getConnection();
@@ -19,9 +19,10 @@ public class CategoryDAO {
 
             while (rs.next()) {
                 Category category = new Category();
-                category.setId(rs.getInt("id"));
+                category.setCategory_id(rs.getInt("id"));
                 category.setName(rs.getString("name"));
                 category.setStatus(rs.getBoolean("status"));
+                category.setDescription(rs.getString("description"));
                 categories.add(category);
             }
         } catch (Exception e) {
@@ -29,4 +30,5 @@ public class CategoryDAO {
         }
         return categories;
     }
+
 }

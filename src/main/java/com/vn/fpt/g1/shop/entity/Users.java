@@ -11,23 +11,15 @@ public class Users {
     private String phone_number;
     private String address;
     private String role_id;
+    private String roleName;
     private Date dob;
     private String gender;
     private int isActive;
 
 
     public Users(String email, String password) {
-        this.isActive = isActive;
-        this.gender = gender;
-        this.dob = dob;
-        this.role_id = role_id;
-        this.address = address;
-        this.phone_number = phone_number;
         this.password = password;
         this.email = email;
-        this.last_name = last_name;
-        this.first_name = first_name;
-        this.user_id = user_id;
     }
 
     public Users() {
@@ -134,5 +126,13 @@ public class Users {
 
     public void setIsActive(int isActive) {
         this.isActive = isActive;
+    }
+
+    public String getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 }
