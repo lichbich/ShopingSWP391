@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -68,7 +70,10 @@ public class UserDao extends DbContext {
     }
 
 
+
+    // Kiểm tra xem tài khoản có tồn tại không
     public User checkAccountExist(String email) {
+
         String query = "select [user_id],[first_name], [last_name], [email], [password] from [user]\n" +
                 "where [email] = ?\n";
         try {
@@ -82,16 +87,12 @@ public class UserDao extends DbContext {
                         rs.getString(3),
                         rs.getString(4),
                         rs.getString(5));
+
             }
-            conn.close();
-
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException("Error checking account existence", e);
         }
-
-
         return null;
-
     }
 
     public void register(String firstname, String lastname, String address, Date dob, String phonenumber, String email, String password, String gender, Timestamp createtime, Timestamp updatetime) {
@@ -108,6 +109,7 @@ public class UserDao extends DbContext {
             ps.setString(2, lastname);
             ps.setString(3, address);
             ps.setDate(4, dob);
+
             ps.setString(5, phonenumber);
             ps.setString(6, email);
             ps.setString(7, password);
@@ -176,9 +178,41 @@ public class UserDao extends DbContext {
             }
             conn.close();
         }catch(Exception e){
+          throw new RuntimeException("Error registering user", e);
         }
         return user;
     }
 
+    // Thay đổi mật khẩu
+    public void changePassword(String email, String newPassword) {
+        String query = "UPDATE [dbo].[users] SET [password] = ? WHERE [email] = ?";
+        try (Connection conn = DbContext.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
 
+            ps.setString(1, newPassword);
+            ps.setString(2, email);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException("Error changing password", e);
+        }
+    }
+
+    // Xác thực mật khẩu hiện tại
+    public boolean authenticate(String email, String password) {
+        String query = "SELECT [password] FROM [users] WHERE [email] = ?";
+        try (Connection conn = DbContext.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query)) {
+
+            ps.setString(1, email);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    String storedPassword = rs.getString("password");
+                    return storedPassword.equals(password);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Error authenticating user", e);
+        }
+        return false;
+    }
 }

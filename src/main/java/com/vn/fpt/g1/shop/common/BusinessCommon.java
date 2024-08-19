@@ -48,9 +48,9 @@ public class BusinessCommon {
 
     private static final SecureRandom random = new SecureRandom();
 
-    public static boolean isValidPhoneNumber(String phoneNumber) {
-        return Pattern.matches(PHONE_REGEX, phoneNumber);
-    }
+//    public static boolean isValidPhoneNumber(String phoneNumber) {
+//        return Pattern.matches(PHONE_REGEX, phoneNumber);
+//    }
 
     public static boolean isValidUsername(String username) {
         return Pattern.matches(USERNAME_REGEX, username);

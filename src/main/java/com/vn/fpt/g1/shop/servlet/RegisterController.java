@@ -67,6 +67,7 @@ public class RegisterController extends HttpServlet {
 
         }
 
+
         if (BusinessCommon.isNullOrEmpty(address)) {
             request.setAttribute("error", "Address is required.");
             request.getRequestDispatcher("/register.jsp").forward(request, response);
