@@ -16,6 +16,7 @@ public class Users {
     private String gender;
     private int isActive;
 
+
     public Users(String email, String password) {
         this.password = password;
         this.email = email;
