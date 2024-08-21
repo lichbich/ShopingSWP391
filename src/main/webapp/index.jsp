@@ -100,7 +100,7 @@
             <jsp:useBean id="categories" scope="request" type="java.util.List"/>
             <c:forEach var="category" items="${categories}">
                 <ul class="list-unstyled custom-list">
-                    <li><a href="category?cid=${category.category_id}">${category.name}</a></li>
+                    <li><a href="category?categoryId=${category.category_id}">${category.name}</a></li>
                 </ul>
             </c:forEach>
 

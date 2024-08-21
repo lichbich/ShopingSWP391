@@ -1,0 +1,85 @@
+.list-with-dots li {
+    list-style-type: disc !important;
+    margin-left: 20px;
+    color: black;
+}
+.section-title{
+    font-weight: 700;
+    color: black;
+
+}
+.price{
+    font-size: 32px;
+    font-weight: 700;
+    color: #f15e2c;
+}
+
+.img-detail {
+    width: 640px;
+    height: 640px;
+    object-fit: cover;
+}
+
+.dotted-separator {
+    border: none;
+    border-top: 1px dotted #000;
+    color: #000;
+    background-color: #fff;
+    height: 1px;
+    width: 100%;
+    margin: 20px 0;
+    /* Tùy chọn: để tạo khoảng cách trên và dưới đường kẻ */
+}
+
+.form-select {
+    width: 220px;
+    height: 36px;
+    border: none;
+}
+.color{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 32px;
+}
+.color-item{
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    margin-right: 10px;
+    cursor: pointer;
+    background-color: #f8d65a;
+}
+
+.ChooseDetail {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+h3 {
+    font-size: 23px;
+}
+
+.btn-detail {
+    width: 100%;
+    height: 74px;
+    background-color: #000;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.product-infor{
+    margin-top: 32px;
+
+}
+.product-infor h2{
+    color: #f15e2c;
+    
+}
