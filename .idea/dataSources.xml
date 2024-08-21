@@ -13,11 +13,11 @@
       </jdbc-additional-properties>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
-    <data-source source="LOCAL" name="shoppingDemo@localhost" uuid="8d5e89a0-6f4e-4508-b9d5-e81ea1a9ad74">
+    <data-source source="LOCAL" name="shopping-database@localhost" uuid="5ffb7a22-347a-4318-b066-5e2a94836c74">
       <driver-ref>sqlserver.ms</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</jdbc-driver>
-      <jdbc-url>jdbc:sqlserver://localhost:1433;databaseName=shoppingDemo;encrypt=false</jdbc-url>
+      <jdbc-url>jdbc:sqlserver://localhost;database=shopping-database</jdbc-url>
       <jdbc-additional-properties>
         <property name="com.intellij.clouds.kubernetes.db.host.port" />
         <property name="com.intellij.clouds.kubernetes.db.enabled" value="false" />

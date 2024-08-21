@@ -1,0 +1,36 @@
+h2{
+    font-size: 32px;
+    font-weight: 700;
+    color: #d97f00;
+    margin-bottom: 32px;
+}
+
+.productList{
+    display: flex;
+    flex-direction: row;
+    padding-left: 64px;
+    padding-right: 64px;
+}
+.product-content{
+    margin-top: 16px;
+    margin-left: 16px !important;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.product-item{
+
+}
+
+.Category li{
+    font-weight: 600;
+
+}
+
+.Category li a{
+    text-decoration: none;
+}
+
+.Category li a:hover{
+    color: #f15e2c;
+}

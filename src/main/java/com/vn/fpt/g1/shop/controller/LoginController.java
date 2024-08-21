@@ -49,7 +49,7 @@ public class LoginController extends HttpServlet {
                 // Redirect based on role_id
                 switch (roleId) {
                     case "1":
-                        resp.sendRedirect("listCustomer.jsp");
+                        resp.sendRedirect("EmployeeManagement");
                         break;
                     case "2":
                         resp.sendRedirect("stock.jsp");
@@ -58,7 +58,7 @@ public class LoginController extends HttpServlet {
                         resp.sendRedirect("sale.jsp");
                         break;
                     case "4":
-                        resp.sendRedirect("index.jsp");
+                        resp.sendRedirect("products");
                         break;
                     default:
                         req.setAttribute("error", "Unauthorized access.");
