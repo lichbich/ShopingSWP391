@@ -132,10 +132,10 @@ public class AddEmployeeServlet extends HttpServlet {
 
         UserDao userDao = new UserDao();
         User user = userDao.checkAccountExist(email);
-        if (user == null) { // // there is no user with same email in db
+        if (user == null) { // there is no user with same email in db
 
             try {
-                //Genarate email
+                //Genarate password
                 String password = generateRandomPassword(8);
                 // Encryption the password
                 String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());

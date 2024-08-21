@@ -29,26 +29,11 @@
 <body>
 
 <!-- Start Header/Navigation -->
-
+<%@ include file="component/header.jsp" %>
 <!-- End Header/Navigation -->
 
-<!-- Start Hero Section -->
-<%--<div class="hero">--%>
-<%--    <div class="container">--%>
-<%--        <div class="row justify-content-between">--%>
-<%--            <div class="col-lg-5">--%>
-<%--                <div class="intro-excerpt">--%>
-<%--                    --%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--            <div class="col-lg-7">--%>
 
-<%--            </div>--%>
-<%--        </div>--%>
-<%--    </div>--%>
-<%--</div>--%>
-<!-- End Hero Section -->
-<h1>Cart</h1>
+<h1 style="margin-left: 32px">Cart</h1>
 
 <div class="untree_co-section before-footer-section">
     <div class="container">
@@ -80,7 +65,7 @@
 
                                 </td>
                                 <td> ${cart.color_name} ,${cart.size}</td>
-                                <td><fmt:formatNumber value="${cart.price}" type="currency" /></td>
+                                <td><fmt:formatNumber value="${cart.price}"  /> VNĐ</td>
                                 <td>
                                     <div class="input-group mb-3 d-flex align-items-center quantity-container"
                                          style="max-width: 120px;">
@@ -111,7 +96,7 @@
                                     </div>
 
                                 </td>
-                                <td><fmt:formatNumber value="${cart.price * cart.quantity}" type="currency" /></td>
+                                <td><fmt:formatNumber value="${cart.price * cart.quantity}" /> VNĐ</td>
                                 <td><a href="delete?cid=${cart.cart_id}" class="btn btn-black btn-sm">X</a></td>
                             </tr>
                             <c:set var="totalCartPrice" value="${totalCartPrice + (cart.price * cart.quantity)}" />
@@ -142,7 +127,7 @@
                         <span class="text-black">Total</span>
                     </div>
                     <div class="col-md-6 text-right">
-                        <strong class="text-black"><fmt:formatNumber value="${totalCartPrice}" type="currency" /></strong>
+                        <strong class="text-black"><fmt:formatNumber value="${totalCartPrice}" /> VNĐ</strong>
                     </div>
                 </div>
 
@@ -162,7 +147,7 @@
 
 
 <!-- Start Footer Section -->
-
+<%@ include file="component/footer.jsp" %>
 <!-- End Footer Section -->
 
 

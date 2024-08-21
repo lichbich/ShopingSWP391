@@ -29,7 +29,7 @@
         <div class="collapse navbar-collapse" id="navbarsFurni">
             <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/index.jsp">Home</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/products">Home</a>
                 </li>
                 <li><a class="nav-link active" href="${pageContext.request.contextPath}/products">Shop</a></li>
                 <li><a class="nav-link" href="#">About us</a></li>
@@ -38,7 +38,7 @@
 
             <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
                 <li><a class="nav-link" href="#"><i class="fa-regular fa-user"></i></a></li>
-                <li><a class="nav-link" href="cart.html"><i class="fa-solid fa-cart-shopping"></i></a></li>
+                <li><a class="nav-link" href="${pageContext.request.contextPath}/cart"><i class="fa-solid fa-cart-shopping"></i></a></li>
                 <li><a class="nav-link" href="${pageContext.request.contextPath}/LogoutController">Log out</a></li>
             </ul>
         </div>

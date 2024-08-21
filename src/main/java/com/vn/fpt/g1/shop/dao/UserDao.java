@@ -37,7 +37,7 @@ public class UserDao extends DbContext {
                 "JOIN \n" +
                 "    [image] AS i ON p.product_id = i.product_id AND pd.color_code = i.color_id\n" +
                 "JOIN \n" +
-                "    [user] AS u ON c.[user_id] = u.[user_id]\n" +
+                "    [users] AS u ON c.[user_id] = u.[user_id]\n" +
                 "WHERE \n" +
                 "    u.email = ?";
 
@@ -69,7 +69,7 @@ public class UserDao extends DbContext {
 
 
     public User checkAccountExist(String email) {
-        String query = "select [user_id],[first_name], [last_name], [email], [password] from [user]\n" +
+        String query = "select [user_id],[first_name], [last_name], [email], [password] from [users]\n" +
                 "where [email] = ?\n";
         try {
             conn = DbContext.getConnection();
@@ -97,7 +97,7 @@ public class UserDao extends DbContext {
     public void register(String firstname, String lastname, String address, Date dob, String phonenumber, String email, String password, String gender, Timestamp createtime, Timestamp updatetime) {
 
 
-        String query = "INSERT INTO [dbo].[user]\n" +
+        String query = "INSERT INTO [dbo].[users]\n" +
                 "           ([first_name],[last_name],[address],[dob],[phone],[email],[is_active],[role_id],[password],[gender],[create_date],[update_date])\n" +
                 "     VALUES\n" +
                 "           (?,?,?,?,?,?,1,4,? ,?, ?, ?)\n";
@@ -123,52 +123,52 @@ public class UserDao extends DbContext {
     public void deleteCart(int cid) {
         String query = "DELETE FROM [dbo].[cart]\n" +
                 "      WHERE cart_id = ?";
-        try{
+        try {
             conn = DbContext.getConnection();
             ps = conn.prepareStatement(query);
             ps.setInt(1, cid);
             ps.executeUpdate();
             conn.close();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
 
         }
     }
 
-    public void updateQuantity(int cid, int quantity){
+    public void updateQuantity(int cid, int quantity) {
         if (quantity <= 0) {
             deleteCart(cid);
 
-        }else{
+        } else {
             String query = "UPDATE cart \n" +
                     "SET quantity = ? \n" +
                     "WHERE cart_id = ?";
 
-            try{
+            try {
                 conn = DbContext.getConnection();
                 ps = conn.prepareStatement(query);
                 ps.setInt(1, quantity);
-                ps.setInt(2,cid);
+                ps.setInt(2, cid);
                 ps.executeUpdate();
                 conn.close();
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
 
             }
         }
     }
 
-    public User getCustomerByEmail(String email){
+    public User getCustomerByEmail(String email) {
         User user = null;
         String query = "SELECT [user_id],[first_name],[last_name],[address],[phone],[email]\n" +
-                "  FROM [dbo].[user]\n" +
+                "  FROM [dbo].[users]\n" +
                 "  where email = ?";
-        try{
+        try {
             conn = DbContext.getConnection();
-            ps= conn.prepareStatement(query);
+            ps = conn.prepareStatement(query);
             ps.setString(1, email);
             rs = ps.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 user = new User(rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
@@ -177,12 +177,12 @@ public class UserDao extends DbContext {
                         rs.getString(6));
             }
             conn.close();
-        }catch(Exception e){
+        } catch (Exception e) {
         }
         return user;
     }
 
-    public int getQuantityOfProductDetail(String productName, String colorName, String size){
+    public int getQuantityOfProductDetail(String productName, String colorName, String size) {
         int quantity = 0;
         String query = "SELECT pd.quantity\n" +
                 "FROM product_detail pd\n" +
@@ -190,7 +190,7 @@ public class UserDao extends DbContext {
                 "JOIN color c ON pd.color_code = c.color_id\n" +
                 "WHERE p.product_name = ? AND c.color_name = ? AND pd.size = ?";
 
-        try{
+        try {
             conn = DbContext.getConnection();
             ps = conn.prepareStatement(query);
             ps.setString(1, productName);
@@ -198,14 +198,38 @@ public class UserDao extends DbContext {
             ps.setString(3, size);
             rs = ps.executeQuery();
 
-            if(rs.next()){
+            if (rs.next()) {
                 quantity = rs.getInt(1);
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return quantity;
     }
 
+    public void order(int user_id, Timestamp orderDate, String price, String shippingAddress, String receiverName, String receiverPhone ){
+        String query = "INSERT INTO [dbo].[order]\n" +
+                "           ([user_id],[status],[order_date],[total_price],[shipping_address],[receiver_name],[receiver_phone])\n" +
+                "     VALUES\n" +
+                "           (\n" +
+                "           ?,1,?,?,?,?,?)";
+
+        try{
+
+            conn = DbContext.getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, user_id);
+            ps.setTimestamp(2, orderDate);
+            ps.setString(3, price);
+            ps.setString(4, shippingAddress);
+            ps.setString(5, receiverName);
+            ps.setString(6, receiverPhone);
+            ps.executeUpdate();
+            conn.close();
+
+        }catch (Exception e){
+
+        }
+    }
 
 }
