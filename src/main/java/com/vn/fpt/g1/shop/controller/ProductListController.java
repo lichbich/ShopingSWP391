@@ -21,6 +21,7 @@ public class ProductListController extends HttpServlet {
             // Get all products
             ProductDAO productDAO = new ProductDAO();
             String searchQuery = req.getParameter("searchQuery");
+            String categoryId = req.getParameter("categoryId");
             List<Product> products;
             if (searchQuery != null && !searchQuery.trim().isEmpty()) {
                 products = productDAO.searchProducts(searchQuery);
@@ -29,6 +30,8 @@ public class ProductListController extends HttpServlet {
             }
             List<Category> categories = ProductDAO.getAllCategories();
             List<Product> latestProducts = productDAO.getLatestProducts();
+            List<Product> filter = productDAO.getProductByCategory(categoryId);
+            req.setAttribute("products", filter);
             req.setAttribute("products", products);
             req.setAttribute("latestProducts", latestProducts);
             req.setAttribute("categories", categories);

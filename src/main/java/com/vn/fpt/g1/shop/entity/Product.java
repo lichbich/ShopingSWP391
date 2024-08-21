@@ -8,6 +8,7 @@ public class Product {
     private String description;
     private double minPrice;
     private double maxPrice;
+    private String imageUrl;
 
     private static final DecimalFormat formatter = new DecimalFormat("#,###");
 
@@ -22,12 +23,13 @@ public class Product {
     public Product() {
     }
 
-    public Product(int product_id, String product_name, String description, double minPrice, double maxPrice) {
+    public Product(int product_id, String product_name, String description, double minPrice, double maxPrice, String imageUrl) {
         this.product_id = product_id;
         this.product_name = product_name;
         this.description = description;
         this.minPrice = minPrice;
         this.maxPrice = maxPrice;
+        this.imageUrl = imageUrl;
     }
 
     public int getProduct_id() {
@@ -70,6 +72,14 @@ public class Product {
         this.maxPrice = maxPrice;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -78,6 +88,7 @@ public class Product {
                 ", description='" + description + '\'' +
                 ", minPrice=" + minPrice +
                 ", maxPrice=" + maxPrice +
+                ", imageUrl='" + imageUrl + '\'' +
                 '}';
     }
 }
