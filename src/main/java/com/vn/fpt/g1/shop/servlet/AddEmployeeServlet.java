@@ -149,7 +149,7 @@ public class AddEmployeeServlet extends HttpServlet {
                 //send Email
                 sendEmail(email, password);
 
-                response.sendRedirect("employeeManagement");
+                response.sendRedirect("EmployeeManagement");
 
 
             } catch (Exception e) {

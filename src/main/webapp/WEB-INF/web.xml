@@ -61,12 +61,12 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>EmployeeManagement</servlet-name>
+        <servlet-name>EmployeeManagementServlet</servlet-name>
         <servlet-class>com.vn.fpt.g1.shop.servlet.EmployeeManagementServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>EmployeeManagement</servlet-name>
+        <servlet-name>EmployeeManagementServlet</servlet-name>
         <url-pattern>/EmployeeManagement</url-pattern>
     </servlet-mapping>
 

@@ -34,7 +34,7 @@ public class UpdateEmployeeServlet extends HttpServlet {
 
         AdminDao dao = new AdminDao();
         dao.editEmployee(status, rid, email, timestamp);
-        response.sendRedirect("employeeManagement");
+        response.sendRedirect("EmployeeManagement");
 
     }
 }
