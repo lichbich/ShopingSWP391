@@ -16,6 +16,7 @@ h2{
     margin-left: 16px !important;
     display: flex;
     flex-wrap: wrap;
+    margin-bottom: 16px;
 }
 
 .product-item{
@@ -33,4 +34,31 @@ h2{
 
 .Category li a:hover{
     color: #f15e2c;
+}
+
+.search-form{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 32px;
+    margin-bottom: 48px;
+}
+
+.search-input{
+    width: 50%;
+    height: 40px;
+    border-radius: 20px;
+    border: none;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+.search-form button {
+    height: 40px;
+    border-radius: 20px;
+    border: none;
+    background-color: #d97f00;
+    color: white;
+    font-weight: 600;
+    padding-left: 16px;
+    padding-right: 16px;
 }

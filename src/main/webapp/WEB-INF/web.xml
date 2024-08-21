@@ -4,21 +4,10 @@
          xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
          version="6.0">
 
-<!--    <filter>-->
-<!--        <filter-name>RoleFilter</filter-name>-->
-<!--        <filter-class>com.vn.fpt.g1.shop.config.filter.RoleFilter</filter-class>-->
-<!--    </filter>-->
-<!--    <filter-mapping>-->
-<!--        <filter-name>RoleFilter</filter-name>-->
-<!--        <url-pattern>/admin/*</url-pattern>-->
-<!--        <url-pattern>/stock/*</url-pattern>-->
-<!--        <url-pattern>/sale/*</url-pattern>-->
-<!--        <url-pattern>/customer/*</url-pattern>-->
-<!--    </filter-mapping>-->
-<!--    <servlet>-->
-<!--        <servlet-name>ProductListController</servlet-name>-->
-<!--        <servlet-class>controller.ProductListController</servlet-class>-->
-<!--    </servlet>-->
+    <welcome-file-list>
+        <welcome-file>products</welcome-file>
+    </welcome-file-list>
+
     <filter>
         <filter-name>AuthorizationFilter</filter-name>
         <filter-class>com.vn.fpt.g1.shop.config.filter.AuthorizationFilter</filter-class>
@@ -70,26 +59,15 @@
         <url-pattern>/EmployeeManagement</url-pattern>
     </servlet-mapping>
 
-
 <!--    <servlet>-->
-<!--        <servlet-name>UpdateEmployeeManagement</servlet-name>-->
-<!--        <servlet-class>com.vn.fpt.g1.shop.servlet.UpdateEmployeeServlet</servlet-class>-->
+<!--        <servlet-name>CartController</servlet-name>-->
+<!--        <servlet-class>com.vn.fpt.g1.shop.servlet.CartController</servlet-class>-->
 <!--    </servlet>-->
 
 <!--    <servlet-mapping>-->
-<!--        <servlet-name>UpdateEmployeeManagement</servlet-name>-->
-<!--        <url-pattern>/updateEmployee</url-pattern>-->
+<!--        <servlet-name>CartController</servlet-name>-->
+<!--        <url-pattern>/cart</url-pattern>-->
 <!--    </servlet-mapping>-->
-
-    <servlet>
-        <servlet-name>CartController</servlet-name>
-        <servlet-class>com.vn.fpt.g1.shop.servlet.CartController</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>CartController</servlet-name>
-        <url-pattern>/cart</url-pattern>
-    </servlet-mapping>
 
     <servlet>
         <servlet-name>UpdateQuantityCartController</servlet-name>
@@ -110,4 +88,6 @@
         <servlet-name>DeleteCart</servlet-name>
         <url-pattern>/deleteCart</url-pattern>
     </servlet-mapping>
+
+
 </web-app>

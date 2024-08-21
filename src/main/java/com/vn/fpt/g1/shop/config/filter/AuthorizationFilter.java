@@ -26,22 +26,24 @@ public class AuthorizationFilter implements Filter {
 
 
         if (user == null) {
-            if (path.startsWith("/LoginController") || path.startsWith("/RegisterController") || path.equals("/cart")|| path.startsWith("/static") || path.equals("/login.jsp") || path.equals("/register.jsp") || path.equals("/logout")) {
+            if (path.startsWith("/LoginController") || path.startsWith("/RegisterController") || path.startsWith("/static") || path.equals("/login.jsp") || path.equals("/register.jsp") || path.equals("/logout") || path.equals("/products") || path.equals("/index.jsp")) {
                 chain.doFilter(request, response);
             } else {
+                if (session != null) {
+                    session.removeAttribute("user");
+                }
                 resp.sendRedirect(req.getContextPath() + "/LoginController");
             }
         } else {
             String role = user.getRole_id();
-            if ((role.equals("1") && (path.startsWith("/EmployeeManagement") || path.startsWith("/admin")  || path.startsWith("/search") || path.startsWith("/loadEmployee") || path.startsWith("/updateEmployee") ||path.startsWith("/addemployee"))) ||
+            if ((role.equals("1") && (path.startsWith("/EmployeeManagement") || path.startsWith("/admin") || path.startsWith("/search") || path.startsWith("/loadEmployee") || path.startsWith("/updateEmployee") || path.startsWith("/addemployee"))) ||
                     (role.equals("2") && path.startsWith("/stock.jsp")) ||
                     (role.equals("3") && path.startsWith("/sale.jsp")) ||
-                    (role.equals("4") && (path.startsWith("/index.jsp") || path.startsWith("/products") || path.startsWith("/cart") || path.startsWith("/updateCart") || path.startsWith("/delete") || path.startsWith("/order") || path.startsWith("/profile"))) ||
+                    (role.equals("4") && !(path.startsWith("/EmployeeManagement") || path.startsWith("/admin") || path.startsWith("/stock.jsp") || path.startsWith("/sale.jsp"))) ||
                     path.startsWith("/static") || path.startsWith("/LogoutController")) {
                 chain.doFilter(request, response);
             } else {
                 resp.sendRedirect(req.getContextPath() + "/accessDenied.jsp");
-
             }
         }
     }
