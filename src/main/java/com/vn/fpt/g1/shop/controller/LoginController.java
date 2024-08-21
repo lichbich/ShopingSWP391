@@ -58,7 +58,7 @@ public class LoginController extends HttpServlet {
                         resp.sendRedirect("sale.jsp");
                         break;
                     case "4":
-                        resp.sendRedirect("index.jsp");
+                        resp.sendRedirect("products");
                         break;
                     default:
                         req.setAttribute("error", "Unauthorized access.");

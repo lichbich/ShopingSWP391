@@ -9,6 +9,11 @@ public class Category {
     // Constructors, getters, and setters
     public Category() {}
 
+    public Category(int category_id, String name) {
+        this.category_id = category_id;
+        this.name = name;
+    }
+
     public Category(int category_id, String name, boolean status, String description) {
         this.category_id = category_id;
         this.name = name;

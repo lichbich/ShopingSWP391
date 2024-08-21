@@ -29,7 +29,7 @@
         <div class="collapse navbar-collapse" id="navbarsFurni">
             <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="${pageContext.request.contextPath}/index.jsp">Home</a>
+                    <a class="nav-link" href="${pageContext.request.contextPath}/products">Home</a>
                 </li>
                 <li><a class="nav-link active" href="${pageContext.request.contextPath}/products">Shop</a></li>
                 <li><a class="nav-link" href="#">About us</a></li>

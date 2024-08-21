@@ -65,7 +65,7 @@
 
                                 </td>
                                 <td> ${cart.color_name} ,${cart.size}</td>
-                                <td><fmt:formatNumber value="${cart.price}" type="currency" /></td>
+                                <td><fmt:formatNumber value="${cart.price}"  /> VNĐ</td>
                                 <td>
                                     <div class="input-group mb-3 d-flex align-items-center quantity-container"
                                          style="max-width: 120px;">
@@ -96,7 +96,7 @@
                                     </div>
 
                                 </td>
-                                <td><fmt:formatNumber value="${cart.price * cart.quantity}" type="currency" /></td>
+                                <td><fmt:formatNumber value="${cart.price * cart.quantity}" /> VNĐ</td>
                                 <td><a href="delete?cid=${cart.cart_id}" class="btn btn-black btn-sm">X</a></td>
                             </tr>
                             <c:set var="totalCartPrice" value="${totalCartPrice + (cart.price * cart.quantity)}" />
@@ -127,7 +127,7 @@
                         <span class="text-black">Total</span>
                     </div>
                     <div class="col-md-6 text-right">
-                        <strong class="text-black"><fmt:formatNumber value="${totalCartPrice}" type="currency" /></strong>
+                        <strong class="text-black"><fmt:formatNumber value="${totalCartPrice}" /> VNĐ</strong>
                     </div>
                 </div>
 

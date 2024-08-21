@@ -70,6 +70,17 @@
         <url-pattern>/EmployeeManagement</url-pattern>
     </servlet-mapping>
 
+
+<!--    <servlet>-->
+<!--        <servlet-name>UpdateEmployeeManagement</servlet-name>-->
+<!--        <servlet-class>com.vn.fpt.g1.shop.servlet.UpdateEmployeeServlet</servlet-class>-->
+<!--    </servlet>-->
+
+<!--    <servlet-mapping>-->
+<!--        <servlet-name>UpdateEmployeeManagement</servlet-name>-->
+<!--        <url-pattern>/updateEmployee</url-pattern>-->
+<!--    </servlet-mapping>-->
+
     <servlet>
         <servlet-name>CartController</servlet-name>
         <servlet-class>com.vn.fpt.g1.shop.servlet.CartController</servlet-class>

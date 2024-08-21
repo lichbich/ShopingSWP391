@@ -27,7 +27,7 @@
 </head>
 
 <body>
-
+<%@include file="component/header.jsp" %>
 
 <div class="hero">
     <div class="container">
@@ -74,9 +74,9 @@
                                     <h2 class="h5 text-black">${cart.product_name}</h2>
                                 </td>
                                 <td>${cart.color_name}, ${cart.size}</td>
-                                <td><fmt:formatNumber value="${cart.price}" type="currency"/></td>
+                                <td><fmt:formatNumber value="${cart.price}"/> VNĐ</td>
                                 <td>${cart.quantity} </td>
-                                <td><fmt:formatNumber value="${cart.price * cart.quantity}" type="currency"/></td>
+                                <td><fmt:formatNumber value="${cart.price * cart.quantity}" /> VNĐ</td>
 
                             </tr>
 
@@ -163,7 +163,7 @@
                                                 <td><strong>${cart.product_name}</strong>, ${cart.color_name}, ${cart.size}
                                                     <strong class="mx-2">x</strong> ${cart.quantity}</td>
                                                 <td><fmt:formatNumber value="${cart.price * cart.quantity}"
-                                                                      type="currency"/></td>
+                                                                      /> VNĐ</td>
                                             </tr>
                                             <c:set var="totalCartPrice"
                                                    value="${totalCartPrice + (cart.price * cart.quantity)}"/>
@@ -172,14 +172,13 @@
 
                                         <tr>
                                             <td class="text-black font-weight-bold"><strong>Cart Subtotal</strong></td>
-                                            <td class="text-black"><fmt:formatNumber value="${totalCartPrice}"
-                                                                                     type="currency"/></td>
+                                            <td class="text-black"><fmt:formatNumber value="${totalCartPrice}"/> VNĐ</td>
                                         </tr>
                                         <tr>
                                             <td class="text-black font-weight-bold"><strong>Order Total</strong></td>
                                             <td class="text-black font-weight-bold"><strong><fmt:formatNumber
-                                                    value="${totalCartPrice}" type="currency"/></strong></td>
-                                            <input type="hidden" name="total_price" value="${totalCartPrice}"/>
+                                                    value="${totalCartPrice}" /> VNĐ</strong></td>
+                                          <input type="hidden" name="total_price" value="${totalCartPrice}"/>
                                         </tr>
                                         </tbody>
                                     </table>
