@@ -22,10 +22,10 @@ public class ProductDetailController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String product_id = request.getParameter("productId");
+        String product_detail_id = request.getParameter("product_detail_id");
         String color_code = request.getParameter("colorCode");
-        ProductDetail productDetail = productDetailDAO.getProductDetailByIdAndColorCode(Integer.parseInt(product_id), Integer.parseInt(color_code));
-        List<Color> colors = productDetailDAO.getColorsByProductId(Integer.parseInt(product_id));
+        ProductDetail productDetail = productDetailDAO.getProductDetailByIdAndColorCode(Integer.parseInt(product_detail_id), Integer.parseInt(color_code));
+        List<Color> colors = productDetailDAO.getColorsByProductId(Integer.parseInt(product_detail_id));
         request.setAttribute("productDetail", productDetail);
         request.setAttribute("colors", colors);
         RequestDispatcher dispatcher = request.getRequestDispatcher("productDetail.jsp");
