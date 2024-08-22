@@ -74,7 +74,7 @@
             <jsp:useBean id="latestProducts" scope="request" type="java.util.List"/>
             <c:forEach items="${latestProducts}" var="productL">
                 <div class="col-12 col-md-4 col-lg-3 mb-5 product-content">
-                    <a class="product-item" href="cart.html">
+                    <a class="product-item" href="productDetail?productId=${product.product_id}&colorCode=defaultColor">
                         <img src="${productL.imageUrl}" class="img-fluid product-thumbnail">
                         <h3 class="product-title">${productL.product_name}</h3>
                         <p>${productL.description}</p>
@@ -100,7 +100,7 @@
             <jsp:useBean id="categories" scope="request" type="java.util.List"/>
             <c:forEach var="category" items="${categories}">
                 <ul class="list-unstyled custom-list">
-                    <li><a href="category?cid=${category.category_id}">${category.name}</a></li>
+                    <li><a href="category?categoryId=${category.category_id}">${category.name}</a></li>
                 </ul>
             </c:forEach>
 
@@ -110,7 +110,7 @@
             <!-- Start Column 2 -->
             <c:forEach var="product" items="${products}">
                 <div class="col-12 col-md-4 col-lg-3 mb-5 product-content">
-                    <a class="product-item" href="cart.html">
+                    <a class="product-item" href="productDetail?productId=${product.product_id}&colorCode=defaultColor">
                         <img src="${product.imageUrl}" class="img-fluid product-thumbnail">
                         <h3 class="product-title">${product.product_name}</h3>
                         <p>${product.description}</p>

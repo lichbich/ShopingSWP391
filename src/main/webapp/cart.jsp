@@ -76,7 +76,7 @@
                                                 <input type="hidden" name="cart_product_name" value="${cart.product_name}" />
                                                 <input type="hidden" name="cart_color_name" value="${cart.color_name}" />
                                                 <input type="hidden" name="cart_size" value="${cart.size}" />
-                                                <button class="btn btn-outline-black decrease" type="submit">&minus;</button>
+                                                <button class="btn btn-outline-black decrease" type="submit">-</button>
                                             </form>
                                         </div>
                                         <input type="text" class="form-control text-center quantity-amount"

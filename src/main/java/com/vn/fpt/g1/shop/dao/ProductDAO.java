@@ -143,11 +143,29 @@ public class ProductDAO {
         return categories;
     }
 
-    public List<Product> getProductByCategory( String categoryId) {
+    public List<Product> getProductsByCategory( String categoryId) {
         List<Product> products = new ArrayList<>();
         try {
-            String query = "\tSelect * from product \n" +
-                    "\twhere category_id = ?";
+            String query = "\tSELECT \n" +
+                    "    p.product_id, \n" +
+                    "    p.product_name, \n" +
+                    "    p.description, \n" +
+                    "    MIN(pd.price) AS minPrice, \n" +
+                    "    MAX(pd.price) AS maxPrice, \n" +
+                    "    i.image_url\n" +
+                    "FROM \n" +
+                    "    product p\n" +
+                    "JOIN \n" +
+                    "    product_detail pd ON p.product_id = pd.product_id\n" +
+                    "JOIN \n" +
+                    "    image i ON p.product_id = i.product_id\n" +
+                    "WHERE \n" +
+                    "    p.category_id = ?\n" +
+                    "GROUP BY \n" +
+                    "    p.product_id, \n" +
+                    "    p.product_name, \n" +
+                    "    p.description, \n" +
+                    "    i.image_url;\n";
             conn = DbContext.getConnection();
             ps = conn.prepareStatement(query);
             ps.setString(1, categoryId);
