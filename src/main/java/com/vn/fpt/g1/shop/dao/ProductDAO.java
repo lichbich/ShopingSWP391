@@ -1,5 +1,6 @@
 package com.vn.fpt.g1.shop.dao;
 
+import com.cloudinary.utils.StringUtils;
 import com.vn.fpt.g1.shop.dbcontext.DbContext;
 import com.vn.fpt.g1.shop.entity.Category;
 import com.vn.fpt.g1.shop.entity.Product;
@@ -7,8 +8,10 @@ import com.vn.fpt.g1.shop.entity.Product;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class ProductDAO {
     Connection conn = null;
@@ -193,6 +196,85 @@ public class ProductDAO {
         }
         return products;
     }
+    public void addProduct(String productName, String description, double minPrice, double maxPrice, String imageUrl) {
+
+        String query = "INSERT INTO [dbo].[product]\n" +
+                "           ([product_name],[description],[minPrice],[maxPrice],[imageUrl])\n" +
+                "     VALUES\n" +
+                "           (?,? ,?, ?, ?)\n";
+        try {
+            conn = DbContext.getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, productName);
+            ps.setString(2, description);
+            ps.setDouble(3, minPrice);
+            ps.setDouble(4, maxPrice);
+            ps.setString(5, imageUrl);
+            ps.executeUpdate();
+            conn.close();
+        } catch (Exception e) {
+        }
+    }
+
+    public void editProduct(int productId, String productName, String description, double minPrice, double maxPrice, String imageUrl) {
+        Product product = getProductById(productId);
+        if(Objects.nonNull(product)) {
+            String query = "INSERT INTO [dbo].[product]\n" +
+                    "           ([product_name],[description],[minPrice],[maxPrice],[imageUrl])\n" +
+                    "     VALUES\n" +
+                    "           (?,? ,?, ?, ?)\n";
+            try {
+                conn = DbContext.getConnection();
+                ps = conn.prepareStatement(query);
+                ps.setString(1, StringUtils.isEmpty(productName)?product.getProduct_name():productName);
+                ps.setString(2, StringUtils.isEmpty(description)?product.getDescription():description);
+                ps.setDouble(3, Objects.nonNull(minPrice)?minPrice:product.getMinPrice());
+                ps.setDouble(4, Objects.nonNull(maxPrice)?maxPrice:product.getMaxPrice());
+                ps.setString(5, StringUtils.isEmpty(imageUrl)?product.getImageUrl():imageUrl);
+                ps.executeUpdate();
+                conn.close();
+            } catch (Exception e) {
+            }
+        }
+    }
+
+    public void deleteProductById(int productId) {
+
+        String query = "delete from [product] where product_id = ?";
+        try {
+            conn = DbContext.getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, productId);
+            ps.executeUpdate();
+            conn.close();
+        } catch (Exception e) {
+        }
+    }
+
+    public Product getProductById(int productId) {
+        String query = "select * from [product] where product_id = ?";
+        try{
+            conn = DbContext.getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, productId);
+            rs = ps.executeQuery();
+            Product product = null;
+            while (rs.next()) {
+                product = new Product();
+                product.setProduct_id(rs.getInt("product_id"));
+                product.setProduct_name(rs.getString("product_name"));
+                product.setDescription(rs.getString("description"));
+                product.setMinPrice(rs.getDouble("minPrice"));
+                product.setMaxPrice(rs.getDouble("maxPrice"));
+                product.setImageUrl(rs.getString("image_url"));
+            }
+        return product;
+
+    } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     public static void main(String[] args) {
         ProductDAO productDAO = new ProductDAO();

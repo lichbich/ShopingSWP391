@@ -11,6 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDetailDAO {
+    private Connection conn = null;
+    private PreparedStatement ps = null;
+    private ResultSet rs = null;
+
     public ProductDetail getProductDetailByIdAndColorCode(int product_id, int color_code) {
         ProductDetail productDetail = null;
         try (Connection conn = DbContext.getConnection()) {
@@ -64,5 +68,69 @@ public class ProductDetailDAO {
             e.printStackTrace();
         }
         return colors;
+    }
+    public void addProductDetail(int productId, String productName, String description, double minPrice, double maxPrice, String imageUrl) {
+
+        String query = "INSERT INTO [dbo].[product]\n" +
+                "           ([product_id],[product_name],[description],[minPrice],[maxPrice],[imageUrl])\n" +
+                "     VALUES\n" +
+                "           (?,?,? ,?, ?, ?)\n";
+        try {
+            conn = DbContext.getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, productId);
+            ps.setString(2, productName);
+            ps.setString(3, description);
+            ps.setDouble(4, minPrice);
+            ps.setDouble(5, maxPrice);
+            ps.setString(6, imageUrl);
+            ps.executeUpdate();
+            conn.close();
+        }catch (Exception e) {
+        }
+    }
+    public void editProductDetail(String productName, String description, double minPrice, double maxPrice, String imageUrl) {
+
+        String query = "INSERT INTO [dbo].[product]\n" +
+                "           ([product_id],[product_name],[description],[minPrice],[maxPrice],[imageUrl])\n" +
+                "     VALUES\n" +
+                "           (?,?,? ,?, ?, ?)\n";
+        try {
+            conn = DbContext.getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, productName);
+            ps.setString(2, description);
+            ps.setDouble(3, minPrice);
+            ps.setDouble(4, maxPrice);
+            ps.setString(5, imageUrl);
+            ps.executeUpdate();
+            conn.close();
+        }catch (Exception e) {
+        }
+    }
+
+    public void deleteProductDetailById(int productDetailId) {
+
+        String query = "delete from [product_detail] where product_detail_id = ?";
+        try {
+            conn = DbContext.getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, productDetailId);
+            ps.executeUpdate();
+            conn.close();
+        } catch (Exception e) {
+        }
+    }
+
+    public void deleteAllProductDetailByProductId(int productId) {
+        String query = "delete from [product_detail] where product_id = ?";
+        try {
+            conn = DbContext.getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, productId);
+            ps.executeUpdate();
+            conn.close();
+        } catch (Exception e) {
+        }
     }
 }
