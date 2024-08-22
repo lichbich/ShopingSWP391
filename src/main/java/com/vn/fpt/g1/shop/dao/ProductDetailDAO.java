@@ -3,6 +3,8 @@ package com.vn.fpt.g1.shop.dao;
 import com.vn.fpt.g1.shop.dbcontext.DbContext;
 import com.vn.fpt.g1.shop.entity.ProductDetail;
 import com.vn.fpt.g1.shop.entity.Color;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductDetailDAO {
+    private static final Logger log = LogManager.getLogger(ProductDetailDAO.class);
     private Connection conn = null;
     private PreparedStatement ps = null;
     private ResultSet rs = null;
@@ -20,8 +23,8 @@ public class ProductDetailDAO {
         try (Connection conn = DbContext.getConnection()) {
             String query = "SELECT p.product_name, p.description, pd.price, pd.color, pd.size, pd.quantity, pd.product_detail_id " +
                     "FROM product p " +
-                    "JOIN product_detail pd ON p.product_id = pd.product_id " +
-                    "JOIN color c ON pd.color_code = c.color_code " +
+                    "LEFT JOIN product_detail pd ON p.product_id = pd.product_id " +
+                    "LEFT JOIN color c ON pd.color_code = c.color_code " +
                     "WHERE p.product_id = ? AND c.color_code = ?";
             try (PreparedStatement ps = conn.prepareStatement(query)) {
                 ps.setInt(1, product_id);
@@ -69,24 +72,26 @@ public class ProductDetailDAO {
         }
         return colors;
     }
-    public void addProductDetail(int productId, String productName, String description, double minPrice, double maxPrice, String imageUrl) {
+    public void addProductDetail(ProductDetail productDetail) {
 
-        String query = "INSERT INTO [dbo].[product]\n" +
-                "           ([product_id],[product_name],[description],[minPrice],[maxPrice],[imageUrl])\n" +
+        String query = "INSERT INTO [dbo].[product_detail]\n" +
+                "           ([product_id],[product_name],[description],[price],[color_code],[size],[quantity])\n" +
                 "     VALUES\n" +
-                "           (?,?,? ,?, ?, ?)\n";
+                "           (?,?,? ,?, ?,?, ?)\n";
         try {
             conn = DbContext.getConnection();
             ps = conn.prepareStatement(query);
-            ps.setInt(1, productId);
-            ps.setString(2, productName);
-            ps.setString(3, description);
-            ps.setDouble(4, minPrice);
-            ps.setDouble(5, maxPrice);
-            ps.setString(6, imageUrl);
+            ps.setInt(1, productDetail.getProduct_id());
+            ps.setString(2, productDetail.getProduct_name());
+            ps.setString(3, productDetail.getDescription());
+            ps.setDouble(4, productDetail.getPrice());
+            ps.setDouble(5, productDetail.getColor_code());
+            ps.setString(6, productDetail.getSize());
+            ps.setInt(7, productDetail.getQuantity());
             ps.executeUpdate();
             conn.close();
         }catch (Exception e) {
+            log.error(e.getMessage());
         }
     }
     public void editProductDetail(String productName, String description, double minPrice, double maxPrice, String imageUrl) {
