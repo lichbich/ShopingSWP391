@@ -107,13 +107,13 @@
                                 <label for="re-name" class="text-black">Name of receiver <span
                                         class="text-danger">*</span></label>
                                 <input type="hidden" name="customer_id" value="${detail.user_id}"/>
-                                <input type="text" value="${detail.firstname} ${detail.lastname}" class="form-control" id="re-name" name="re-name">
+                                <input type="text" value="${detail.firstname} ${detail.lastname}" class="form-control" id="re-name" name="receiverName">
                             </div>
 
                             <div class="form-group row">
                                 <div class="col-md-12">
                                     <label class="text-black">Phone number</label>
-                                    <input type="text" value="${detail.phone_number}" class="form-control" name="">
+                                    <input type="text" value="${detail.phone_number}" class="form-control" name="receiverPhone">
                                 </div>
                             </div>
 

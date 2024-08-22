@@ -1,7 +1,10 @@
 package com.vn.fpt.g1.shop.dao;
 
+import com.oracle.wls.shaded.org.apache.xpath.operations.Or;
 import com.vn.fpt.g1.shop.dbcontext.DbContext;
 import com.vn.fpt.g1.shop.entity.Cart;
+import com.vn.fpt.g1.shop.entity.Order;
+import com.vn.fpt.g1.shop.entity.OrderDetail;
 import com.vn.fpt.g1.shop.entity.User;
 
 import java.sql.Connection;
@@ -24,22 +27,32 @@ public class UserDao extends DbContext {
     public List<Cart> getCartByEmail(String email) {
         List<Cart> list = new ArrayList<>();
         String query = "SELECT \n" +
-                "    c.cart_id,u.[user_id],u.email,p.product_id,p.product_name,pd.size ,col.color_id,col.color_name, pd.price,c.quantity,i.image_url\n" +
-                "    \n" +
+                "    c.cart_id,\n" +
+                "    u.[user_id],\n" +
+                "    u.email,\n" +
+                "    pd.product_detail_id, \n" +
+                "    p.product_id,\n" +
+                "    p.product_name,    \n" +
+                "    pd.size,\n" +
+                "    col.color_id,\n" +
+                "    col.color_name,\n" +
+                "    pd.price,\n" +
+                "    c.quantity,\n" +
+                "    i.image_url\n" +
                 "FROM \n" +
                 "    cart AS c\n" +
                 "JOIN \n" +
                 "    product_detail AS pd ON c.product_detail_id = pd.product_detail_id\n" +
-                "JOIN \n" +
+                "JOIN\n" +
                 "    product AS p ON pd.product_id = p.product_id\n" +
-                "JOIN \n" +
+                "JOIN\n" +
                 "    color AS col ON pd.color_code = col.color_id\n" +
-                "JOIN \n" +
+                "JOIN\n" +
                 "    [image] AS i ON p.product_id = i.product_id AND pd.color_code = i.color_id\n" +
-                "JOIN \n" +
+                "JOIN\n" +
                 "    [users] AS u ON c.[user_id] = u.[user_id]\n" +
                 "WHERE \n" +
-                "    u.email = ?";
+                "    u.email = ?;";
 
         try {
             conn = DbContext.getConnection();
@@ -51,13 +64,14 @@ public class UserDao extends DbContext {
                         rs.getInt(2),
                         rs.getString(3),
                         rs.getInt(4),
-                        rs.getString(5),
+                        rs.getInt(5),
                         rs.getString(6),
-                        rs.getInt(7),
-                        rs.getString(8),
+                        rs.getString(7),
+                        rs.getInt(8),
                         rs.getString(9),
-                        rs.getInt(10),
-                        rs.getString(11)));
+                        rs.getString(10),
+                        rs.getInt(11),
+                        rs.getString(12)));
             }
             conn.close();
         } catch (Exception e) {
@@ -66,7 +80,6 @@ public class UserDao extends DbContext {
 
         return list;
     }
-
 
     public User checkAccountExist(String email) {
         String query = "select [user_id],[first_name], [last_name], [email], [password] from [users]\n" +
@@ -201,20 +214,21 @@ public class UserDao extends DbContext {
             if (rs.next()) {
                 quantity = rs.getInt(1);
             }
+            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return quantity;
     }
 
-    public void order(int user_id, Timestamp orderDate, String price, String shippingAddress, String receiverName, String receiverPhone ){
+    public void order(int user_id, Timestamp orderDate, String price, String shippingAddress, String receiverName, String receiverPhone) {
         String query = "INSERT INTO [dbo].[order]\n" +
                 "           ([user_id],[status],[order_date],[total_price],[shipping_address],[receiver_name],[receiver_phone])\n" +
                 "     VALUES\n" +
                 "           (\n" +
-                "           ?,1,?,?,?,?,?)";
+                "           ?,'Shop Processing',?,?,?,?,?)";
 
-        try{
+        try {
 
             conn = DbContext.getConnection();
             ps = conn.prepareStatement(query);
@@ -227,9 +241,181 @@ public class UserDao extends DbContext {
             ps.executeUpdate();
             conn.close();
 
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
     }
 
+    public int getOrderId() {
+        int orderId = 0;
+        String query = "SELECT TOP 1 [order_id]\n" +
+                "FROM [order]\n" +
+                "ORDER BY order_id DESC;";
+        try {
+            conn = DbContext.getConnection();
+            ps = conn.prepareStatement(query);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                orderId = rs.getInt(1);
+            }
+            conn.close();
+
+        } catch (Exception e) {
+
+        }
+        return orderId;
+    }
+
+    public void insertOrderDetailByOrderId(List<Cart> cartList, int orderId) {
+        String query = "INSERT INTO [dbo].[order_detail]\n" +
+                "           ([order_id],[product_detail_id],[quantity],[price])\n" +
+                "     VALUES\n" +
+                "           (?, ?, ?, ?)";
+
+        try {
+            conn = DbContext.getConnection();
+            ps = conn.prepareStatement(query);
+            for (Cart item : cartList) {
+                ps.setInt(1, orderId);
+                ps.setInt(2, item.getProduct_detail_id());
+                ps.setInt(3, item.getQuantity());
+                ps.setString(4, item.getPrice());
+                ps.executeUpdate();
+
+            }
+            conn.close();
+
+        } catch (Exception e) {
+
+        }
+    }
+
+    public List<Order> customerListOrder(String email, String status) {
+        List<Order> orders = new ArrayList<>();
+        String query = "\n" +
+                "WITH OrderWithProductCount AS (\n" +
+                "    SELECT \n" +
+                "        o.[order_id],o.[user_id], u.email AS user_email,o.[status],p.product_name, o.order_date, o.total_price, o.receiver_name,o.receiver_phone,o.shipping_address, COUNT(od.product_detail_id) OVER (PARTITION BY o.order_id) AS total_products,\n" +
+                "        ROW_NUMBER() OVER (PARTITION BY o.order_id ORDER BY od.product_detail_id) AS row_num\n" +
+                "    FROM \n" +
+                "        [order] o\n" +
+                "    JOIN \n" +
+                "        [users] u ON o.[user_id] = u.[user_id]\n" +
+                "    JOIN \n" +
+                "        [order_detail] od ON o.order_id = od.order_id\n" +
+                "    JOIN \n" +
+                "        [product_detail] pd ON od.product_detail_id = pd.product_detail_id\n" +
+                "    JOIN \n" +
+                "        [product] p ON pd.product_id = p.product_id\n" +
+                "    WHERE \n" +
+                "        u.email = ? \n" +
+                "        AND o.status = ?\n" +
+                ")\n" +
+                "SELECT \n" +
+                "    [order_id],[user_id],user_email,[status], CONCAT(product_name, ' + ', (total_products - 1)) AS product_name,order_date,total_price,receiver_name,receiver_phone,shipping_address\n" +
+                "FROM \n" +
+                "    OrderWithProductCount\n" +
+                "WHERE \n" +
+                "    row_num = 1\n" +
+                "ORDER BY \n" +
+                "    order_date DESC;\n";
+
+        try {
+            conn = DbContext.getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, email);
+            ps.setString(2, status);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                orders.add(new Order(rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getTimestamp(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10)));
+            }
+            conn.close();
+
+        } catch (Exception e) {
+
+        }
+        return orders;
+    }
+
+    public Order getOrderById(int order_id) {
+        Order order = null;
+        String query = "SELECT \n" +
+                "o.order_id, u.email, o.[status], o.order_date, o.total_price, o.receiver_name, o.receiver_phone, o.shipping_address \n" +
+                "FROM \n" +
+                "    [order] o\n" +
+                "JOIN \n" +
+                "    [users] u ON o.[user_id] = u.[user_id]\n" +
+                "WHERE \n" +
+                "    o.order_id = ?";
+
+        try {
+            conn = DbContext.getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, order_id);
+            rs = ps.executeQuery();
+            if(rs.next()){
+                order = new Order(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getTimestamp(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8));
+            }
+            conn.close();
+        } catch (Exception e) {
+        }
+        return order;
+    }
+
+    public List<OrderDetail> getOrderDetailById(int order_id){
+        List<OrderDetail> orderDetails = new ArrayList<>();
+        String query = "SELECT\n" +
+                "    od.order_detail_id, od.order_id,p.product_name, c.color_name,  pd.size, od.quantity, od.price, img.image_url\n" +
+                "FROM \n" +
+                "    order_detail od\n" +
+                "JOIN \n" +
+                "    product_detail pd ON od.product_detail_id = pd.product_detail_id\n" +
+                "JOIN \n" +
+                "    product p ON pd.product_id = p.product_id\n" +
+                "JOIN \n" +
+                "    color c ON pd.color_code = c.color_id\n" +
+                "JOIN \n" +
+                "    image img ON pd.product_id = img.product_id AND pd.color_code = img.color_id\n" +
+                "WHERE \n" +
+                "    od.order_id = ?";
+
+        try{
+            conn = DbContext.getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setInt(1, order_id);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                orderDetails.add(new OrderDetail(rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getInt(6),
+                        rs.getString(7),
+                        rs.getString(8)));
+            }
+            conn.close();
+        }catch (Exception e){
+
+        }
+
+
+        return orderDetails;
+    }
 }
