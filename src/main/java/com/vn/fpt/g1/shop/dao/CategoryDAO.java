@@ -12,14 +12,14 @@ import java.util.List;
 public class CategoryDAO {
     public static List<Category> getAllCategories() {
         List<Category> categories = new ArrayList<>();
-        String query = "SELECT * FROM Category";
+        String query = "SELECT * FROM category";
         try (Connection connection = DbContext.getConnection();
              PreparedStatement ps = connection.prepareStatement(query);
              ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
                 Category category = new Category();
-                category.setCategory_id(rs.getInt("id"));
+                category.setCategory_id(rs.getInt("category_id"));
                 category.setName(rs.getString("name"));
                 category.setStatus(rs.getBoolean("status"));
                 category.setDescription(rs.getString("description"));

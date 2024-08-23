@@ -1,6 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <html>
   <head>
     <title>Title</title>
@@ -38,9 +37,48 @@
   </head>
 
   <body>
-
-  <%@ include file="component/sideBar.jsp" %>
-
+    <!-- Navbar-->
+    <header class="app-header">
+      <!-- Sidebar toggle button--><a
+        class="app-sidebar__toggle"
+        href="#"
+        data-toggle="sidebar"
+        aria-label="Hide Sidebar"
+      ></a>
+      <!-- Navbar Right Menu-->
+      <ul class="app-nav">
+        <!-- User Menu-->
+        <li>
+          <a class="app-nav__item" href="/index.html"
+            ><i class="bx bx-log-out bx-rotate-180"></i>
+          </a>
+        </li>
+      </ul>
+    </header>
+    <!-- Sidebar menu-->
+    <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
+    <aside class="app-sidebar">
+      <div class="app-sidebar__user">
+        <img
+          class="app-sidebar__user-avatar"
+          src="/images/hay.jpg"
+          width="50px"
+          alt="User Image"
+        />
+        <div>
+          <p class="app-sidebar__user-designation">Chào mừng bạn trở lại</p>
+        </div>
+      </div>
+      <hr />
+      <ul class="app-menu">
+        <li>
+          <a class="app-menu__item active" href="table-data-product.html"
+            ><i class="app-menu__icon bx bx-purchase-tag-alt"></i
+            ><span class="app-menu__label">Quản lý sản phẩm</span></a
+          >
+        </li>
+      </ul>
+    </aside>
     <main class="app-content">
       <div class="app-title">
         <ul class="app-breadcrumb breadcrumb">
@@ -53,33 +91,40 @@
           <div class="tile">
             <h3 class="tile-title">Add new product</h3>
             <div class="tile-body">
-              <form class="row" action="add-product" method="post">
+              <form class="row">
                 <div class="form-group col-md-3">
                   <label class="control-label">Product name</label>
-                  <input class="form-control" type="text" name="productName" required/>
-                </div>
-                <div class="form-group col-md-3">
-                  <label class="control-label">Category</label>
-                  <select name="CategoryID" class="form-control" >
-                    <c:forEach var="category" items="${categories}">
-                      <option value="${category.category_id}">${category.name}</option>
-                    </c:forEach>
-                  </select>
+                  <input class="form-control" type="text" />
                 </div>
                 <div class="form-group col-md-12">
-                  <label class="control-label" required>Description</label>
+                  <label class="control-label">Description</label>
                   <textarea
                     class="form-control"
-                    name="description"
+                    name="mota"
                     id="mota"
                   ></textarea>
+                  <script>
+                    CKEDITOR.replace("mota");
+                  </script>
                 </div>
+
                 <div class="form-group col-md-12">
-                  <button type="submit" class="btn btn-save">Save</button>
-                  <a class="btn btn-cancel" href="productManagement">Cancel</a>
+                  <label class="control-label">Import Product detail</label>
+                  <br />
+                  <form
+                    action="ExcelUploadServlet"
+                    method="post"
+                    enctype="multipart/form-data"
+                  >
+                    <input type="file" name="file" accept=".xlsx" />
+                  </form>
                 </div>
+
+                
               </form>
             </div>
+            <button class="btn btn-save" type="button">Save</button>
+            <a class="btn btn-cancel" href="table-data-product.html">Cancel</a>
           </div>
         </div>
       </div>
