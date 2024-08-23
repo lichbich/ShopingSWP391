@@ -26,7 +26,7 @@ public class AuthorizationFilter implements Filter {
 
 
         if (user == null) {
-            if (path.startsWith("/LoginController") || path.startsWith("/RegisterController") || path.startsWith("/static") || path.equals("/login.jsp") || path.equals("/register.jsp") || path.equals("/logout") || path.equals("/products") || path.equals("/CategoryController") || path.equals("/index.jsp") || path.equals("/category") || path.equals("/productManagement") || path.equals("/add-product") || path.equals("/import-product-detail")) {
+            if (path.startsWith("/LoginController") || path.startsWith("/RegisterController") || path.startsWith("/static") || path.equals("/login.jsp") || path.equals("/register.jsp") || path.equals("/logout") || path.equals("/products") || path.equals("/CategoryController") || path.equals("/index.jsp") || path.equals("/category") || path.equals("/productManagement") || path.equals("/add-product") || path.equals("/import-product-detail") || path.equals("/deleteProduct") || path.equals("/update-product")) {
                 chain.doFilter(request, response);
             } else {
                 if (session != null) {
@@ -37,13 +37,16 @@ public class AuthorizationFilter implements Filter {
         } else {
             String role = user.getRole_id();
             if ((role.equals("1") && (path.startsWith("/EmployeeManagement") || path.startsWith("/admin") || path.startsWith("/search") || path.startsWith("/loadEmployee") || path.startsWith("/updateEmployee") || path.startsWith("/addemployee"))) ||
-                    (role.equals("2") && (path.startsWith("/stock.jsp")) )||
-                    (role.equals("3") && path.startsWith("/sale.jsp")) ||
+                    (role.equals("2") && (path.startsWith("/stock.jsp")))||
+                    (role.equals("3") && (path.startsWith("/orderManagement")) || path.startsWith("/admin")) ||
                     (role.equals("4") && !(path.startsWith("/EmployeeManagement") || path.startsWith("/admin") || path.startsWith("/stock.jsp") || path.startsWith("/sale.jsp"))) ||
                     path.startsWith("/static") || path.startsWith("/LogoutController")) {
                 chain.doFilter(request, response);
             } else {
-                resp.sendRedirect(req.getContextPath() + "/accessDenied.jsp");
+                if (session != null) {
+                    session.removeAttribute("user");
+                }
+                resp.sendRedirect(req.getContextPath() + "/LoginController");
             }
         }
     }

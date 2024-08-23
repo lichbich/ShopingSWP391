@@ -62,7 +62,7 @@ public class ImportProductDetailServlet extends HttpServlet {
         }
         workbook.close();
         request.setAttribute("data", "success");
-        request.getRequestDispatcher("/importProduct.jsp").forward(request, response);
+        request.getRequestDispatcher("productManagement").forward(request, response);
     }
     }
 

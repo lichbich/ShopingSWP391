@@ -19,11 +19,11 @@ public class ProductManagementServlet extends HttpServlet {
         try {
             // Get all products
             ProductDAO productDAO = new ProductDAO();
-            List<ProductDetail> productDetail;
-            productDetail = productDAO.getAllProductDetail();
+            List<Product> products = productDAO.getAllProducts();
             List<Category> categories = ProductDAO.getAllCategories();
-            req.setAttribute("productDetail", productDetail);
+            req.setAttribute("products", products);
             req.setAttribute("categories", categories);
+
             req.getRequestDispatcher("product_management.jsp").forward(req, resp);
 
         } catch (Exception e) {

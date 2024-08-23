@@ -38,48 +38,9 @@
 </head>
 
 <body class="app sidebar-mini rtl">
-<!-- Navbar-->
-<header class="app-header">
-    <!-- Sidebar toggle button--><a
-        class="app-sidebar__toggle"
-        href="#"
-        data-toggle="sidebar"
-        aria-label="Hide Sidebar"
-></a>
-    <!-- Navbar Right Menu-->
-    <ul class="app-nav">
-        <!-- User Menu-->
-        <li>
-            <a class="app-nav__item" href="/index.html"
-            ><i class="bx bx-log-out bx-rotate-180"></i>
-            </a>
-        </li>
-    </ul>
-</header>
-<!-- Sidebar menu-->
-<div class="app-sidebar__overlay" data-toggle="sidebar"></div>
-<aside class="app-sidebar">
-    <div class="app-sidebar__user">
-        <img
-                class="app-sidebar__user-avatar"
-                src="/images/hay.jpg"
-                width="50px"
-                alt="User Image"
-        />
-        <div>
-            <p class="app-sidebar__user-designation">Chào mừng bạn trở lại</p>
-        </div>
-    </div>
-    <hr />
-    <ul class="app-menu">
-        <li>
-            <a class="app-menu__item" href="/ProductListController"
-            ><i class="app-menu__icon bx bx-purchase-tag-alt"></i
-            ><span class="app-menu__label">Product Management</span></a
-            >
-        </li>
-    </ul>
-</aside>
+
+<%@ include file="component/sideBar.jsp" %>
+
 <main class="app-content">
     <div class="app-title">
         <ul class="app-breadcrumb breadcrumb side">
@@ -101,31 +62,22 @@
                             <th>Product ID</th>
                             <th>Product Name</th>
                             <th>Description</th>
-                            <th>Quantity</th>
-                            <th>Price</th>
-                            <th>Color</th>
-                            <th>Size</th>
                             <th>Action</th>
                         </tr>
                         </thead>
 
                         <tbody>
-                <c:forEach var="product" items="${productDetail}">
+                <c:forEach var="product" items="${products}">
                         <tr>
                             <td>${product.product_id}</td>
                             <td>${product.product_name}</td>
                             <td>${product.description}</td>
-                            <td>${product.quantity}</td>
-                            <td>${product.price}</td>
-                            <td><span class="badge bg-success">${product.color_code}</span></td>
-                            <td>
-                                <span>45</span>
-                            </td>
                             <td>
                                 <button
                                         class="btn btn-primary btn-sm trash"
                                         type="button"
                                         title="Xóa"
+<%--                                        onclick="location.href='deleteProduct?productDetailId=${product.product_id}'"--%>
                                 >
                                     <i class="fas fa-trash-alt"></i>
                                 </button>
@@ -133,6 +85,7 @@
                                         class="btn btn-primary btn-sm edit"
                                         type="button"
                                         title="Sửa"
+                                        onclick="location.href='update-product?productId=${product.product_id}'"
                                 >
                                     <i class="fa fa-edit"></i>
                                 </button>

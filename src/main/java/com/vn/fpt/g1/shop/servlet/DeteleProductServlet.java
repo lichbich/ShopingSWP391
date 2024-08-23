@@ -9,24 +9,16 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 
-@WebServlet(name = "AddProductServlet", value = "/add-product")
+@WebServlet(name = "DeleteProductServlet", value = "/deleteProduct")
 public class DeteleProductServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int productDetailId = Integer.parseInt(request.getParameter("productDetailId"));
+        ProductDAO productDAO = new ProductDAO();
+        productDAO.deleteProductById(productDetailId);
+        request.getRequestDispatcher("productManagement").forward(request, response);
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String productId = request.getParameter("productId");
 
-            try {
-                ProductDAO productDAO = new ProductDAO();
-                productDAO.deleteProductById(Integer.parseInt(productId));
-                response.sendRedirect("deleteProduct");
-            } catch (Exception e) {
-                throw new RuntimeException(e);
-            }
-
-    }
 }

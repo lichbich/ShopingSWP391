@@ -8,6 +8,7 @@ public class Product {
     private String product_name;
     private String description;
     private int is_active;
+    private int category_id;
     private double minPrice;
     private double maxPrice;
     private String imageUrl;
@@ -41,11 +42,12 @@ public class Product {
         this.createdate = createdate;
     }
 
-    public Product(int product_id, String product_name, String description, int is_active, double minPrice, double maxPrice, String imageUrl, Timestamp createdate, Timestamp updatedate) {
+    public Product(int product_id, String product_name, String description, int is_active, int category_id, double minPrice, double maxPrice, String imageUrl, Timestamp createdate, Timestamp updatedate) {
         this.product_id = product_id;
         this.product_name = product_name;
         this.description = description;
         this.is_active = is_active;
+        this.category_id = category_id;
         this.minPrice = minPrice;
         this.maxPrice = maxPrice;
         this.imageUrl = imageUrl;
@@ -83,6 +85,14 @@ public class Product {
 
     public void setIs_active(int is_active) {
         this.is_active = is_active;
+    }
+
+    public int getCategory_id() {
+        return category_id;
+    }
+
+    public void setCategory_id(int category_id) {
+        this.category_id = category_id;
     }
 
     public double getMinPrice() {
@@ -132,6 +142,7 @@ public class Product {
                 ", product_name='" + product_name + '\'' +
                 ", description='" + description + '\'' +
                 ", is_active=" + is_active +
+                ", category_id=" + category_id +
                 ", minPrice=" + minPrice +
                 ", maxPrice=" + maxPrice +
                 ", imageUrl='" + imageUrl + '\'' +
