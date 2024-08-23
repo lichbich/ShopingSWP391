@@ -34,13 +34,7 @@ public class ImportProductDetailServlet extends HttpServlet {
     private static final String UPLOAD_DIR = "uploads";
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //get data from dao
-        AdminDao dao = new AdminDao();
-        List<Role> listRole = dao.getEmployeeRole();
-
-        //set data to jsp
-        request.setAttribute("listRole", listRole);
-        request.getRequestDispatcher("add_employee.jsp").forward(request, response);
+        request.getRequestDispatcher("importProduct.jsp").forward(request, response);
 
     }
 
@@ -60,19 +54,15 @@ public class ImportProductDetailServlet extends HttpServlet {
                 continue;
             }
             ProductDetail productDetail = new ProductDetail();
-            productDetail.setProduct_id((int) row.getCell(1).getNumericCellValue());
-            productDetail.setProduct_name(row.getCell(2).getStringCellValue());
-            productDetail.setDescription(row.getCell(3).getStringCellValue());
-            productDetail.setPrice(row.getCell(4).getNumericCellValue());
-            productDetail.setColor_code((int)row.getCell(5).getNumericCellValue());
-            productDetail.setSize(row.getCell(6).getStringCellValue());
-            productDetail.setQuantity((int)row.getCell(7).getNumericCellValue());
+            productDetail.setColor_code((int) row.getCell(0).getNumericCellValue());
+            productDetail.setPrice(row.getCell(3).getNumericCellValue());
+            productDetail.setSize((float)row.getCell(1).getNumericCellValue());
+            productDetail.setQuantity((int)row.getCell(2).getNumericCellValue());
             productDetailDAO.addProductDetail(productDetail);
         }
         workbook.close();
         request.setAttribute("data", "success");
-        request.getRequestDispatcher("/display.jsp").forward(request, response);
-
+        request.getRequestDispatcher("/importProduct.jsp").forward(request, response);
     }
     }
 

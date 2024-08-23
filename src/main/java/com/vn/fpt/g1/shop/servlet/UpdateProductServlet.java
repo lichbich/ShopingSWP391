@@ -20,15 +20,13 @@ public class UpdateProductServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String productName = request.getParameter("productName");
         String description = request.getParameter("description");
-        double minPrice = Double.parseDouble(request.getParameter("minPrice"));
-        double maxPrice = Double.parseDouble(request.getParameter("maxPrice"));
-        String imageUrl = request.getParameter("imageUrl");
+        int CategoryID = Integer.parseInt(request.getParameter("CategoryID"));
 
             try {
                 ProductDAO productDAO = new ProductDAO();
-                productDAO.addProduct(productName, description, minPrice, maxPrice, imageUrl);
+                productDAO.addProduct(productName, description, CategoryID);
 
-                response.sendRedirect("employeeManagement");
+                response.sendRedirect("productManagement");
 
             } catch (Exception e) {
                 throw new RuntimeException(e);

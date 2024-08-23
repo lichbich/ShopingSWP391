@@ -1,14 +1,18 @@
 package com.vn.fpt.g1.shop.entity;
 
+import java.sql.Timestamp;
 import java.text.DecimalFormat;
 
 public class Product {
     private int product_id;
     private String product_name;
     private String description;
+    private int is_active;
     private double minPrice;
     private double maxPrice;
     private String imageUrl;
+    private Timestamp createdate;
+    private Timestamp updatedate;
 
     private static final DecimalFormat formatter = new DecimalFormat("#,###");
 
@@ -23,13 +27,30 @@ public class Product {
     public Product() {
     }
 
-    public Product(int product_id, String product_name, String description, double minPrice, double maxPrice, String imageUrl) {
+    public Product(int product_id, String product_name, String description) {
         this.product_id = product_id;
         this.product_name = product_name;
         this.description = description;
+    }
+
+    public Product(int product_id, String product_name, String description, int is_active, Timestamp createdate) {
+        this.product_id = product_id;
+        this.product_name = product_name;
+        this.description = description;
+        this.is_active = is_active;
+        this.createdate = createdate;
+    }
+
+    public Product(int product_id, String product_name, String description, int is_active, double minPrice, double maxPrice, String imageUrl, Timestamp createdate, Timestamp updatedate) {
+        this.product_id = product_id;
+        this.product_name = product_name;
+        this.description = description;
+        this.is_active = is_active;
         this.minPrice = minPrice;
         this.maxPrice = maxPrice;
         this.imageUrl = imageUrl;
+        this.createdate = createdate;
+        this.updatedate = updatedate;
     }
 
     public int getProduct_id() {
@@ -56,6 +77,14 @@ public class Product {
         this.description = description;
     }
 
+    public int getIs_active() {
+        return is_active;
+    }
+
+    public void setIs_active(int is_active) {
+        this.is_active = is_active;
+    }
+
     public double getMinPrice() {
         return minPrice;
     }
@@ -80,15 +109,34 @@ public class Product {
         this.imageUrl = imageUrl;
     }
 
+    public Timestamp getCreatedate() {
+        return createdate;
+    }
+
+    public void setCreatedate(Timestamp createdate) {
+        this.createdate = createdate;
+    }
+
+    public Timestamp getUpdatedate() {
+        return updatedate;
+    }
+
+    public void setUpdatedate(Timestamp updatedate) {
+        this.updatedate = updatedate;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
                 "product_id=" + product_id +
                 ", product_name='" + product_name + '\'' +
                 ", description='" + description + '\'' +
+                ", is_active=" + is_active +
                 ", minPrice=" + minPrice +
                 ", maxPrice=" + maxPrice +
                 ", imageUrl='" + imageUrl + '\'' +
+                ", createdate=" + createdate +
+                ", updatedate=" + updatedate +
                 '}';
     }
 }

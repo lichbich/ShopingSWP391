@@ -32,11 +32,11 @@ public class ProductDetailDAO {
                 try (ResultSet rs = ps.executeQuery()) {
                     if (rs.next()) {
                         productDetail = new ProductDetail();
-                        productDetail.setProduct_name(rs.getString("product_name"));
-                        productDetail.setDescription(rs.getString("description"));
+//                        productDetail.setProduct_name(rs.getString("product_name"));
+//                        productDetail.setDescription(rs.getString("description"));
                         productDetail.setPrice(rs.getDouble("price"));
                         productDetail.setColor_code(rs.getInt("color_code"));
-                        productDetail.setSize(rs.getString("size"));
+                        productDetail.setSize(rs.getFloat("size"));
                         productDetail.setQuantity(rs.getInt("quantity"));
                         productDetail.setProduct_detail_id(rs.getInt("product_detail_id"));
                     }
@@ -72,22 +72,21 @@ public class ProductDetailDAO {
         }
         return colors;
     }
+
     public void addProductDetail(ProductDetail productDetail) {
 
         String query = "INSERT INTO [dbo].[product_detail]\n" +
-                "           ([product_id],[product_name],[description],[price],[color_code],[size],[quantity])\n" +
+                "           ([product_id],[color_code],[size],[quantity],[price])\n" +
                 "     VALUES\n" +
-                "           (?,?,? ,?, ?,?, ?)\n";
+                "           (?,?,?,?,?)\n";
         try {
             conn = DbContext.getConnection();
             ps = conn.prepareStatement(query);
             ps.setInt(1, productDetail.getProduct_id());
-            ps.setString(2, productDetail.getProduct_name());
-            ps.setString(3, productDetail.getDescription());
-            ps.setDouble(4, productDetail.getPrice());
-            ps.setDouble(5, productDetail.getColor_code());
-            ps.setString(6, productDetail.getSize());
-            ps.setInt(7, productDetail.getQuantity());
+            ps.setDouble(2, productDetail.getColor_code());
+            ps.setFloat(3, productDetail.getSize());
+            ps.setInt(4, productDetail.getQuantity());
+            ps.setDouble(5, productDetail.getPrice());
             ps.executeUpdate();
             conn.close();
         }catch (Exception e) {

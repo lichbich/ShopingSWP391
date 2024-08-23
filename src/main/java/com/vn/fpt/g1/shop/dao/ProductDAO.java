@@ -4,6 +4,7 @@ import com.cloudinary.utils.StringUtils;
 import com.vn.fpt.g1.shop.dbcontext.DbContext;
 import com.vn.fpt.g1.shop.entity.Category;
 import com.vn.fpt.g1.shop.entity.Product;
+import com.vn.fpt.g1.shop.entity.ProductDetail;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -51,6 +52,33 @@ public class ProductDAO {
             }
         }
         return products;
+    }
+
+    public List<ProductDetail> getAllProductDetail() {
+        List<ProductDetail> productDetails = new ArrayList<>();
+        String query = "SELECT p.product_id, p.product_name, p.description, pd.price, pd.size, i.image_url, pd.color_code " +
+                "FROM product p " +
+                "JOIN product_detail pd ON p.product_id = pd.product_id " +
+                "JOIN image i ON p.product_id = i.product_id";
+        try (Connection conn = DbContext.getConnection();
+             PreparedStatement ps = conn.prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                ProductDetail productDetail = new ProductDetail();
+                productDetail.setProduct_id(rs.getInt("product_id"));
+                productDetail.setProduct_name(rs.getString("product_name"));
+                productDetail.setDescription(rs.getString("description"));
+                productDetail.setPrice(rs.getDouble("price"));
+                productDetail.setSize(rs.getFloat("size"));
+                productDetail.setImageUrl(rs.getString("image_url"));
+                productDetail.setColor_code(rs.getInt("color_code"));
+                productDetails.add(productDetail);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return productDetails;
     }
 
     public List<Product> searchProducts(String query) {
@@ -196,20 +224,18 @@ public class ProductDAO {
         }
         return products;
     }
-    public void addProduct(String productName, String description, double minPrice, double maxPrice, String imageUrl) {
+    public void addProduct(String productName, String description, int CategoryID) {
 
         String query = "INSERT INTO [dbo].[product]\n" +
-                "           ([product_name],[description],[minPrice],[maxPrice],[imageUrl])\n" +
+                "           ([product_name],[description], [category_id])\n" +
                 "     VALUES\n" +
-                "           (?,? ,?, ?, ?)\n";
+                "           (?,? ,?)\n";
         try {
             conn = DbContext.getConnection();
             ps = conn.prepareStatement(query);
             ps.setString(1, productName);
             ps.setString(2, description);
-            ps.setDouble(3, minPrice);
-            ps.setDouble(4, maxPrice);
-            ps.setString(5, imageUrl);
+            ps.setInt(3, CategoryID);
             ps.executeUpdate();
             conn.close();
         } catch (Exception e) {
@@ -276,11 +302,11 @@ public class ProductDAO {
     }
 
 
-    public static void main(String[] args) {
-        ProductDAO productDAO = new ProductDAO();
-        List<Product> productList = productDAO.getAllProducts();
-        for (Product product : productList) {
-            System.out.println(product);
-        }
-    }
+//    public static void main(String[] args) {
+//        ProductDAO productDAO = new ProductDAO();
+//        List<Product> productList = productDAO.getAllProducts();
+//        for (Product product : productList) {
+//            System.out.println(product);
+//        }
+//    }
 }
