@@ -59,6 +59,18 @@
         <url-pattern>/EmployeeManagement</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>AddEmployeeServlet</servlet-name>
+        <servlet-class>com.vn.fpt.g1.shop.servlet.AddEmployeeServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>AddEmployeeServlet</servlet-name>
+        <url-pattern>/addemployee</url-pattern>
+    </servlet-mapping>
+
+
+
 <!--    <servlet>-->
 <!--        <servlet-name>CartController</servlet-name>-->
 <!--        <servlet-class>com.vn.fpt.g1.shop.servlet.CartController</servlet-class>-->

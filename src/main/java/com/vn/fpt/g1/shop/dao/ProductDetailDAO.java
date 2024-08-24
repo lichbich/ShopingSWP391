@@ -29,17 +29,25 @@ public class ProductDetailDAO {
                     "    pd.size, \n" +
                     "    pd.quantity, \n" +
                     "    pd.product_detail_id, \n" +
-                    "    i.image_url\n" +
+                    "    STRING_AGG(i.image_url, ', ') AS image_urls \n" +
                     "FROM \n" +
                     "    product p\n" +
                     "LEFT JOIN \n" +
                     "    product_detail pd ON p.product_id = pd.product_id\n" +
                     "LEFT JOIN \n" +
-                    "    color c ON pd.color_code = c.color_id\n" +
+                    "    color c ON pd.color_code = c.color_code\n" +
                     "LEFT JOIN \n" +
-                    "    image i ON pd.product_detail_id = i.product_id AND c.color_id = i.color_id\n" +
+                    "    image i ON p.product_id = i.product_id\n" +
                     "WHERE \n" +
-                    "    p.product_id = ?";
+                    "    p.product_id = ?\n" +
+                    "GROUP BY \n" +
+                    "    p.product_name, \n" +
+                    "    p.description, \n" +
+                    "    pd.price, \n" +
+                    "    pd.color_code, \n" +
+                    "    pd.size, \n" +
+                    "    pd.quantity, \n" +
+                    "    pd.product_detail_id;";
             try (PreparedStatement ps = conn.prepareStatement(query)) {
                 ps.setInt(1, product_id);
                 try (ResultSet rs = ps.executeQuery()) {
@@ -53,7 +61,7 @@ public class ProductDetailDAO {
                         productDetail.setSize(rs.getFloat("size"));
                         productDetail.setQuantity(rs.getInt("quantity"));
                         productDetail.setProduct_detail_id(rs.getInt("product_detail_id"));
-                        productDetail.setImageUrl(rs.getString("image_url"));
+                        productDetail.setImageUrl(rs.getString("image_urls"));
                         productDetails.add(productDetail);
                     }
                 }
@@ -62,6 +70,23 @@ public class ProductDetailDAO {
             e.printStackTrace();
         }
         return productDetails;
+    }
+
+    public void addToCart(String email, int productDetailId) {
+        String query = "INSERT INTO cart ([user_id], product_detail_id, quantity)\n" +
+                "VALUES (\n" +
+                "    (SELECT [user_id] FROM users WHERE email = ?),\n" +
+                "    ?, 1)";
+        try {
+            conn = DbContext.getConnection();
+            ps = conn.prepareStatement(query);
+            ps.setString(1, email);
+            ps.setInt(2, productDetailId);
+            ps.executeUpdate();
+            conn.close();
+        } catch (Exception e) {
+            log.error(e.getMessage());
+        }
     }
 
     public ProductDetail getProductDetailByIdAndColorCode(int product_id, int color_code) {

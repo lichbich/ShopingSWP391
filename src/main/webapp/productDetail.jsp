@@ -36,13 +36,14 @@
         <div class="row justify-content-between">
             <div class="col-lg-7 mb-5 mb-lg-0">
                 <div class="imgs-grid">
-                    <img src="${productDetails[0].imageUrl}" alt="Image" class="img-detail" id="productImage" />
+                    <img src="https://ananas.vn/wp-content/uploads/Pro_AV00207_2.jpg" alt="Image" class="img-detail" id="productImage" />
                 </div>
             </div>
             <div class="col-lg-5 ps-lg-5">
                 <h2 class="section-title mb-4" id="productName">${productDetails[0].product_name}</h2>
                 <p id="productDescription">${productDetails[0].description}</p>
                 <p>Mã sản phẩm: <strong id="productId">${productDetails[0].product_detail_id}</strong></p>
+
                 <h2 class="price" id="productPrice"><fmt:formatNumber value="${productDetails[0].price}" type="currency" currencySymbol="VND"/></h2>
                 <hr class="dotted-separator" />
 
@@ -79,8 +80,12 @@
                         <input type="number" name="quantity" placeholder="input quantity" style="boder:none; border-radius: 10px"  required/>
                     </div>
                 </div>
-
-                <p><a href="#" class="btn btn-detail">Thêm vào giỏ hàng</a></p>
+                <form action="addToCart" method="post" >
+                    <input type="hidden" name="userId" value="${sessionScope.userId}" />
+                    <input type="hidden" name="productId" id="hiddenProductId" value="${productDetails[0].product_detail_id}" />
+                    <input type="hidden" name="quantity" id="hiddenQuantity" />
+                    <p><button type="submit" class="btn btn-detail">Thêm vào giỏ hàng</button></p>
+                </form>
             </div>
         </div>
 
@@ -123,6 +128,12 @@
             document.getElementById('productInfoColor').innerText = selectedProduct.color_code;
             document.getElementById('productInfoSize').innerText = selectedProduct.size;
         }
+    }
+
+    function addToCart() {
+        const quantity = document.getElementById('quantity').value;
+        document.getElementById('hiddenQuantity').value = quantity;
+        return true;
     }
 </script>
 </body>

@@ -168,7 +168,7 @@
                                 <input type="hidden" name="orderQuantity" value="${detail.quantity}"/>
                                 <tr>
 
-                                    <td><img src="${detail.image_url}" alt="Product Image" class="product-thumbnail">
+                                    <td><img src="${detail.image_url}" alt="Product Image" class="product-thumbnail" style="width: 150px;height: 150px">
                                     </td>
                                     <td>${detail.product_name}</td>
                                     <td>${detail.color_name}, ${detail.size}</td>
