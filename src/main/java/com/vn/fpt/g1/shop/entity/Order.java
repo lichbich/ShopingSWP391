@@ -5,6 +5,8 @@ import java.sql.Timestamp;
 public class Order {
     private int order_id;
     private int user_id;
+    public String user_firstname;
+    public String user_lastname;
     private String user_email;
     private String status;
     private String product_name;
@@ -16,6 +18,8 @@ public class Order {
 
     public Order() {
     }
+
+
 
     public Order(int order_id, String user_email, String status, Timestamp order_date, String total_price, String receiver_name, String receiver_phone, String shipping_address) {
         this.order_id = order_id;
@@ -41,6 +45,21 @@ public class Order {
         this.shipping_address = shipping_address;
     }
 
+    public Order(int order_id, int user_id, String user_firstname, String user_lastname, String user_email, String status, String product_name, Timestamp order_date, String total_price, String receiver_name, String receiver_phone, String shipping_address) {
+        this.order_id = order_id;
+        this.user_id = user_id;
+        this.user_firstname = user_firstname;
+        this.user_lastname = user_lastname;
+        this.user_email = user_email;
+        this.status = status;
+        this.product_name = product_name;
+        this.order_date = order_date;
+        this.total_price = total_price;
+        this.receiver_name = receiver_name;
+        this.receiver_phone = receiver_phone;
+        this.shipping_address = shipping_address;
+    }
+
     public int getOrder_id() {
         return order_id;
     }
@@ -55,6 +74,22 @@ public class Order {
 
     public void setUser_id(int user_id) {
         this.user_id = user_id;
+    }
+
+    public String getUser_firstname() {
+        return user_firstname;
+    }
+
+    public void setUser_firstname(String user_firstname) {
+        this.user_firstname = user_firstname;
+    }
+
+    public String getUser_lastname() {
+        return user_lastname;
+    }
+
+    public void setUser_lastname(String user_lastname) {
+        this.user_lastname = user_lastname;
     }
 
     public String getUser_email() {
@@ -126,6 +161,8 @@ public class Order {
         return "Order{" +
                 "order_id=" + order_id +
                 ", user_id=" + user_id +
+                ", user_firstname='" + user_firstname + '\'' +
+                ", user_lastname='" + user_lastname + '\'' +
                 ", user_email='" + user_email + '\'' +
                 ", status='" + status + '\'' +
                 ", product_name='" + product_name + '\'' +

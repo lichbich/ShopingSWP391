@@ -3,6 +3,7 @@ package com.vn.fpt.g1.shop.entity;
 public class OrderDetail {
     private int order_detail_id;
     private int order_id;
+    private int product_detail_id;
     private String product_name;
     private String color_name;
     private String size;
@@ -13,9 +14,10 @@ public class OrderDetail {
     public OrderDetail() {
     }
 
-    public OrderDetail(int order_detail_id, int order_id, String product_name, String color_name, String size, int quantity, String price, String image_url) {
+    public OrderDetail(int order_detail_id, int order_id, int product_detail_id, String product_name, String color_name, String size, int quantity, String price, String image_url) {
         this.order_detail_id = order_detail_id;
         this.order_id = order_id;
+        this.product_detail_id = product_detail_id;
         this.product_name = product_name;
         this.color_name = color_name;
         this.size = size;
@@ -38,6 +40,14 @@ public class OrderDetail {
 
     public void setOrder_id(int order_id) {
         this.order_id = order_id;
+    }
+
+    public int getProduct_detail_id() {
+        return product_detail_id;
+    }
+
+    public void setProduct_detail_id(int product_detail_id) {
+        this.product_detail_id = product_detail_id;
     }
 
     public String getProduct_name() {
@@ -93,6 +103,7 @@ public class OrderDetail {
         return "OrderDetail{" +
                 "order_detail_id=" + order_detail_id +
                 ", order_id=" + order_id +
+                ", product_detail_id=" + product_detail_id +
                 ", product_name='" + product_name + '\'' +
                 ", color_name='" + color_name + '\'' +
                 ", size='" + size + '\'' +

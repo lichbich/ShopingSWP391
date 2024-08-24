@@ -45,6 +45,7 @@ public class OrderController extends HttpServlet {
             int orderId = dao.getOrderId();
             List<Cart> listCartContact = (List<Cart>) session.getAttribute("listCart");
             dao.insertOrderDetailByOrderId(listCartContact, orderId);
+            response.sendRedirect("products");
 
         }
 

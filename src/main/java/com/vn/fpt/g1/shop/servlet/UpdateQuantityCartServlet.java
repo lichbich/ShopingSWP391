@@ -38,20 +38,21 @@ public class UpdateQuantityCartServlet extends HttpServlet {
             }
 
             dao.updateQuantity(cartId, cartQuantity);
+
             response.sendRedirect("cart");
         }catch (NumberFormatException e) {
             // Xử lý lỗi chuyển đổi kiểu dữ liệu
             e.printStackTrace(); // Ghi log lỗi hoặc thông báo cho người dùng
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid input format");
 
-            // Dừng thực hiện thêm nếu có lỗi
+
 
         }catch (Exception e) {
             // Xử lý các lỗi khác
             e.printStackTrace(); // Ghi log lỗi hoặc thông báo cho người dùng
             response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "An error occurred");
 
-            // Dừng thực hiện thêm nếu có lỗi
+
         }
 
 

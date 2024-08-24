@@ -29,6 +29,7 @@
                 </li>
                 <li><a class="nav-link" href="#">About us</a></li>
                 <li><a class="nav-link" href="#">Blog</a></li>
+                <li><a class="nav-link" href="${pageContext.request.contextPath}/customerListOrder">My Order</a></li>
             </ul>
 
             <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">

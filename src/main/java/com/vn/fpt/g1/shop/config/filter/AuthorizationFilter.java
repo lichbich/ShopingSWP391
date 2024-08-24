@@ -37,9 +37,9 @@ public class AuthorizationFilter implements Filter {
         } else {
             String role = user.getRole_id();
             if ((role.equals("1") && (path.startsWith("/EmployeeManagement") || path.startsWith("/admin") || path.startsWith("/search") || path.startsWith("/loadEmployee") || path.startsWith("/updateEmployee") || path.startsWith("/addemployee"))) ||
-                    (role.equals("2") && path.startsWith("/stock.jsp")) ||
-                    (role.equals("3") && path.startsWith("/sale.jsp")) ||
-                    (role.equals("4") && !(path.startsWith("/EmployeeManagement") || path.startsWith("/admin") || path.startsWith("/stock.jsp") || path.startsWith("/sale.jsp"))) || path.startsWith("/customerListOrder") || path.startsWith("/orderInformation") ||
+                    (role.equals("2") && (path.startsWith("/stock.jsp")))||
+                    (role.equals("3") && (path.startsWith("/orderManagement") || path.startsWith("/orderDetailManagement")) || path.startsWith("/updateOrderStatus") || path.startsWith("/admin")) ||
+                    (role.equals("4") && !(path.startsWith("/EmployeeManagement") || path.startsWith("/admin") || path.startsWith("/stock.jsp") || path.startsWith("/sale.jsp") )) || path.startsWith("/customerListOrder") || path.startsWith("/orderInformation") ||
                     path.startsWith("/static") || path.startsWith("/LogoutController")) {
                 chain.doFilter(request, response);
             } else {
@@ -47,6 +47,8 @@ public class AuthorizationFilter implements Filter {
             }
         }
     }
+
+
 
     @Override
     public void destroy() {

@@ -55,7 +55,7 @@ public class LoginController extends HttpServlet {
                         resp.sendRedirect("stock.jsp");
                         break;
                     case "3":
-                        resp.sendRedirect("sale.jsp");
+                        resp.sendRedirect("orderManagement");
                         break;
                     case "4":
                         resp.sendRedirect("products");
