@@ -74,9 +74,9 @@
                 <div class="ChooseColor">
                     <h3>Color</h3>
                     <div class="color">
-                        <button class="color-item green" id="green"></button>
-                        <button class="color-item red" id="red"></button>
-                        <button class="color-item blue" id="blue"></button>
+                        <button class="color-item green" id="1"></button>
+                        <button class="color-item red" id="2"></button>
+                        <button class="color-item blue" id="3"></button>
                     </div>
 
                 </div>
