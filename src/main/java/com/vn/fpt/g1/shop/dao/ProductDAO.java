@@ -23,25 +23,14 @@ public class ProductDAO {
         List<Product> products = new ArrayList<>();
         try {
             String query = "WITH ProductImage AS (\n" +
-                    "    SELECT \n" +
-                    "        p.product_id, \n" +
-                    "        p.product_name, \n" +
-                    "        p.description, \n" +
-                    "        MIN(pd.price) AS minPrice, \n" +
-                    "        MAX(pd.price) AS maxPrice, \n" +
-                    "        i.image_url,\n" +
-                    "        ROW_NUMBER() OVER (PARTITION BY p.product_id ORDER BY i.image_url) AS row_num\n" +
-                    "    FROM \n" +
-                    "        product p\n" +
-                    "    JOIN \n" +
-                    "        product_detail pd ON p.product_id = pd.product_id\n" +
-                    "    JOIN \n" +
-                    "        image i ON p.product_id = i.product_id\n" +
-                    "    GROUP BY \n" +
-                    "        p.product_id, p.product_name, p.description, i.image_url\n" +
-                    ")\n" +
-                    "SELECT * \n" +
-                    "FROM ProductImage \n" +
+                    "SELECT  p.product_id,   p.product_name,  p.description,  MIN(pd.price) AS minPrice,   MAX(pd.price) AS maxPrice, \n" +
+                    "i.image_url, pd.color_code,\n" +
+                    "ROW_NUMBER() OVER (PARTITION BY p.product_id ORDER BY i.image_url) AS row_num\n" +
+                    "FROM  product p\n" +
+                    "JOIN   product_detail pd ON p.product_id = pd.product_id\n" +
+                    "JOIN  image i ON p.product_id = i.product_id\n" +
+                    "GROUP BY  p.product_id, p.product_name, p.description, i.image_url, pd.color_code)\n" +
+                    "SELECT * FROM ProductImage \n" +
                     "WHERE row_num = 1;";
             conn = DbContext.getConnection();
             ps = conn.prepareStatement(query);
@@ -54,6 +43,7 @@ public class ProductDAO {
                 product.setMinPrice(rs.getDouble("minPrice"));
                 product.setMaxPrice(rs.getDouble("maxPrice"));
                 product.setImageUrl(rs.getString("image_url"));
+                product.setColor_code(rs.getInt("color_code"));
                 products.add(product);
             }
         } catch (Exception e) {
@@ -139,32 +129,22 @@ public class ProductDAO {
     public List<Product> getLatestProducts() {
         List<Product> products = new ArrayList<>();
         try {
-            String query = "WITH LatestProduct AS (\n" +
-                    "    SELECT \n" +
-                    "        p.product_id, \n" +
-                    "        p.product_name, \n" +
-                    "        p.description, \n" +
-                    "        MIN(pd.price) AS minPrice, \n" +
-                    "        MAX(pd.price) AS maxPrice, \n" +
-                    "        i.image_url,\n" +
-                    "        ROW_NUMBER() OVER (PARTITION BY p.product_id ORDER BY p.product_id DESC) AS row_num\n" +
-                    "    FROM \n" +
-                    "        product p\n" +
-                    "    JOIN \n" +
-                    "        product_detail pd ON p.product_id = pd.product_id\n" +
-                    "    JOIN \n" +
-                    "        image i ON p.product_id = i.product_id\n" +
-                    "    GROUP BY \n" +
-                    "        p.product_id, p.product_name, p.description, i.image_url\n" +
-                    ")\n" +
-                    "SELECT TOP 3\n" +
-                    "    product_id, product_name, description, minPrice, maxPrice, image_url\n" +
-                    "FROM \n" +
-                    "    LatestProduct\n" +
-                    "WHERE \n" +
-                    "    row_num = 1\n" +
-                    "ORDER BY \n" +
-                    "    product_id DESC;";
+            String query = "\tWITH LatestProduct AS ( SELECT p.product_id, \n" +
+                    "\tp.product_name, \n" +
+                    "\tp.description, \n" +
+                    "\tMIN(pd.price) AS minPrice, \n" +
+                    "\tMAX(pd.price) AS maxPrice, \n" +
+                    "\ti.image_url, pd.color_code,\n" +
+                    "\tROW_NUMBER() OVER (PARTITION BY p.product_id ORDER BY p.product_id DESC) AS row_num\n" +
+                    "\tFROM  product p\n" +
+                    "\tJOIN \n" +
+                    "\tproduct_detail pd ON p.product_id = pd.product_id\n" +
+                    "\tJOIN  image i ON p.product_id = i.product_id\n" +
+                    "\tGROUP BY  p.product_id, p.product_name, p.description, i.image_url, pd.color_code)\n" +
+                    "\tSELECT TOP 3 product_id, product_name, description, minPrice, maxPrice, image_url, color_code\n" +
+                    "\tFROM   LatestProduct\n" +
+                    "\tWHERE   row_num = 1\n" +
+                    "\tORDER BY  product_id DESC;";
             conn = DbContext.getConnection();
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
@@ -176,6 +156,7 @@ public class ProductDAO {
                 product.setMinPrice(rs.getDouble("minPrice"));
                 product.setMaxPrice(rs.getDouble("maxPrice"));
                 product.setImageUrl(rs.getString("image_url"));
+                product.setColor_code(rs.getInt("color_code"));
                 products.add(product);
             }
         } catch (Exception e) {

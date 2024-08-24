@@ -1,43 +1,26 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="author" content="Untree.co" />
     <link rel="shortcut icon" href="favicon.png" />
-
     <meta name="description" content="" />
     <meta name="keywords" content="bootstrap, bootstrap4" />
-
-    <!-- Bootstrap CSS -->
-    <link href="static/css/bootstrap.min.css" rel="stylesheet" />
-    <link
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-            rel="stylesheet"
-    />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
     <link href="static/css/tiny-slider.css" rel="stylesheet" />
-    <link href="static/css/style.css" rel="stylesheet" />
     <link href="static/css/productDetail.css" rel="stylesheet" />
-    <title>
-        Furni Free Bootstrap 5 Template for Furniture and Interior Design Websites
-        by Untree.co
-    </title>
+    <title>Product Detail</title>
 </head>
-
 <body>
-<!-- Start Header/Navigation -->
 <%@ include file="component/header.jsp" %>
-<!-- End Header/Navigation -->
 
-<!-- Start Hero Section -->
 <div class="hero">
-    <div class="container">
+    <div class="container" style="margin-top: 32px !important;">
         <div class="row justify-content-between">
             <div class="col-lg-5">
                 <div class="intro-excerpt">
@@ -47,38 +30,38 @@
         </div>
     </div>
 </div>
-<!-- End Hero Section -->
 
-<!-- Start Product Detail Section -->
 <div class="we-help-section">
     <div class="container">
         <div class="row justify-content-between">
             <div class="col-lg-7 mb-5 mb-lg-0">
                 <div class="imgs-grid">
-                    <img
-                            src="images/Pro_AV00181_2.jpeg"
-                            alt="Image"
-                            class="img-detail"
-                    />
+                    <img src="${productDetails[0].imageUrl}" alt="Image" class="img-detail" id="productImage" />
                 </div>
             </div>
             <div class="col-lg-5 ps-lg-5">
-                <h2 class="section-title mb-4">Track 6 Class E - Low Top</h2>
-                <p>
-                    Comfortable low-top sneakers made with Nappa Leather and Suede
-                </p>
-                <p>Mã sản phẩm: <strong>ALP2402</strong></p>
-                <h2 class="price">1.500.000 VND</h2>
+                <h2 class="section-title mb-4" id="productName">${productDetails[0].product_name}</h2>
+                <p id="productDescription">${productDetails[0].description}</p>
+                <p>Mã sản phẩm: <strong id="productId">${productDetails[0].product_detail_id}</strong></p>
+                <h2 class="price" id="productPrice"><fmt:formatNumber value="${productDetails[0].price}" type="currency" currencySymbol="VND"/></h2>
                 <hr class="dotted-separator" />
 
                 <div class="ChooseColor">
                     <h3>Color</h3>
-                    <div class="color">
-                        <button class="color-item green" id="1"></button>
-                        <button class="color-item red" id="2"></button>
-                        <button class="color-item blue" id="3"></button>
+                    <div class="color" style="margin-right: 16px !important;">
+                        <c:forEach var="productDetail" items="${productDetails}">
+                            <input type="radio" id="color${productDetail.color_code}" name="color" value="${productDetail.color_code}" onclick="updateProductDetail(${productDetail.color_code})" />
+                            <label class="color-label" for="color${productDetail.color_code}" style="background-color:
+                            <c:choose>
+                            <c:when test="${productDetail.color_code == 1}">#888154</c:when>
+                            <c:when test="${productDetail.color_code == 2}">#c17137</c:when>
+                            <c:when test="${productDetail.color_code == 3}">#434b60</c:when>
+                            <c:otherwise>gray</c:otherwise>
+                            </c:choose>; width: 32px; height: 32px; display: flex; justify-content: center;align-items: center; color: white; border-radius: 100%;margin-right: 16px !important">
+                                    ${productDetail.color_code}
+                            </label>
+                        </c:forEach>
                     </div>
-
                 </div>
 
                 <hr class="dotted-separator" />
@@ -86,54 +69,61 @@
                 <div class="ChooseDetail">
                     <div class="ChooseDetail-size">
                         <h3>Size</h3>
-                        <select
-                                class="form-select"
-                                aria-label="Default select example"
-                                name="size"
-                        >
-                            <option selected>Select size</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                        <select class="form-select" aria-label="Default select example" name="size" id="productSize">
+                            <option selected>${productDetails[0].size}</option>
                         </select>
                     </div>
 
                     <div class="ChooseDetail-quantity">
                         <h3>Quantity</h3>
-                        <select
-                                class="form-select"
-                                aria-label="Default select example"
-                                name="quantity"
-                        >
-                            <option selected>Select quantity</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
-                        </select>
+                        <input type="number" name="quantity" placeholder="input quantity" style="boder:none; border-radius: 10px"  required/>
                     </div>
                 </div>
 
-                <p><a herf="#" class="btn btn-detail">Thêm vào giỏ hàng</a></p>
+                <p><a href="#" class="btn btn-detail">Thêm vào giỏ hàng</a></p>
             </div>
         </div>
 
         <div class="product-infor">
             <h2>Thông tin sản phẩm</h2>
-            <p>Comfortable low-top sneakers made with Nappa Leather and Suede</p>
-            <p>Color: Black</p>
-            <p>Size: 39-43</p>
-
+            <p id="productInfoDescription">${productDetails[0].description}</p>
+            <p>Color: <span id="productInfoColor">${productDetails[0].color_code}</span></p>
+            <p>Size: <span id="productInfoSize">${productDetails[0].size}</span></p>
         </div>
     </div>
 </div>
 
-<!-- Start Product Detail Section -->
-<!-- Start Footer -->
 <%@ include file="component/footer.jsp" %>
-<!-- End Footer -->
 
 <script src="js/bootstrap.bundle.min.js"></script>
 <script src="js/tiny-slider.js"></script>
 <script src="js/custom.js"></script>
+<script type="text/javascript">
+    function updateProductDetail(colorCode) {
+        console.log("=========colorCode==============", colorCode);
+        var productDetails = [
+            <c:forEach items="${productDetails}" var="item" >
+            {imageUrl: '${item.imageUrl}', color_code: ${item.color_code}, price: ${item.price}, size: '${item.size}', quantity: ${item.quantity}, description: '${item.description}', product_detail_id: ${item.product_detail_id},
+                product_name: '${item.product_name}'}
+            </c:forEach>
+        ];
+
+        console.log(productDetails)
+        const selectedProduct = productDetails.find(productDetail => productDetail.color_code === colorCode);
+
+        if (selectedProduct) {
+            document.getElementById('productImage').src = selectedProduct.imageUrl;
+            document.getElementById('productName').innerText = selectedProduct.product_name;
+            document.getElementById('productDescription').innerText = selectedProduct.description;
+            document.getElementById('productId').innerText = selectedProduct.product_detail_id;
+            document.getElementById('productPrice').innerText = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(selectedProduct.price);
+            document.getElementById('productSize').innerHTML = `<option selected>${selectedProduct.size}</option>`;
+            document.getElementById('productQuantity').innerHTML = `<option selected>${selectedProduct.quantity}</option>`;
+            document.getElementById('productInfoDescription').innerText = selectedProduct.description;
+            document.getElementById('productInfoColor').innerText = selectedProduct.color_code;
+            document.getElementById('productInfoSize').innerText = selectedProduct.size;
+        }
+    }
+</script>
 </body>
 </html>

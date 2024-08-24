@@ -52,7 +52,7 @@ public class LoginController extends HttpServlet {
                         resp.sendRedirect("EmployeeManagement");
                         break;
                     case "2":
-                        resp.sendRedirect("stock.jsp");
+                        resp.sendRedirect("productManagement");
                         break;
                     case "3":
                         resp.sendRedirect("sale.jsp");

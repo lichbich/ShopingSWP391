@@ -1,9 +1,7 @@
 package com.vn.fpt.g1.shop.controller;
 
-import com.vn.fpt.g1.shop.dao.ProductDAO;
 import com.vn.fpt.g1.shop.dao.ProductDetailDAO;
 import com.vn.fpt.g1.shop.entity.ProductDetail;
-import com.vn.fpt.g1.shop.entity.Color;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import jakarta.servlet.annotation.*;
@@ -11,7 +9,7 @@ import jakarta.servlet.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/productDetail")
+@WebServlet(name = "ProductDetailController", value = "/productDetail")
 public class ProductDetailController extends HttpServlet {
     private ProductDetailDAO productDetailDAO;
 
@@ -22,12 +20,21 @@ public class ProductDetailController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String product_detail_id = request.getParameter("product_detail_id");
-        String color_code = request.getParameter("colorCode");
-        ProductDetail productDetail = productDetailDAO.getProductDetailByIdAndColorCode(Integer.parseInt(product_detail_id), Integer.parseInt(color_code));
-        List<Color> colors = productDetailDAO.getColorsByProductId(Integer.parseInt(product_detail_id));
-        request.setAttribute("productDetail", productDetail);
-        request.setAttribute("colors", colors);
+        String productId = request.getParameter("productId");
+
+        if (productId == null) {
+            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Missing required parameters");
+            return;
+        }
+
+        List<ProductDetail> productDetails = productDetailDAO.getProductDetailById(Integer.parseInt(productId));
+
+        if (productDetails == null || productDetails.isEmpty()) {
+            response.sendError(HttpServletResponse.SC_NOT_FOUND, "Product not found");
+            return;
+        }
+
+        request.setAttribute("productDetails", productDetails);
         RequestDispatcher dispatcher = request.getRequestDispatcher("productDetail.jsp");
         dispatcher.forward(request, response);
     }

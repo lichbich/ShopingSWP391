@@ -14,6 +14,7 @@ public class Product {
     private String imageUrl;
     private Timestamp createdate;
     private Timestamp updatedate;
+    private int color_code;
 
     private static final DecimalFormat formatter = new DecimalFormat("#,###");
 
@@ -34,15 +35,7 @@ public class Product {
         this.description = description;
     }
 
-    public Product(int product_id, String product_name, String description, int is_active, Timestamp createdate) {
-        this.product_id = product_id;
-        this.product_name = product_name;
-        this.description = description;
-        this.is_active = is_active;
-        this.createdate = createdate;
-    }
-
-    public Product(int product_id, String product_name, String description, int is_active, int category_id, double minPrice, double maxPrice, String imageUrl, Timestamp createdate, Timestamp updatedate) {
+    public Product(int product_id, String product_name, String description, int is_active, int category_id, double minPrice, double maxPrice, String imageUrl, Timestamp createdate, Timestamp updatedate, int color_code) {
         this.product_id = product_id;
         this.product_name = product_name;
         this.description = description;
@@ -53,6 +46,7 @@ public class Product {
         this.imageUrl = imageUrl;
         this.createdate = createdate;
         this.updatedate = updatedate;
+        this.color_code = color_code;
     }
 
     public int getProduct_id() {
@@ -135,6 +129,14 @@ public class Product {
         this.updatedate = updatedate;
     }
 
+    public int getColor_code() {
+        return color_code;
+    }
+
+    public void setColor_code(int color_code) {
+        this.color_code = color_code;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
@@ -148,6 +150,7 @@ public class Product {
                 ", imageUrl='" + imageUrl + '\'' +
                 ", createdate=" + createdate +
                 ", updatedate=" + updatedate +
+                ", color_code=" + color_code +
                 '}';
     }
 }

@@ -35,7 +35,6 @@ public class ImportProductDetailServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.getRequestDispatcher("importProduct.jsp").forward(request, response);
-
     }
 
     @Override
@@ -58,11 +57,13 @@ public class ImportProductDetailServlet extends HttpServlet {
             productDetail.setPrice(row.getCell(3).getNumericCellValue());
             productDetail.setSize((float)row.getCell(1).getNumericCellValue());
             productDetail.setQuantity((int)row.getCell(2).getNumericCellValue());
+            productDetail.setImageUrl(row.getCell(4).getStringCellValue());
             productDetailDAO.addProductDetail(productDetail);
         }
         workbook.close();
         request.setAttribute("data", "success");
-        request.getRequestDispatcher("productManagement").forward(request, response);
+        response.sendRedirect("productManagement");
+//        request.getRequestDispatcher("productManagement").forward(request, response);
     }
     }
 

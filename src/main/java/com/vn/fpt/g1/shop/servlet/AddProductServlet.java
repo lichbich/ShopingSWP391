@@ -21,6 +21,7 @@ public class AddProductServlet extends HttpServlet {
         List<Category> categories = categoryDAO.getAllCategories();
         request.setAttribute("categories", categories);
         request.getRequestDispatcher("addProduct.jsp").forward(request, response);
+
     }
 
     @Override

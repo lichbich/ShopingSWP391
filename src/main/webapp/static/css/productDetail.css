@@ -1,3 +1,6 @@
+.container{
+    margin-top: 32px !important;
+}
 .list-with-dots li {
     list-style-type: disc !important;
     margin-left: 20px;
@@ -41,14 +44,16 @@
     display: flex;
     flex-direction: row;
     margin-bottom: 32px;
+    margin-right: 16px;
 }
-.color-item{
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    margin-right: 10px;
-    cursor: pointer;
-    background-color: #f8d65a;
+.color .color-label{
+    width: 32px !important;
+    height: 32px !important;;
+    border-radius: 100% !important;;
+    display: flex !important;;
+    justify-content: center !important;;
+    align-items: center !important;;
+    color: white !important;;
 }
 
 .ChooseDetail {
@@ -71,7 +76,7 @@ h3 {
     border-radius: 10px;
     border: none;
     color: white;
-    font-size: 32px;
+    font-size: 32px !important;
     font-weight: 700;
 }
 

@@ -37,4 +37,5 @@ public class Color {
     public void setColor_code(int color_code) {
         this.color_code = color_code;
     }
+
 }
