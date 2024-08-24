@@ -100,7 +100,7 @@ public class RegisterController extends HttpServlet {
                     Timestamp timestamp = Timestamp.from(instant);
                     Date sqlDate = Date.valueOf(birthdate);
                     userDao.register(firstname, lastname, address, sqlDate, phone, email, hashedPassword, gender, timestamp, timestamp);
-                    response.sendRedirect("index.jsp");
+                    response.sendRedirect("LoginController");
 
                 } catch (Exception e) {
                     throw new RuntimeException(e);

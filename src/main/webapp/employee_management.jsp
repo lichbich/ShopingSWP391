@@ -46,8 +46,7 @@
 <!-- Sidebar menu-->
 <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
 <aside class="app-sidebar">
-    <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="" width="50px"
-                                        alt="User Image">
+    <div class="app-sidebar__user">
         <div>
             <p class="app-sidebar__user-name"><b></b></p>
             <p class="app-sidebar__user-designation">Welcome back</p>
@@ -57,7 +56,7 @@
     <ul class="app-menu">
 
 
-        <li><a class="app-menu__item active" href=""><i class='app-menu__icon bx bx-id-card'></i>
+        <li><a class="app-menu__item active" href="EmployeeManagement"><i class='app-menu__icon bx bx-id-card'></i>
             <span class="app-menu__label">Employee Management</span></a></li>
 
     </ul>
@@ -65,7 +64,7 @@
 <main class="app-content">
     <div class="app-title">
         <ul class="app-breadcrumb breadcrumb side">
-            <li class="breadcrumb-item active"><a href="#"><b>Employee Management</b></a></li>
+            <li class="breadcrumb-item active"><a href="EmployeeManagement"><b>Employee Management</b></a></li>
         </ul>
         <div id="clock"></div>
     </div>

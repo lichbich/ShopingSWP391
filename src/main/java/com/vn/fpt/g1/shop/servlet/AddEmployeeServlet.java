@@ -24,6 +24,15 @@ import java.util.Properties;
 @WebServlet(name = "AddEmployeeServlet", value = "/addemployee")
 public class AddEmployeeServlet extends HttpServlet {
 
+    private static final String LOWERCASE = "abcdefghijklmnopqrstuvwxyz";
+    private static final String UPPERCASE = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private static final String DIGITS = "0123456789";
+    private static final String SPECIAL_CHARACTERS = "@$!%*?&";
+    private static final String ALL_CHARACTERS = LOWERCASE + UPPERCASE + DIGITS + SPECIAL_CHARACTERS;
+
+    private static final int PASSWORD_LENGTH = 8;
+    private static final SecureRandom random = new SecureRandom();
+
     private void sendEmail(String recipient, String password) {
         // Sender's email credentials
         final String username = "vinhvu272@gmail.com";
@@ -63,15 +72,47 @@ public class AddEmployeeServlet extends HttpServlet {
         }
     }
 
-    private String generateRandomPassword(int length) {
-        String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@$!%*?&";
-        SecureRandom random = new SecureRandom();
-        StringBuilder password = new StringBuilder(length);
+//    private String generateRandomPassword(int length) {
+//        String chars = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
+//        SecureRandom random = new SecureRandom();
+//        StringBuilder password = new StringBuilder(length);
+//
+//        for (int i = 0; i < length; i++) {
+//            password.append(chars.charAt(random.nextInt(chars.length())));
+//        }
+//        return password.toString();
+//    }
 
-        for (int i = 0; i < length; i++) {
-            password.append(chars.charAt(random.nextInt(chars.length())));
+    public static String generatePassword() {
+        StringBuilder password = new StringBuilder(PASSWORD_LENGTH);
+
+        // Ensure at least one character from each category is included
+        password.append(LOWERCASE.charAt(random.nextInt(LOWERCASE.length())));
+        password.append(UPPERCASE.charAt(random.nextInt(UPPERCASE.length())));
+        password.append(DIGITS.charAt(random.nextInt(DIGITS.length())));
+        password.append(SPECIAL_CHARACTERS.charAt(random.nextInt(SPECIAL_CHARACTERS.length())));
+
+        // Fill the remaining spots with random characters from all categories
+        for (int i = 4; i < PASSWORD_LENGTH; i++) {
+            password.append(ALL_CHARACTERS.charAt(random.nextInt(ALL_CHARACTERS.length())));
         }
-        return password.toString();
+
+        // Shuffle the characters to ensure randomness
+        return shuffleString(password.toString());
+    }
+
+    private static String shuffleString(String input) {
+        char[] a = input.toCharArray();
+
+        for (int i = a.length - 1; i > 0; i--) {
+            int j = random.nextInt(i + 1);
+            // Swap characters at positions i and j
+            char temp = a[i];
+            a[i] = a[j];
+            a[j] = temp;
+        }
+
+        return new String(a);
     }
 
     @Override
@@ -136,7 +177,7 @@ public class AddEmployeeServlet extends HttpServlet {
 
             try {
                 //Genarate password
-                String password = generateRandomPassword(8);
+                String password = generatePassword();
                 // Encryption the password
                 String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
                 LocalDateTime now = LocalDateTime.now();
@@ -149,7 +190,7 @@ public class AddEmployeeServlet extends HttpServlet {
                 //send Email
                 sendEmail(email, password);
 
-                response.sendRedirect("employeeManagement");
+                response.sendRedirect("EmployeeManagement");
 
 
             } catch (Exception e) {

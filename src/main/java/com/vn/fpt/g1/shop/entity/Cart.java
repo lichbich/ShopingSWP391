@@ -4,6 +4,7 @@ public class Cart {
     private int cart_id;
     private int user_id;
     private String user_email;
+    private int product_detail_id;
     private int product_id;
     private String product_name;
     private String size;
@@ -17,10 +18,11 @@ public class Cart {
     public Cart() {
     }
 
-    public Cart(int cart_id, int user_id, String user_email, int product_id, String product_name, String size, int color_id, String color_name, String price, int quantity, String img_url) {
+    public Cart(int cart_id, int user_id, String user_email, int product_detail_id, int product_id, String product_name, String size, int color_id, String color_name, String price, int quantity, String img_url) {
         this.cart_id = cart_id;
         this.user_id = user_id;
         this.user_email = user_email;
+        this.product_detail_id = product_detail_id;
         this.product_id = product_id;
         this.product_name = product_name;
         this.size = size;
@@ -45,6 +47,14 @@ public class Cart {
 
     public void setUser_id(int user_id) {
         this.user_id = user_id;
+    }
+
+    public int getProduct_detail_id() {
+        return product_detail_id;
+    }
+
+    public void setProduct_detail_id(int product_detail_id) {
+        this.product_detail_id = product_detail_id;
     }
 
     public String getSize() {
@@ -125,6 +135,7 @@ public class Cart {
                 "cart_id=" + cart_id +
                 ", user_id=" + user_id +
                 ", user_email='" + user_email + '\'' +
+                ", product_detail_id=" + product_detail_id +
                 ", product_id=" + product_id +
                 ", product_name='" + product_name + '\'' +
                 ", size='" + size + '\'' +
