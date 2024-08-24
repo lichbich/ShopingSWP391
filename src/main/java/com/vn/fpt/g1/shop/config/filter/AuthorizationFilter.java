@@ -26,7 +26,7 @@ public class AuthorizationFilter implements Filter {
 
 
         if (user == null) {
-            if (path.startsWith("/LoginController") || path.startsWith("/RegisterController") || path.startsWith("/static") || path.equals("/login.jsp") || path.equals("/register.jsp") || path.equals("/logout") || path.equals("/products") || path.equals("/CategoryController") || path.equals("/index.jsp") || path.equals("/category")) {
+            if (path.startsWith("/LoginController") || path.startsWith("/register") || path.startsWith("/static") || path.equals("/login.jsp") || path.equals("/register.jsp") || path.equals("/logout") || path.equals("/products") || path.equals("/CategoryController") || path.equals("/index.jsp") || path.equals("/category")) {
                 chain.doFilter(request, response);
             } else {
                 if (session != null) {

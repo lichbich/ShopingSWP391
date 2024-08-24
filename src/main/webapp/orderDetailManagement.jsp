@@ -59,7 +59,7 @@
     <ul class="app-menu">
 
 
-        <li><a class="app-menu__item active" href=""><i class='app-menu__icon bx bx-id-card'></i>
+        <li><a class="app-menu__item active" href="orderManagement"><i class='app-menu__icon bx bx-id-card'></i>
             <span class="app-menu__label">Order Management</span></a></li>
 
     </ul>
@@ -96,7 +96,7 @@
                                         <p><strong>Status:</strong>
                                             <span id="order-status">
                         <select id="status-select" name="status" aria-controls="sampleTable"
-                                class="form-control form-control-sm" >
+                                class="form-control form-control-sm" onchange="this.form.submit()">
                           <option value="Shop Processing"
                                   <c:if test="${detail.status == 'Shop Processing'}">
                                       selected
@@ -120,10 +120,10 @@
                         </select>
                                             </span>
                                         </p>
-                                        <div id="action-buttons" class="action-buttons text-center">
-                                            <button type="submit">Update</button>
+<%--                                        <div id="action-buttons" class="action-buttons text-center">--%>
+<%--                                            <button type="submit">Update</button>--%>
 
-                                        </div>
+<%--                                        </div>--%>
 
 
                                     </div>

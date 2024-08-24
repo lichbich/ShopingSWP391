@@ -58,7 +58,7 @@
     <ul class="app-menu">
 
 
-        <li><a class="app-menu__item active" href="/orderManagement"><i class='app-menu__icon bx bx-id-card'></i>
+        <li><a class="app-menu__item active" href="orderManagement"><i class='app-menu__icon bx bx-id-card'></i>
             <span class="app-menu__label">Order Management</span></a></li>
 
     </ul>
@@ -66,7 +66,7 @@
 <main class="app-content">
     <div class="app-title">
         <ul class="app-breadcrumb breadcrumb side">
-            <li class="breadcrumb-item active"><a href="/orderManagement"><b>Order List</b></a></li>
+            <li class="breadcrumb-item active"><a href="orderManagement"><b>Order List</b></a></li>
         </ul>
         <div id="clock"></div>
     </div>

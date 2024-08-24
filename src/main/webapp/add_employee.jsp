@@ -59,7 +59,7 @@
     </div>
     <hr>
     <ul class="app-menu">
-        <li><a class="app-menu__item active" href="employee_management.jsp"><i class='app-menu__icon bx bx-id-card'></i>
+        <li><a class="app-menu__item active" href="EmployeeManagement"><i class='app-menu__icon bx bx-id-card'></i>
             <span class="app-menu__label">Employee Management</span></a></li>
     </ul>
 </aside>

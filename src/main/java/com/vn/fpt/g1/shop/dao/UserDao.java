@@ -547,7 +547,7 @@ public class UserDao extends DbContext {
         }
     }
 
-    public boolean updateOrderStatus(int orderId, String newStatus) {
+    public void updateOrderStatus(int orderId, String newStatus) {
         String query = "UPDATE [order] SET [status] = ? WHERE order_id = ?";
         try {
             conn = DbContext.getConnection();
@@ -559,7 +559,7 @@ public class UserDao extends DbContext {
 
         } catch (Exception e) {
         }
-        return false;
+//        return false;
     }
 
     public void updateStockQuantity(int productDetailId, int orderQuantity){

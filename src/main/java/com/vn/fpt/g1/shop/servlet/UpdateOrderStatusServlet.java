@@ -20,7 +20,7 @@ public class UpdateOrderStatusServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String orderId = request.getParameter("orderId");
-        String currentStatus = request.getParameter("currentStatus");
+        //String currentStatus = request.getParameter("currentStatus");
         String newStatus = request.getParameter("status");
 
 
@@ -28,15 +28,16 @@ public class UpdateOrderStatusServlet extends HttpServlet {
 
 
         UserDao dao = new UserDao();
-        boolean statusUpdate = dao.updateOrderStatus(order_id, newStatus);
+        dao.updateOrderStatus(order_id, newStatus);
+//        boolean statusUpdate = dao.updateOrderStatus(order_id, newStatus);
 
-        if(statusUpdate && "Shop Processing".equals(currentStatus) && "Shipping".equals(newStatus)){
-
-            List<OrderDetail> orderDetails = dao.getOrderDetailById(order_id);
-            for(OrderDetail detail : orderDetails){
-                dao.updateStockQuantity(detail.getProduct_detail_id(), detail.getQuantity());
-            }
-        }
+//        if(statusUpdate && "Shop Processing".equals(currentStatus) && "Shipping".equals(newStatus)){
+//
+//            List<OrderDetail> orderDetails = dao.getOrderDetailById(order_id);
+//            for(OrderDetail detail : orderDetails){
+//                dao.updateStockQuantity(detail.getProduct_detail_id(), detail.getQuantity());
+//            }
+//        }
 
         String referer = request.getHeader("referer");
 
