@@ -82,6 +82,7 @@
 <!--    </servlet-mapping>-->
 
     <servlet>
+
         <servlet-name>UpdateQuantityCartController</servlet-name>
         <servlet-class>com.vn.fpt.g1.shop.servlet.UpdateQuantityCartServlet</servlet-class>
     </servlet>
@@ -100,6 +101,5 @@
         <servlet-name>DeleteCart</servlet-name>
         <url-pattern>/deleteCart</url-pattern>
     </servlet-mapping>
-
-
+  
 </web-app>

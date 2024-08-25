@@ -50,6 +50,7 @@ public class UserDao extends DbContext {
                 "JOIN\n" +
                 "    [image] AS i ON p.product_id = i.product_id AND pd.color_code = i.color_id\n" +
                 "JOIN\n" +
+
                 "    [users] AS u ON c.[user_id] = u.[user_id]\n" +
                 "WHERE \n" +
                 "    u.email = ?;";
@@ -215,11 +216,13 @@ public class UserDao extends DbContext {
                 quantity = rs.getInt(1);
             }
             conn.close();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
         return quantity;
     }
+
 
     public void order(int user_id, Timestamp orderDate, String price, String shippingAddress, String receiverName, String receiverPhone) {
         String query = "INSERT INTO [dbo].[order]\n" +
@@ -229,6 +232,7 @@ public class UserDao extends DbContext {
                 "           ?,'Shop Processing',?,?,?,?,?)";
 
         try {
+
 
             conn = DbContext.getConnection();
             ps = conn.prepareStatement(query);
@@ -240,7 +244,6 @@ public class UserDao extends DbContext {
             ps.setString(6, receiverPhone);
             ps.executeUpdate();
             conn.close();
-
         } catch (Exception e) {
 
         }
@@ -572,7 +575,6 @@ public class UserDao extends DbContext {
             ps.setInt(2, productDetailId);
             ps.executeUpdate();
             conn.close();
-
         }catch (Exception e){
 
         }

@@ -56,12 +56,14 @@
     </div>
 </div>
 <!-- End Hero Section -->
+
 <form action="products" method="post" class="search-form">
     <input class="search-input" type="text" name="searchQuery" placeholder="Search for products...">
     <button type="submit">Search</button>
 </form>
 <!-- New Product Section -->
 <div class="product-section" style="padding: 0 !important; margin-bottom: 32px !important;">
+
     <div class="container">
         <!-- Start Column 1 -->
         <div class="col-md-12 col-lg-3 mb-5 mb-lg-0 Category" style="margin-bottom: 32px !important;">
@@ -69,7 +71,6 @@
         </div>
         <!-- End Column 1 -->
         <div class="row">
-
             <!-- Start Column 2 -->
             <jsp:useBean id="latestProducts" scope="request" type="java.util.List"/>
             <c:forEach items="${latestProducts}" var="productL">
@@ -92,6 +93,7 @@
 
 <!-- Start Product Section -->
 <div class="product-section" style="padding: 0 !important; margin-bottom: 32px !important;">
+
     <div class="productList">
         <!-- Start Column 1 -->
 
@@ -115,6 +117,7 @@
                         <h3 class="product-title">${product.product_name}</h3>
                         <p>${product.description}</p>
                         <strong class="product-price">${product.priceDisplay} VNĐ</strong>
+
                     </a>
                 </div>
             </c:forEach>

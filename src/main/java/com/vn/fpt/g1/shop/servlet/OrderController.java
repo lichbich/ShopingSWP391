@@ -1,6 +1,7 @@
 package com.vn.fpt.g1.shop.servlet;
 
 import com.vn.fpt.g1.shop.dao.UserDao;
+
 import com.vn.fpt.g1.shop.entity.Cart;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -12,6 +13,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
+
 
 @WebServlet(name = "OrderController", value = "/order")
 public class OrderController extends HttpServlet {
@@ -27,7 +29,6 @@ public class OrderController extends HttpServlet {
         String receiver_name = request.getParameter("receiverName");
         String receiver_phone = request.getParameter("receiverPhone");
         String shippingAddress = request.getParameter("address");
-
         int id = Integer.parseInt(user_id);
         UserDao dao = new UserDao();
         LocalDateTime now = LocalDateTime.now();
@@ -48,9 +49,6 @@ public class OrderController extends HttpServlet {
             response.sendRedirect("products");
 
         }
-
-
-
 
 
     }

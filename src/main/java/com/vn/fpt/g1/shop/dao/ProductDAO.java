@@ -22,6 +22,7 @@ public class ProductDAO {
     public List<Product> getAllProducts() {
         List<Product> products = new ArrayList<>();
         try {
+
             String query = "WITH ProductImage AS (\n" +
                     "SELECT  p.product_id,   p.product_name,  p.description,  MIN(pd.price) AS minPrice,   MAX(pd.price) AS maxPrice, \n" +
                     "i.image_url, pd.color_code,\n" +
@@ -32,6 +33,7 @@ public class ProductDAO {
                     "GROUP BY  p.product_id, p.product_name, p.description, i.image_url, pd.color_code)\n" +
                     "SELECT * FROM ProductImage \n" +
                     "WHERE row_num = 1;";
+
             conn = DbContext.getConnection();
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
@@ -44,6 +46,7 @@ public class ProductDAO {
                 product.setMaxPrice(rs.getDouble("maxPrice"));
                 product.setImageUrl(rs.getString("image_url"));
                 product.setColor_code(rs.getInt("color_code"));
+
                 products.add(product);
             }
         } catch (Exception e) {
@@ -59,6 +62,7 @@ public class ProductDAO {
         }
         return products;
     }
+
 
     public List<ProductDetail> getAllProductDetail() {
         List<ProductDetail> productDetails = new ArrayList<>();
@@ -98,6 +102,7 @@ public class ProductDAO {
                     "JOIN image i ON p.product_id = i.product_id " +
                     "WHERE p.product_name LIKE ? " +
                     "GROUP BY p.product_id, p.product_name, p.description, i.image_url";
+
             conn = DbContext.getConnection();
             ps = conn.prepareStatement(sql);
             ps.setString(1, "%" + query + "%");
@@ -110,6 +115,7 @@ public class ProductDAO {
                 product.setMinPrice(rs.getDouble("minPrice"));
                 product.setMaxPrice(rs.getDouble("maxPrice"));
                 product.setImageUrl(rs.getString("image_url"));
+
                 products.add(product);
             }
         } catch (Exception e) {
@@ -145,6 +151,7 @@ public class ProductDAO {
                     "\tFROM   LatestProduct\n" +
                     "\tWHERE   row_num = 1\n" +
                     "\tORDER BY  product_id DESC;";
+
             conn = DbContext.getConnection();
             ps = conn.prepareStatement(query);
             rs = ps.executeQuery();
@@ -157,6 +164,7 @@ public class ProductDAO {
                 product.setMaxPrice(rs.getDouble("maxPrice"));
                 product.setImageUrl(rs.getString("image_url"));
                 product.setColor_code(rs.getInt("color_code"));
+
                 products.add(product);
             }
         } catch (Exception e) {
@@ -192,6 +200,7 @@ public class ProductDAO {
         }
         return categories;
     }
+
 
     public List<Product> getProductsByCategory( String categoryId) {
         List<Product> products = new ArrayList<>();

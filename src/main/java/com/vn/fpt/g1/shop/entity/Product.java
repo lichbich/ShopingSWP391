@@ -29,11 +29,14 @@ public class Product {
     public Product() {
     }
 
-    public Product(int product_id, String product_name, String description) {
+    public Product(int product_id, String product_name, String description, double minPrice, double maxPrice) {
         this.product_id = product_id;
         this.product_name = product_name;
         this.description = description;
+        this.minPrice = minPrice;
+        this.maxPrice = maxPrice;
     }
+
 
     public Product(int product_id, String product_name, String description, int is_active, int category_id, double minPrice, double maxPrice, String imageUrl, Timestamp createdate, Timestamp updatedate, int color_code) {
         this.product_id = product_id;
@@ -48,7 +51,7 @@ public class Product {
         this.updatedate = updatedate;
         this.color_code = color_code;
     }
-
+  
     public int getProduct_id() {
         return product_id;
     }
@@ -72,6 +75,7 @@ public class Product {
     public void setDescription(String description) {
         this.description = description;
     }
+
 
     public int getIs_active() {
         return is_active;
@@ -151,6 +155,7 @@ public class Product {
                 ", createdate=" + createdate +
                 ", updatedate=" + updatedate +
                 ", color_code=" + color_code +
+
                 '}';
     }
 }
