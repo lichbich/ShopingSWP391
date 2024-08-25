@@ -56,31 +56,30 @@
     </div>
 </div>
 <!-- End Hero Section -->
-<form action="products" method="post">
-    <input type="text" name="searchQuery" placeholder="Search for products...">
+
+<form action="products" method="post" class="search-form">
+    <input class="search-input" type="text" name="searchQuery" placeholder="Search for products...">
     <button type="submit">Search</button>
 </form>
 <!-- New Product Section -->
-<div class="product-section">
+<div class="product-section" style="padding: 0 !important; margin-bottom: 32px !important;">
+
     <div class="container">
+        <!-- Start Column 1 -->
+        <div class="col-md-12 col-lg-3 mb-5 mb-lg-0 Category" style="margin-bottom: 32px !important;">
+            <h2>New product</h2>
+        </div>
+        <!-- End Column 1 -->
         <div class="row">
-            <!-- Start Column 1 -->
-            <div class="col-md-12 col-lg-3 mb-5 mb-lg-0 Category">
-                <h2>New product</h2>
-            </div>
-            <!-- End Column 1 -->
             <!-- Start Column 2 -->
             <jsp:useBean id="latestProducts" scope="request" type="java.util.List"/>
             <c:forEach items="${latestProducts}" var="productL">
-                <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0 product-content">
-                    <a class="product-item" href="cart.html">
-                        <img src="static/images/Pro_AV00207_2.jpg" class="img-fluid product-thumbnail">
+                <div class="col-12 col-md-4 col-lg-3 mb-5 product-content">
+                    <a class="product-item" href="productDetail?productId=${productL.product_id}">
+                        <img src="${productL.imageUrl}" class="img-fluid product-thumbnail">
                         <h3 class="product-title">${productL.product_name}</h3>
                         <p>${productL.description}</p>
                         <strong class="product-price">${productL.priceDisplay} VNĐ</strong>
-                        <span class="icon-cross">
-                <i class="fa-solid fa-plus"></i>
-                </span>
                     </a>
                 </div>
             </c:forEach>
@@ -93,7 +92,8 @@
 
 
 <!-- Start Product Section -->
-<div class="product-section">
+<div class="product-section" style="padding: 0 !important; margin-bottom: 32px !important;">
+
     <div class="productList">
         <!-- Start Column 1 -->
 
@@ -102,7 +102,7 @@
             <jsp:useBean id="categories" scope="request" type="java.util.List"/>
             <c:forEach var="category" items="${categories}">
                 <ul class="list-unstyled custom-list">
-                    <li><a href="category?cid=${category.category_id}">${category.name}</a></li>
+                    <li><a href="category?categoryId=${category.category_id}">${category.name}</a></li>
                 </ul>
             </c:forEach>
 
@@ -111,15 +111,13 @@
         <div class="row">
             <!-- Start Column 2 -->
             <c:forEach var="product" items="${products}">
-                <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0 product-content">
-                    <a class="product-item" href="cart.html">
-                        <img src="static/images/Pro_AV00207_2.jpg" class="img-fluid product-thumbnail">
+                <div class="col-12 col-md-4 col-lg-3 mb-5 product-content">
+                    <a class="product-item" href="productDetail?productId=${product.product_id}">
+                        <img src="${product.imageUrl}" class="img-fluid product-thumbnail">
                         <h3 class="product-title">${product.product_name}</h3>
                         <p>${product.description}</p>
                         <strong class="product-price">${product.priceDisplay} VNĐ</strong>
-                        <span class="icon-cross">
-								<i class="fa-solid fa-plus"></i>
-							</span>
+
                     </a>
                 </div>
             </c:forEach>

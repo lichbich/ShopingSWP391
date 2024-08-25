@@ -1,11 +1,7 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: BasHuw
-  Date: 8/8/2024
-  Time: 9:36 PM
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="com.vn.fpt.g1.shop.entity.Users" %>
+<%@ page import="jakarta.servlet.http.HttpSession" %>
 <html>
 <head>
     <title>Title</title>
@@ -20,7 +16,7 @@
 <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
 
     <div class="container">
-        <a class="navbar-brand" href="index.html">Furni<span>.</span></a>
+        <a class="navbar-brand" href="products">Furni<span>.</span></a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -31,15 +27,26 @@
                 <li class="nav-item">
                     <a class="nav-link" href="${pageContext.request.contextPath}/products">Home</a>
                 </li>
-                <li><a class="nav-link active" href="${pageContext.request.contextPath}/products">Shop</a></li>
                 <li><a class="nav-link" href="#">About us</a></li>
                 <li><a class="nav-link" href="#">Blog</a></li>
+                <li><a class="nav-link" href="${pageContext.request.contextPath}/customerListOrder">My Order</a></li>
             </ul>
 
             <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+                <%
+                    Users user = (session != null) ? (Users) session.getAttribute("user") : null;
+                    if (user != null) {
+                %>
                 <li><a class="nav-link" href="#"><i class="fa-regular fa-user"></i></a></li>
                 <li><a class="nav-link" href="${pageContext.request.contextPath}/cart"><i class="fa-solid fa-cart-shopping"></i></a></li>
                 <li><a class="nav-link" href="${pageContext.request.contextPath}/LogoutController">Log out</a></li>
+                <%
+                } else {
+                %>
+                <li><a class="nav-link" href="${pageContext.request.contextPath}/LoginController">Sign in</a></li>
+                <%
+                    }
+                %>
             </ul>
         </div>
     </div>

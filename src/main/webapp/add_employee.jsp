@@ -51,8 +51,7 @@
 <!-- Sidebar menu-->
 <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
 <aside class="app-sidebar">
-    <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="/images/hay.jpg" width="50px"
-                                        alt="User Image">
+    <div class="app-sidebar__user">
         <div>
             <p class="app-sidebar__user-name"><b></b></p>
             <p class="app-sidebar__user-designation">Welcome</p>
@@ -60,7 +59,7 @@
     </div>
     <hr>
     <ul class="app-menu">
-        <li><a class="app-menu__item active" href="employee_management.jsp"><i class='app-menu__icon bx bx-id-card'></i>
+        <li><a class="app-menu__item active" href="EmployeeManagement"><i class='app-menu__icon bx bx-id-card'></i>
             <span class="app-menu__label">Employee Management</span></a></li>
     </ul>
 </aside>
@@ -115,8 +114,10 @@
                             <p style="color:red; font-size: 12px; margin: auto; text-align: center">${error}</p>
                         </c:if>
                         <br>
+                        <h4>&nbsp;&nbsp;Account password will be sent to employee in email address you just input</h4>
                         <br>
-                        <div class="form-group  col-md-6"></divclass>
+                        <br>
+                        <div class="form-group  col-md-6">
                             <button class="" type="submit">Save</button>
                             <a href="EmployeeManagement">
                                 <button type="button">Cancel</button>

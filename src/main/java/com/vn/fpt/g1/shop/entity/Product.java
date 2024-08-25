@@ -1,13 +1,20 @@
 package com.vn.fpt.g1.shop.entity;
 
+import java.sql.Timestamp;
 import java.text.DecimalFormat;
 
 public class Product {
     private int product_id;
     private String product_name;
     private String description;
+    private int is_active;
+    private int category_id;
     private double minPrice;
     private double maxPrice;
+    private String imageUrl;
+    private Timestamp createdate;
+    private Timestamp updatedate;
+    private int color_code;
 
     private static final DecimalFormat formatter = new DecimalFormat("#,###");
 
@@ -30,6 +37,21 @@ public class Product {
         this.maxPrice = maxPrice;
     }
 
+
+    public Product(int product_id, String product_name, String description, int is_active, int category_id, double minPrice, double maxPrice, String imageUrl, Timestamp createdate, Timestamp updatedate, int color_code) {
+        this.product_id = product_id;
+        this.product_name = product_name;
+        this.description = description;
+        this.is_active = is_active;
+        this.category_id = category_id;
+        this.minPrice = minPrice;
+        this.maxPrice = maxPrice;
+        this.imageUrl = imageUrl;
+        this.createdate = createdate;
+        this.updatedate = updatedate;
+        this.color_code = color_code;
+    }
+  
     public int getProduct_id() {
         return product_id;
     }
@@ -54,6 +76,23 @@ public class Product {
         this.description = description;
     }
 
+
+    public int getIs_active() {
+        return is_active;
+    }
+
+    public void setIs_active(int is_active) {
+        this.is_active = is_active;
+    }
+
+    public int getCategory_id() {
+        return category_id;
+    }
+
+    public void setCategory_id(int category_id) {
+        this.category_id = category_id;
+    }
+
     public double getMinPrice() {
         return minPrice;
     }
@@ -70,14 +109,53 @@ public class Product {
         this.maxPrice = maxPrice;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public Timestamp getCreatedate() {
+        return createdate;
+    }
+
+    public void setCreatedate(Timestamp createdate) {
+        this.createdate = createdate;
+    }
+
+    public Timestamp getUpdatedate() {
+        return updatedate;
+    }
+
+    public void setUpdatedate(Timestamp updatedate) {
+        this.updatedate = updatedate;
+    }
+
+    public int getColor_code() {
+        return color_code;
+    }
+
+    public void setColor_code(int color_code) {
+        this.color_code = color_code;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
                 "product_id=" + product_id +
                 ", product_name='" + product_name + '\'' +
                 ", description='" + description + '\'' +
+                ", is_active=" + is_active +
+                ", category_id=" + category_id +
                 ", minPrice=" + minPrice +
                 ", maxPrice=" + maxPrice +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", createdate=" + createdate +
+                ", updatedate=" + updatedate +
+                ", color_code=" + color_code +
+
                 '}';
     }
 }
